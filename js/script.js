@@ -184,11 +184,15 @@ function finishCountdown() {
 
 async function startMusic() {
 
+    console.log("startMusic dipanggil");
+
     try {
 
         backgroundMusic.volume = 0.65;
 
         await backgroundMusic.play();
+
+        console.log("Musik berhasil diputar");
 
         musicPlaying = true;
 
@@ -196,16 +200,13 @@ async function startMusic() {
 
     } catch (error) {
 
-        console.log(
-            "Musik menunggu interaksi pengguna."
-        );
+        console.log("Gagal play musik:", error);
 
         musicPlaying = false;
 
         updateMusicButton();
 
     }
-
 }
 
 
