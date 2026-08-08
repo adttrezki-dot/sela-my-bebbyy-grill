@@ -815,9 +815,10 @@ if (finalReplayButton) {
 }
 
 const backgroundMusic = document.getElementById("backgroundMusic");
-
 document.addEventListener("click", () => {
-    if (backgroundMusic) {
+    if (backgroundMusic && backgroundMusic.paused) {
         backgroundMusic.play();
+        musicPlaying = true;
+        updateMusicButton();
     }
 }, { once: true });
