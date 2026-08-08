@@ -813,3 +813,11 @@ if (finalReplayButton) {
     );
 
 }
+
+const backgroundMusic = document.getElementById("backgroundMusic");
+
+document.addEventListener("click", () => {
+    if (backgroundMusic) {
+        backgroundMusic.play();
+    }
+}, { once: true });
