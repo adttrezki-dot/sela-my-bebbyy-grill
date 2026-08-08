@@ -221,7 +221,7 @@ musicButton.addEventListener(
 
 
 async function toggleMusic() {
-
+console.log("PAUSE DIPANGGIL");
     if (backgroundMusic.paused) {
 
         try {
@@ -239,7 +239,7 @@ async function toggleMusic() {
         }
 
     } else {
-
+console.log("PAUSE DIPANGGIL");
         backgroundMusic.pause();
 
         musicPlaying = false;
@@ -256,7 +256,7 @@ async function toggleMusic() {
 ========================================================= */
 
 function updateMusicButton() {
-
+console.log("PAUSE DIPANGGIL");
     if (backgroundMusic.paused) {
 
         musicButton.textContent = "▶";
