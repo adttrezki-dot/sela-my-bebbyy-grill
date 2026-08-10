@@ -822,8 +822,7 @@ if (finalReplayButton) {
 
 
 const journeySection = document.querySelector(".our-journey");
-const memoryCards = document.querySelectorAll(".memory-card");
-
+const memoryCards = document.querySelectorAll(".journey-memory-card");
 
 if (journeySection) {
 
