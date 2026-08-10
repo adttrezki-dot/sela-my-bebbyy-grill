@@ -2734,11 +2734,26 @@ section {
 
 /* Kartu foto */
 
-.journey-memory-card {
+/* =================================
+   OUR JOURNEY MEMORY UNIVERSE V2
+================================= */
+
+.journey-space {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    min-height: 900px;
+    margin: auto;
+}
+
+
+/* kartu kenangan */
+
+.journey-memory {
 
     position: absolute;
 
-    width: 240px;
+    width: 250px;
 
     padding: 12px;
 
@@ -2750,175 +2765,13 @@ section {
     border-radius: 22px;
 
     box-shadow:
-    0 0 30px rgba(190,120,255,0.45);
+    0 0 35px rgba(190,120,255,0.5);
 
-}
-
-
-
-.journey-memory-card img {
-    width: 100%;
-
-    height: 290px;
-
-    object-fit: cover;
-
-    border-radius: 16px;
-
-}
-
-
-
-/* Posisi foto */
-
-.journey-memory-1  {
-
-    top: 50px;
-
-    left: 5%;
-
-    transform: rotate(-8deg);
-
-}
-
-
-
-.journey-memory-2  {
-
-    top: 180px;
-
-    right: 8%;
-
-    transform: rotate(10deg);
-
-}
-
-
-
-.journey-memory-3 {
-
-    bottom: 50px;
-
-    left: 38%;
-
-    transform: rotate(-5deg);
-
-}
-
-
-
-/* Efek foto melayang */
-
-.memory-card {
-
-    animation:
-    floatingMemory 6s ease-in-out infinite;
-
-}
-
-
-
-.memory-2 {
-
-    animation-delay: 1.5s;
-
-}
-
-
-
-.memory-3 {
-
-    animation-delay: 3s;
-
-}
-
-
-
-@keyframes floatingMemory {
-
-
-    0%,100% {
-
-        transform:
-        translateY(0)
-        rotate(var(--rotate));
-
-    }
-
-
-    50% {
-
-        transform:
-        translateY(-20px)
-        rotate(var(--rotate));
-
-    }
-
-}
-
-
-
-/* Tengah */
-
-.journey-center {
-
-    position:absolute;
-
-    top:50%;
-
-    left:50%;
-
-    transform:
-    translate(-50%,-50%);
-
-    text-align:center;
-
-    color:white;
-
-    width:320px;
-
-}
-
-
-
-.journey-center span {
-
-    font-size:45px;
-
-}
-
-
-
-.journey-center h3 {
-
-    font-size:30px;
-
-    margin:15px 0;
-
-}
-
-
-
-.journey-center p {
-
-    color:rgba(255,255,255,0.8);
-
-    line-height:1.7;
-
-}
-
-
-
-/* Cinematic Memory Reveal */
-
-
-.journey-memory-card { 
-
-    opacity:0;
+    opacity: 0;
 
     transform:
     translateY(80px)
-    scale(0.9);
+    scale(.9);
 
     transition:
     1.2s ease;
@@ -2926,9 +2779,131 @@ section {
 }
 
 
+.journey-memory img {
 
-.memory-card.show-memory {
+    width:100%;
 
+    height:300px;
+
+    object-fit:cover;
+
+    border-radius:16px;
+
+}
+
+
+.journey-memory p {
+
+    color:white;
+
+    text-align:center;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+    margin-top:15px;
+
+}
+
+
+/* posisi foto */
+
+.journey-memory:nth-child(1){
+
+    top:40px;
+
+    left:5%;
+
+    transform:
+    rotate(-8deg);
+
+}
+
+
+
+.journey-memory:nth-child(2){
+
+    top:220px;
+
+    right:8%;
+
+    transform:
+    rotate(10deg);
+
+}
+
+
+
+.journey-memory:nth-child(3){
+
+    bottom:80px;
+
+    left:35%;
+
+    transform:
+    rotate(-5deg);
+
+}
+
+
+
+/* saat muncul */
+
+.journey-memory.show-memory {
+
+    opacity:1;
+
+    transform:
+    translateY(0)
+    scale(1);
+
+}
+
+
+/* floating */
+
+.journey-memory:nth-child(1){
+
+    animation:
+    journeyFloat 6s infinite ease-in-out;
+
+}
+
+
+.journey-memory:nth-child(2){
+
+    animation:
+    journeyFloat 7s infinite ease-in-out;
+
+}
+
+
+.journey-memory:nth-child(3){
+
+    animation:
+    journeyFloat 8s infinite ease-in-out;
+
+}
+
+
+
+@keyframes journeyFloat {
+
+    0%,100%{
+
+        margin-top:0;
+
+    }
+
+
+    50%{
+
+        margin-top:-20px;
+
+    }
+
+}
     opacity:1;
 
     transform:
