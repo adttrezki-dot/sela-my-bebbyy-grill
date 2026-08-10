@@ -2907,3 +2907,33 @@ section {
     line-height:1.7;
 
 }
+
+
+
+/* Cinematic Memory Reveal */
+
+
+.memory-card {
+
+    opacity:0;
+
+    transform:
+    translateY(80px)
+    scale(0.9);
+
+    transition:
+    1.2s ease;
+
+}
+
+
+
+.memory-card.show-memory {
+
+    opacity:1;
+
+    transform:
+    translateY(0)
+    scale(1);
+
+}
