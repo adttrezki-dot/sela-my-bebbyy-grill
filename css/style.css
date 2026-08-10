@@ -2734,7 +2734,7 @@ section {
 
 /* Kartu foto */
 
-.memory-card {
+.journey-memory-card {
 
     position: absolute;
 
@@ -2756,8 +2756,7 @@ section {
 
 
 
-.memory-card img {
-
+.journey-memory-card img {
     width: 100%;
 
     height: 290px;
@@ -2772,7 +2771,7 @@ section {
 
 /* Posisi foto */
 
-.memory-1 {
+.journey-memory-1  {
 
     top: 50px;
 
@@ -2784,7 +2783,7 @@ section {
 
 
 
-.memory-2 {
+.journey-memory-2  {
 
     top: 180px;
 
@@ -2796,7 +2795,7 @@ section {
 
 
 
-.memory-3 {
+.journey-memory-3 {
 
     bottom: 50px;
 
@@ -2913,7 +2912,7 @@ section {
 /* Cinematic Memory Reveal */
 
 
-.memory-card {
+.journey-memory-card { 
 
     opacity:0;
 
