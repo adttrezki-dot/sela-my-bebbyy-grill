@@ -2680,3 +2680,230 @@ section {
     object-fit: contain !important;
     object-position: center center !important;
 }
+
+
+/* =================================
+   OUR JOURNEY - MEMORY UNIVERSE
+================================= */
+
+.our-journey {
+    min-height: 100vh;
+    padding: 120px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.journey-title {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 80px;
+}
+
+
+.journey-title h2 {
+    font-size: 3rem;
+    letter-spacing: 6px;
+    color: white;
+    text-shadow: 0 0 20px rgba(200,150,255,0.8);
+}
+
+
+.journey-title p {
+    margin-top: 20px;
+    color: rgba(255,255,255,0.85);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+
+
+/* Area tempat kenangan */
+
+.journey-space {
+
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    height: 750px;
+    margin: auto;
+
+}
+
+
+
+/* Kartu foto */
+
+.memory-card {
+
+    position: absolute;
+
+    width: 240px;
+
+    padding: 12px;
+
+    background:
+    rgba(255,255,255,0.12);
+
+    backdrop-filter: blur(12px);
+
+    border-radius: 22px;
+
+    box-shadow:
+    0 0 30px rgba(190,120,255,0.45);
+
+}
+
+
+
+.memory-card img {
+
+    width: 100%;
+
+    height: 290px;
+
+    object-fit: cover;
+
+    border-radius: 16px;
+
+}
+
+
+
+/* Posisi foto */
+
+.memory-1 {
+
+    top: 50px;
+
+    left: 5%;
+
+    transform: rotate(-8deg);
+
+}
+
+
+
+.memory-2 {
+
+    top: 180px;
+
+    right: 8%;
+
+    transform: rotate(10deg);
+
+}
+
+
+
+.memory-3 {
+
+    bottom: 50px;
+
+    left: 38%;
+
+    transform: rotate(-5deg);
+
+}
+
+
+
+/* Efek foto melayang */
+
+.memory-card {
+
+    animation:
+    floatingMemory 6s ease-in-out infinite;
+
+}
+
+
+
+.memory-2 {
+
+    animation-delay: 1.5s;
+
+}
+
+
+
+.memory-3 {
+
+    animation-delay: 3s;
+
+}
+
+
+
+@keyframes floatingMemory {
+
+
+    0%,100% {
+
+        transform:
+        translateY(0)
+        rotate(var(--rotate));
+
+    }
+
+
+    50% {
+
+        transform:
+        translateY(-20px)
+        rotate(var(--rotate));
+
+    }
+
+}
+
+
+
+/* Tengah */
+
+.journey-center {
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+    text-align:center;
+
+    color:white;
+
+    width:320px;
+
+}
+
+
+
+.journey-center span {
+
+    font-size:45px;
+
+}
+
+
+
+.journey-center h3 {
+
+    font-size:30px;
+
+    margin:15px 0;
+
+}
+
+
+
+.journey-center p {
+
+    color:rgba(255,255,255,0.8);
+
+    line-height:1.7;
+
+}
