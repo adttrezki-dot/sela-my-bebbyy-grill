@@ -814,3 +814,52 @@ if (finalReplayButton) {
     );
 
 }
+
+
+/* =================================
+   OUR JOURNEY CINEMATIC REVEAL
+================================= */
+
+
+const journeySection = document.querySelector(".our-journey");
+const memoryCards = document.querySelectorAll(".memory-card");
+
+
+if (journeySection) {
+
+    const journeyObserver = new IntersectionObserver(
+        (entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+
+                    memoryCards.forEach((card, index) => {
+
+                        setTimeout(() => {
+
+                            card.classList.add("show-memory");
+
+                        }, index * 400);
+
+
+                    });
+
+
+                    journeyObserver.unobserve(entry.target);
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.3
+        }
+    );
+
+
+    journeyObserver.observe(journeySection);
+
+}
