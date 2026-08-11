@@ -3010,3 +3010,16 @@ JOURNEY 24 PHOTO MEMORY
     transform: translateY(-12px) scale(1.03) rotate(0deg);
     z-index: 5;
 }
+
+/* JOURNEY SCROLL REVEAL */
+
+.journey-card {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.8s ease;
+}
+
+.journey-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
