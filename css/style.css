@@ -3041,11 +3041,14 @@ JOURNEY 24 PHOTO MEMORY
 .journey-card:nth-child(5) {
     transition-delay: 1.5s;
 }
+
+/* FIX JOURNEY MOBILE */
+
 @media(max-width:600px){
 
-    .journey-card{
-        opacity:1;
-        transform:none;
+    .journey-card {
+        opacity: 1;
+        transform: rotate(0deg);
     }
 
 }
