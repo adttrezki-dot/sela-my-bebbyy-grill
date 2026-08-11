@@ -857,61 +857,6 @@ if (journeySection) {
         }
     );
 
-   /* ==============================
-   OUR JOURNEY AUTO GALLERY
-================================ */
-
-const journeyGallery = document.getElementById("journeyGallery");
-
-
-if (journeyGallery) {
-
-    const journeyPhotos = [
-        "journey01.jpg",
-        "journey02.jpg",
-        "journey03.jpg",
-        "journey04.jpg",
-        "journey05.jpg",
-        "journey06.jpg",
-        "journey07.jpg",
-        "journey08.jpg",
-        "journey09.jpg",
-        "journey10.jpg",
-        "journey11.jpg",
-        "journey12.jpg",
-        "journey13.jpg",
-        "journey14.jpg",
-        "journey15.jpg",
-        "journey16.jpg",
-        "journey17.jpg",
-        "journey18.jpg",
-        "journey19.jpg",
-        "journey20.jpg",
-        "journey21.jpg",
-        "journey22.jpg",
-        "journey23.jpg",
-        "journey24.jpg",
-        "journey25.jpg"
-    ];
-
-
-    journeyPhotos.forEach((photo) => {
-
-        const memory = document.createElement("div");
-
-        memory.className = "journey-memory";
-
-
-        memory.innerHTML = `
-            <img src="images/${photo}" alt="Our Memory">
-
-            <p>
-                Sebuah bagian kecil dari cerita kita.
-            </p>
-        `;
-
-
-        journeyGallery.appendChild(memory);
 
     });
 
