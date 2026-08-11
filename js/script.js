@@ -850,7 +850,6 @@ if (journeySection) {
 
                 }
 
-            });
 
         },
         {
