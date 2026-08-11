@@ -932,7 +932,9 @@ const journeyObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
 
         if (entry.isIntersecting) {
+
             entry.target.classList.add("show");
+
         }
 
     });
@@ -943,31 +945,45 @@ const journeyObserver = new IntersectionObserver((entries) => {
 
 
 journeyCards.forEach(card => {
+
     journeyObserver.observe(card);
+
 });
 
 
-journeyImages.forEach(image => {
+// JOURNEY LIGHTBOX
 
-    image.addEventListener("click", () => {
+const journeyImages = document.querySelectorAll(".journey-card img");
 
-        journeyLightbox.style.display = "flex";
+const journeyLightbox = document.getElementById("journeyLightbox");
 
-        journeyBigImage.src = image.src;
+const journeyBigImage = document.getElementById("journeyBigImage");
+
+const journeyClose = document.querySelector(".journey-close");
+
+
+if (journeyLightbox && journeyBigImage && journeyClose) {
+
+
+    journeyImages.forEach(image => {
+
+        image.addEventListener("click", () => {
+
+            journeyLightbox.style.display = "flex";
+
+            journeyBigImage.src = image.src;
+
+        });
 
     });
 
-});
 
+    journeyClose.addEventListener("click", () => {
 
-journeyClose.addEventListener("click", () => {
+        journeyLightbox.style.display = "none";
 
-    journeyLightbox.style.display = "none";
+    });
 
-});
-
-
-if (journeyLightbox) {
 
     journeyLightbox.addEventListener("click", (e) => {
 
@@ -979,11 +995,4 @@ if (journeyLightbox) {
 
     });
 
-
-    if(e.target === journeyLightbox){
-
-        journeyLightbox.style.display = "none";
-
-    }
-
-});
+}
