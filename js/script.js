@@ -548,9 +548,8 @@ document.addEventListener(
             event.target.closest("a")
         ) {
             return;
-        }
 
-
+}
         createClickHeart(
             event.clientX,
             event.clientY
@@ -947,9 +946,6 @@ journeyCards.forEach(card => {
     journeyObserver.observe(card);
 });
 
-
-
-}
 
 journeyImages.forEach(image => {
 
