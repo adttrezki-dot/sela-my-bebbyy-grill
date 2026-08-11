@@ -3025,47 +3025,6 @@ JOURNEY 24 PHOTO MEMORY
     z-index: 5;
 }
 
-/* JOURNEY SCROLL REVEAL */
-
-.journey-card {
-    opacity: 0;
-    transform: translateY(60px) rotate(0deg);
-    transition: 4s ease;
-}
-
-.journey-card.show {
-    opacity: 1;
-}
-.journey-card:nth-child(1) {
-    transition-delay: 0.3s;
-}
-
-.journey-card:nth-child(2) {
-    transition-delay: 0.6s;
-}
-
-.journey-card:nth-child(3) {
-    transition-delay: 0.9s;
-}
-
-.journey-card:nth-child(4) {
-    transition-delay: 1.2s;
-}
-
-.journey-card:nth-child(5) {
-    transition-delay: 1.5s;
-}
-
-/* FIX JOURNEY MOBILE */
-
-@media(max-width:600px){
-
-    .journey-card {
-        opacity: 1;
-        transform: rotate(0deg);
-    }
-
-}
 /* POLAROID MEMORY EFFECT */
 
 .journey-card::after {
