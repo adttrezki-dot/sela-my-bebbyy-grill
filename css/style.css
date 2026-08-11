@@ -2943,9 +2943,9 @@ JOURNEY 24 PHOTO MEMORY
 
     aspect-ratio: 4 / 5;
 
-    background: rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.75);
 
-    padding: 12px 12px 20px;
+    padding: 12px 12px 28px;
 
     box-shadow:
         0 15px 35px rgba(120, 70, 200, 0.35);
@@ -2959,7 +2959,7 @@ JOURNEY 24 PHOTO MEMORY
 
     object-fit: cover;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
     transition: 0.4s ease;
 }
