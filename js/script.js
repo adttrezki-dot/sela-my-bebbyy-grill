@@ -369,13 +369,14 @@ function startParticles() {
 
 function revealElements() {
 
-    const elements =
-        document.querySelectorAll(
-            ".memory-card, " +
-            ".letter-container, " +
-            ".collage-section, " +
-            ".ending-content"
-        );
+   const elements =
+    document.querySelectorAll(
+        ".memory-card, " +
+        ".letter-section, " +
+        ".letter-container, " +
+        ".collage-section, " +
+        ".ending-content"
+    );
 
 
     elements.forEach(element => {
