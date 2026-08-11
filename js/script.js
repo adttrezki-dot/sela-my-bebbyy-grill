@@ -946,3 +946,42 @@ const journeyObserver = new IntersectionObserver((entries) => {
 journeyCards.forEach(card => {
     journeyObserver.observe(card);
 });
+
+// JOURNEY LIGHTBOX
+
+const journeyImages = document.querySelectorAll(".journey-card img");
+
+const journeyLightbox = document.getElementById("journeyLightbox");
+const journeyBigImage = document.getElementById("journeyBigImage");
+const journeyClose = document.querySelector(".journey-close");
+
+
+journeyImages.forEach(image => {
+
+    image.addEventListener("click", () => {
+
+        journeyLightbox.style.display = "flex";
+
+        journeyBigImage.src = image.src;
+
+    });
+
+});
+
+
+journeyClose.addEventListener("click", () => {
+
+    journeyLightbox.style.display = "none";
+
+});
+
+
+journeyLightbox.addEventListener("click", (e) => {
+
+    if(e.target === journeyLightbox){
+
+        journeyLightbox.style.display = "none";
+
+    }
+
+});
