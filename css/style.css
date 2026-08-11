@@ -2934,10 +2934,14 @@ JOURNEY 24 PHOTO MEMORY
     position: relative;
     overflow: hidden;
     border-radius: 20px;
-    aspect-ratio: 1 / 1;
-    background: rgba(255,255,255,0.15);
+    aspect-ratio: 4 / 5;
+
+    background: rgba(255,255,255,0.18);
     backdrop-filter: blur(10px);
-    padding: 8px;
+
+    padding: 10px;
+
+    box-shadow: 0 10px 30px rgba(120, 70, 200, 0.25);
 
     transition: 0.4s ease;
 }
@@ -2945,11 +2949,14 @@ JOURNEY 24 PHOTO MEMORY
 .journey-card img {
     width: 100%;
     height: 100%;
+
     object-fit: cover;
+
     border-radius: 15px;
 
     transition: 0.4s ease;
 }
+
 
 .journey-card:hover {
     transform: translateY(-10px) rotate(2deg);
