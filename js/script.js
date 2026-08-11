@@ -891,7 +891,8 @@ if (journeyGallery) {
         "journey21.jpg",
         "journey22.jpg",
         "journey23.jpg",
-        "journey24.jpg"
+        "journey24.jpg",
+        "journey25.jpg"
     ];
 
 
@@ -921,3 +922,27 @@ if (journeyGallery) {
     journeyObserver.observe(journeySection);
 
 }
+
+
+// JOURNEY SCROLL REVEAL
+
+const journeyCards = document.querySelectorAll(".journey-card");
+
+const journeyObserver = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+
+    });
+
+}, {
+    threshold: 0.2
+});
+
+
+journeyCards.forEach(card => {
+    journeyObserver.observe(card);
+});
