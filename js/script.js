@@ -979,7 +979,7 @@ if (journeyLightbox) {
 
     });
 
-}
+
     if(e.target === journeyLightbox){
 
         journeyLightbox.style.display = "none";
