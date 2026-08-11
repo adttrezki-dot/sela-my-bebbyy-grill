@@ -947,23 +947,7 @@ journeyCards.forEach(card => {
     journeyObserver.observe(card);
 });
 
-// JOURNEY LIGHTBOX
 
-const journeyImages = document.querySelectorAll(".journey-card img");
-console.log("Journey images:", journeyImages.length);
-
-const journeyLightbox = document.getElementById("journeyLightbox");
-const journeyBigImage = document.getElementById("journeyBigImage");
-const journeyClose = document.querySelector(".journey-close");
-
-
-if (journeyClose) {
-
-    journeyClose.addEventListener("click", () => {
-
-        journeyLightbox.style.display = "none";
-
-    });
 
 }
 
