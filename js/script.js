@@ -866,7 +866,6 @@ if (journeySection) {
 
     journeyObserver.observe(journeySection);
 
-}
 
 
 // JOURNEY SCROLL REVEAL
