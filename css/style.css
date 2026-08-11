@@ -3126,3 +3126,75 @@ JOURNEY 24 PHOTO MEMORY
 .journey-card:nth-child(n+6) {
     transition-delay: 0.2s;
 }
+
+/* JOURNEY LIGHTBOX */
+
+.journey-lightbox {
+
+    display: none;
+
+    position: fixed;
+
+    z-index: 9999;
+
+    inset: 0;
+
+    background: rgba(20, 10, 40, 0.85);
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+.journey-lightbox img {
+
+    max-width: 90%;
+    max-height: 85%;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 40px rgba(180, 100, 255, 0.5);
+
+    animation: journeyZoom 0.4s ease;
+
+}
+
+
+.journey-close {
+
+    position: absolute;
+
+    top: 25px;
+    right: 35px;
+
+    font-size: 45px;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+
+@keyframes journeyZoom {
+
+    from {
+
+        transform: scale(0.7);
+
+        opacity: 0;
+
+    }
+
+    to {
+
+        transform: scale(1);
+
+        opacity: 1;
+
+    }
+
+}
