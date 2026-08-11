@@ -3008,12 +3008,16 @@ JOURNEY 24 PHOTO MEMORY
 
 /* JOURNEY SCRAPBOOK EFFECT */
 
-.journey-card:nth-child(odd) {
-    transform: rotate(-2deg);
+.journey-card:nth-child(3n+1) {
+    transform: rotate(-3deg);
 }
 
-.journey-card:nth-child(even) {
+.journey-card:nth-child(3n+2) {
     transform: rotate(2deg);
+}
+
+.journey-card:nth-child(3n) {
+    transform: rotate(-1deg);
 }
 
 
