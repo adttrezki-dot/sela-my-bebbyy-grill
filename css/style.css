@@ -2987,9 +2987,9 @@ JOURNEY 24 PHOTO MEMORY
 /* HP */
 @media(max-width:600px){
 
-    .journey-space{
-        min-height: 7000px;
-    }
+   .journey-space{
+    min-height: 1500px;
+}
 
     .journey-gallery{
         grid-template-columns: repeat(2,1fr);
