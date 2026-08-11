@@ -3084,3 +3084,16 @@ JOURNEY 24 PHOTO MEMORY
     border-radius: 20px;
 
 }
+/* JOURNEY PURPLE GLOW */
+
+.journey-card {
+    box-shadow:
+        0 10px 30px rgba(150, 80, 255, 0.25),
+        0 0 25px rgba(180, 100, 255, 0.15);
+}
+.journey-card:hover {
+    transform: translateY(-15px) scale(1.04);
+    box-shadow:
+        0 20px 40px rgba(150, 80, 255, 0.45),
+        0 0 40px rgba(200, 120, 255, 0.35);
+}
