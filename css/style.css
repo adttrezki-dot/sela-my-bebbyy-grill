@@ -2921,13 +2921,18 @@ JOURNEY 24 PHOTO MEMORY
     width: 100%;
     padding: 50px 20px;
 }
-
+.journey-space {
+    width: 100%;
+    padding: 50px 20px;
+    min-height: 3000px;
+}
 .journey-gallery {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
     max-width: 1200px;
     margin: auto;
+    width: 100%;
 }
 
 .journey-card {
@@ -2981,13 +2986,17 @@ JOURNEY 24 PHOTO MEMORY
 @media(max-width:600px){
 
     .journey-space{
-        padding:35px 12px;
+        min-height: 7000px;
     }
 
     .journey-gallery{
         grid-template-columns: repeat(2,1fr);
         gap:15px;
     }
+
+}
+
+}
 
     .journey-card{
         border-radius:15px;
