@@ -2938,15 +2938,17 @@ JOURNEY 24 PHOTO MEMORY
 .journey-card {
     position: relative;
     overflow: hidden;
-    border-radius: 20px;
+
+    border-radius: 18px;
+
     aspect-ratio: 4 / 5;
 
-    background: rgba(255,255,255,0.18);
-    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.35);
 
-    padding: 10px;
+    padding: 12px 12px 20px;
 
-    box-shadow: 0 10px 30px rgba(120, 70, 200, 0.25);
+    box-shadow:
+        0 15px 35px rgba(120, 70, 200, 0.35);
 
     transition: 0.4s ease;
 }
@@ -2957,7 +2959,7 @@ JOURNEY 24 PHOTO MEMORY
 
     object-fit: cover;
 
-    border-radius: 15px;
+    border-radius: 12px;
 
     transition: 0.4s ease;
 }
@@ -3059,5 +3061,26 @@ JOURNEY 24 PHOTO MEMORY
         opacity: 1;
         transform: rotate(0deg);
     }
+
+}
+/* POLAROID MEMORY EFFECT */
+
+.journey-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: 8px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 45%;
+    height: 4px;
+
+    background: rgba(255,255,255,0.5);
+
+    border-radius: 20px;
 
 }
