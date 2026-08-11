@@ -950,6 +950,7 @@ journeyCards.forEach(card => {
 // JOURNEY LIGHTBOX
 
 const journeyImages = document.querySelectorAll(".journey-card img");
+console.log("Journey images:", journeyImages.length);
 
 const journeyLightbox = document.getElementById("journeyLightbox");
 const journeyBigImage = document.getElementById("journeyBigImage");
