@@ -381,10 +381,10 @@ function revealElements() {
 
     elements.forEach(element => {
 
-        element.style.opacity = "0";
-
-        element.style.transform =
-            "translateY(40px)";
+      // element.style.opacity = "0";
+       
+      // element.style.transform =
+    // "translateY(40px)";
 
         element.style.transition =
             "opacity 0.9s ease, " +
