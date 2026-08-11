@@ -957,6 +957,16 @@ const journeyBigImage = document.getElementById("journeyBigImage");
 const journeyClose = document.querySelector(".journey-close");
 
 
+if (journeyClose) {
+
+    journeyClose.addEventListener("click", () => {
+
+        journeyLightbox.style.display = "none";
+
+    });
+
+}
+
 journeyImages.forEach(image => {
 
     image.addEventListener("click", () => {
@@ -977,8 +987,19 @@ journeyClose.addEventListener("click", () => {
 });
 
 
-journeyLightbox.addEventListener("click", (e) => {
+if (journeyLightbox) {
 
+    journeyLightbox.addEventListener("click", (e) => {
+
+        if(e.target === journeyLightbox){
+
+            journeyLightbox.style.display = "none";
+
+        }
+
+    });
+
+}
     if(e.target === journeyLightbox){
 
         journeyLightbox.style.display = "none";
