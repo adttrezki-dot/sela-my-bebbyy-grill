@@ -2681,464 +2681,6 @@ section {
     object-position: center center !important;
 }
 
-
-/* =================================
-   OUR JOURNEY - MEMORY UNIVERSE
-================================= */
-
-.our-journey {
-    min-height: 100vh;
-    padding: 120px 20px;
-    position: relative;
-    overflow: hidden;
-}
-
-
-.journey-title {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 80px;
-}
-
-
-.journey-title h2 {
-    font-size: 3rem;
-    letter-spacing: 6px;
-    color: white;
-    text-shadow: 0 0 20px rgba(200,150,255,0.8);
-}
-
-
-.journey-title p {
-    margin-top: 20px;
-    color: rgba(255,255,255,0.85);
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
-
-
-/* Area tempat kenangan */
-
-.journey-space {
-
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    height: 750px;
-    margin: auto;
-
-}
-
-
-
-/* Kartu foto */
-
-/* =================================
-   OUR JOURNEY MEMORY UNIVERSE V2
-================================= */
-
-.journey-space {
-    position: relative;
-    width: 100%;
-    max-width: 1100px;
-    min-height: 900px;
-    margin: auto;
-}
-
-
-/* kartu kenangan */
-
-.journey-memory {
-
-    position: absolute;
-
-    width: 250px;
-
-    padding: 12px;
-
-    background:
-    rgba(255,255,255,0.12);
-
-    backdrop-filter: blur(12px);
-
-    border-radius: 22px;
-
-    box-shadow:
-    0 0 35px rgba(190,120,255,0.5);
-
-    opacity: 0;
-
-    transform:
-    translateY(80px)
-    scale(.9);
-
-    transition:
-    1.2s ease;
-
-}
-
-
-.journey-memory img {
-
-    width:100%;
-
-    height:300px;
-
-    object-fit:cover;
-
-    border-radius:16px;
-
-}
-
-
-.journey-memory p {
-
-    color:white;
-
-    text-align:center;
-
-    font-size:14px;
-
-    line-height:1.6;
-
-    margin-top:15px;
-
-}
-
-
-/* posisi foto */
-
-.journey-memory:nth-child(1){
-
-    top:40px;
-
-    left:5%;
-
-    transform:
-    rotate(-8deg);
-
-}
-
-
-
-.journey-memory:nth-child(2){
-
-    top:220px;
-
-    right:8%;
-
-    transform:
-    rotate(10deg);
-
-}
-
-
-
-.journey-memory:nth-child(3){
-
-    bottom:80px;
-
-    left:35%;
-
-    transform:
-    rotate(-5deg);
-
-}
-
-
-
-/* saat muncul */
-
-.journey-memory.show-memory {
-
-    opacity:1;
-
-    transform:
-    translateY(0)
-    scale(1);
-
-}
-
-
-/* floating */
-
-.journey-memory:nth-child(1){
-
-    animation:
-    journeyFloat 6s infinite ease-in-out;
-
-}
-
-
-.journey-memory:nth-child(2){
-
-    animation:
-    journeyFloat 7s infinite ease-in-out;
-
-}
-
-
-.journey-memory:nth-child(3){
-
-    animation:
-    journeyFloat 8s infinite ease-in-out;
-
-}
-
-
-
-@keyframes journeyFloat {
-
-    0%,100%{
-
-        margin-top:0;
-
-    }
-
-
-    50%{
-
-        margin-top:-20px;
-
-    }
-
-}
-    opacity:1;
-
-    transform:
-    translateY(0)
-    scale(1);
-
-}
-
-
-/* =========================
-JOURNEY 24 PHOTO MEMORY
-========================= */
-
-.journey-space {
-    width: 100%;
-    padding: 50px 20px;
-}
-.journey-space {
-    width: 100%;
-    padding: 50px 20px;
-    min-height: 3000px;
-}
-.journey-gallery {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    max-width: 1200px;
-    margin: auto;
-    width: 100%;
-}
-
-.journey-card {
-    position: relative;
-    overflow: hidden;
-
-    border-radius: 18px;
-
-    aspect-ratio: 4 / 5;
-
-    background: rgba(255,255,255,0.75);
-
-    padding: 12px 12px 28px;
-
-    box-shadow:
-        0 15px 35px rgba(120, 70, 200, 0.35);
-
-    transition: 0.4s ease;
-}
-
-.journey-card img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    border-radius: 10px;
-
-    transition: 0.4s ease;
-}
-
-
-.journey-card:hover {
-    transform: translateY(-10px) rotate(2deg);
-}
-
-.journey-card:hover img {
-    transform: scale(1.08);
-}
-
-
-/* Tablet */
-@media(max-width:900px){
-
-    .journey-gallery{
-        grid-template-columns: repeat(3,1fr);
-    }
-
-}
-
-
-/* HP */
-@media(max-width:600px){
-
-  .journey-space{
-    min-height: 500px;
-}
-
-    .journey-gallery{
-        grid-template-columns: repeat(2,1fr);
-        gap:15px;
-    }
-
-}
-
-
-    .journey-card{
-        border-radius:15px;
-    }
-
-}
-
-/* JOURNEY SCRAPBOOK EFFECT */
-
-.journey-card:nth-child(3n+1) {
-    transform: rotate(-3deg);
-}
-
-.journey-card:nth-child(3n+2) {
-    transform: rotate(2deg);
-}
-
-.journey-card:nth-child(3n) {
-    transform: rotate(-1deg);
-}
-
-
-.journey-card:hover {
-    transform: translateY(-12px) scale(1.03) rotate(0deg);
-    z-index: 5;
-}
-
-/* POLAROID MEMORY EFFECT */
-
-.journey-card::after {
-
-    content: "";
-
-    position: absolute;
-
-    bottom: 8px;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    width: 45%;
-    height: 4px;
-
-    background: rgba(255,255,255,0.5);
-
-    border-radius: 20px;
-
-}
-/* JOURNEY PURPLE GLOW */
-
-.journey-card {
-    box-shadow:
-        0 10px 30px rgba(150, 80, 255, 0.25),
-        0 0 25px rgba(180, 100, 255, 0.15);
-}
-.journey-card:hover {
-    transform: translateY(-15px) scale(1.04);
-    box-shadow:
-        0 20px 40px rgba(150, 80, 255, 0.45),
-        0 0 40px rgba(200, 120, 255, 0.35);
-}
-/* JOURNEY CINEMATIC DELAY */
-
-.journey-card:nth-child(1) {
-    transition-delay: 0.1s;
-}
-
-.journey-card:nth-child(2) {
-    transition-delay: 0.2s;
-}
-
-.journey-card:nth-child(3) {
-    transition-delay: 0.3s;
-}
-
-.journey-card:nth-child(4) {
-    transition-delay: 0.4s;
-}
-
-.journey-card:nth-child(5) {
-    transition-delay: 0.5s;
-}
-
-.journey-card:nth-child(n+6) {
-    transition-delay: 0.2s;
-}
-
-/* JOURNEY LIGHTBOX */
-
-.journey-lightbox {
-
-    display: none;
-
-    position: fixed;
-
-    z-index: 9999;
-
-    inset: 0;
-
-    background: rgba(20, 10, 40, 0.85);
-
-    justify-content: center;
-    align-items: center;
-
-    padding: 20px;
-}
-
-
-.journey-lightbox img {
-
-    max-width: 90%;
-    max-height: 85%;
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 0 40px rgba(180, 100, 255, 0.5);
-
-    animation: journeyZoom 0.4s ease;
-
-}
-
-
-.journey-close {
-
-    position: absolute;
-
-    top: 25px;
-    right: 35px;
-
-    font-size: 45px;
-
-    color: white;
-
-    cursor: pointer;
-
-}
-
-
-@keyframes journeyZoom {
-
     from {
 
         transform: scale(0.7);
@@ -3156,3 +2698,218 @@ JOURNEY 24 PHOTO MEMORY
     }
 
 }
+/* ==========================================
+   CINEMATIC MEMORY - SELA
+========================================== */
+
+.cinematic-section {
+
+    min-height: 100svh;
+
+    padding: 100px 20px;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(168,85,247,0.25),
+            transparent 45%
+        ),
+        linear-gradient(
+            145deg,
+            #100018,
+            #300050,
+            #120019
+        );
+
+}
+
+
+/* glow belakang */
+
+.cinematic-overlay {
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.35),
+            rgba(0,0,0,0.7)
+        );
+
+    z-index:1;
+
+}
+
+
+/* tulisan */
+
+.cinematic-content {
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:700px;
+
+    animation:
+        cinematicFade 2s ease;
+
+}
+
+
+.cinematic-content h2 {
+
+    font-size:
+    clamp(40px,8vw,75px);
+
+    margin-bottom:25px;
+
+    color:white;
+
+}
+
+
+.cinematic-content p {
+
+    color:#e9d5ff;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+}
+
+
+/* video */
+
+.cinematic-video-wrapper {
+
+    position:relative;
+
+    z-index:2;
+
+    width:min(900px,100%);
+
+    margin-top:50px;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    box-shadow:
+
+    0 30px 90px rgba(0,0,0,0.5),
+
+    0 0 60px rgba(168,85,247,0.35);
+
+}
+
+
+#cinematicVideo {
+
+    width:100%;
+
+    display:block;
+
+    opacity:0;
+
+    transform:scale(1.05);
+
+    transition:
+
+    opacity 2s ease,
+
+    transform 4s ease;
+
+}
+
+
+/* aktif saat video mulai */
+
+#cinematicVideo.active {
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+
+/* caption */
+
+.cinematic-caption {
+
+    position:relative;
+
+    z-index:2;
+
+    margin-top:35px;
+
+    color:#fbcfe8;
+
+    font-style:italic;
+
+    font-size:18px;
+
+}
+
+
+@keyframes cinematicFade {
+
+from {
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+}
+
+to {
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+}
+
+
+/* HP */
+
+@media(max-width:600px){
+
+.cinematic-section{
+
+    padding:80px 15px;
+
+}
+
+
+.cinematic-content p{
+
+    font-size:15px;
+
+}
+
+
+.cinematic-video-wrapper{
+
+    border-radius:20px;
+
+}
+
