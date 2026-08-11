@@ -3016,7 +3016,7 @@ JOURNEY 24 PHOTO MEMORY
 .journey-card {
     opacity: 0;
     transform: translateY(60px) rotate(0deg);
-    transition: 1.5s ease;
+    transition: 4s ease;
 }
 
 .journey-card.show {
