@@ -2994,3 +2994,19 @@ JOURNEY 24 PHOTO MEMORY
     }
 
 }
+
+/* JOURNEY SCRAPBOOK EFFECT */
+
+.journey-card:nth-child(odd) {
+    transform: rotate(-2deg);
+}
+
+.journey-card:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+
+.journey-card:hover {
+    transform: translateY(-12px) scale(1.03) rotate(0deg);
+    z-index: 5;
+}
