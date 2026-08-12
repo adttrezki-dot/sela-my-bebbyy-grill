@@ -846,7 +846,7 @@ journeyCards.forEach(card => {
 
 
 /* =================================
-CINEMATIC VIDEO START
+CINEMATIC MOVIE SYSTEM
 ================================= */
 
 
@@ -854,67 +854,134 @@ const cinematicVideo =
 document.getElementById("cinematicVideo");
 
 
-const videoTimer =
-document.getElementById("videoTimer");
+const alwaysLove =
+document.querySelector(".always-love");
 
 
-const cinematicSection =
-document.querySelector(".cinematic-section");
-
-
-const videoDuration =
-document.querySelector(".video-duration");
+let cinematicPlayed = false;
 
 
 
-let videoStarted = false;
+if(cinematicVideo){
+
+
+cinematicVideo.addEventListener(
+"play",
+()=>{
+
+
+if(cinematicPlayed)
+return;
+
+
+cinematicPlayed = true;
 
 
 
-function startCinematicVideo(){
+// music turun
 
-
-if(videoStarted) return;
-
-
-videoStarted = true;
-
-
-
-let count = 3;
-
-
-
-videoTimer.textContent = count;
-
-
-
-const countdown =
+let fadeMusic =
 setInterval(()=>{
 
 
-count--;
+if(backgroundMusic.volume > 0.3){
 
 
-
-if(count > 0){
-
-
-videoTimer.textContent =
-count;
+backgroundMusic.volume -= 0.05;
 
 
 }else{
 
 
-clearInterval(countdown);
+clearInterval(fadeMusic);
+
+
+}
+
+
+},200);
 
 
 
-document.querySelector(".video-countdown")
-.style.display="none";
+// video volume
+
+cinematicVideo.volume = 0.7;
 
 
+
+// efek terang
+
+setTimeout(()=>{
+
+cinematicVideo.classList.add(
+"video-light"
+);
+
+
+},300);
+
+
+
+});
+
+
+
+
+
+cinematicVideo.addEventListener(
+"ended",
+()=>{
+
+
+// musik kembali
+
+let restore =
+setInterval(()=>{
+
+
+if(backgroundMusic.volume < 0.65){
+
+
+backgroundMusic.volume +=0.05;
+
+
+}else{
+
+
+clearInterval(restore);
+
+
+}
+
+
+},200);
+
+
+
+// text muncul
+
+
+alwaysLove.classList.add(
+"show"
+);
+
+
+
+setTimeout(()=>{
+
+
+alwaysLove.classList.remove(
+"show"
+);
+
+
+},4000);
+
+
+
+});
+
+}
 
 /*
 MULAI VIDEO
