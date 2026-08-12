@@ -3013,3 +3013,80 @@ to {
     border-radius:25px;
 
 }
+/* =========================
+CINEMATIC VIDEO EFFECT
+========================= */
+
+
+.cinematic-video-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+
+#cinematicVideo {
+
+    width:100%;
+
+    filter:
+    brightness(0);
+
+    transition:
+    filter 2.5s ease;
+
+}
+
+
+#cinematicVideo.video-light {
+
+    filter:
+    brightness(1);
+
+}
+
+
+/* FINAL TEXT */
+
+
+.always-love {
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+    color:white;
+
+    font-size:
+    clamp(35px,8vw,70px);
+
+    font-family:
+    "Playfair Display",
+    serif;
+
+    letter-spacing:5px;
+
+    text-align:center;
+
+    opacity:0;
+
+    text-shadow:
+    0 0 20px rgba(220,150,255,.9),
+    0 0 50px rgba(160,80,255,.7);
+
+    transition:
+    opacity 2s ease;
+
+    pointer-events:none;
+
+}
+
+
+.always-love.show {
+
+    opacity:1;
+
+}
