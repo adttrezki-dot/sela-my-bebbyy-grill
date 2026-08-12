@@ -848,9 +848,6 @@ journeyCards.forEach(card => {
    START FROM 02:45
 ========================================== */
 
-const cinematicVideo =
-document.getElementById("cinematicVideo");
-
 const cinematicSection =
 document.getElementById("cinematic");
 
