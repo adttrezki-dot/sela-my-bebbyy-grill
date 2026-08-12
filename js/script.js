@@ -843,3 +843,67 @@ journeyCards.forEach(card => {
     journeyObserver.observe(card);
 
 });
+/* ==========================================
+   CINEMATIC VIDEO AUTO START
+   START FROM 02:45
+========================================== */
+
+const cinematicVideo =
+document.getElementById("cinematicVideo");
+
+const cinematicSection =
+document.getElementById("cinematic");
+
+
+if (cinematicVideo && cinematicSection) {
+
+    const cinematicObserver =
+    new IntersectionObserver(
+        (entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+
+                    cinematicVideo.currentTime = 165;
+
+
+                    cinematicVideo.play()
+                    .then(() => {
+
+                        console.log(
+                        "🎬 Cinematic video started"
+                        );
+
+                    })
+                    .catch(error => {
+
+                        console.log(
+                        "Video autoplay blocked:",
+                        error
+                        );
+
+                    });
+
+
+                    cinematicObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.5
+        }
+    );
+
+
+    cinematicObserver.observe(
+        cinematicSection
+    );
+
+}
