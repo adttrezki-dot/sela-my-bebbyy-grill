@@ -981,7 +981,6 @@ alwaysLove.classList.remove(
 
 });
 
-}
 
 /*
 MULAI VIDEO
