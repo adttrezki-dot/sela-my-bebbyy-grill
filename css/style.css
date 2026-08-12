@@ -3189,3 +3189,73 @@ opacity:1;
 
 
 }
+/* =====================================
+   CINEMATIC VIDEO FIX
+===================================== */
+
+
+.cinematic-video-wrapper {
+
+    position:relative;
+
+    width:100%;
+
+    max-width:900px;
+
+    margin:40px auto;
+
+    overflow:hidden;
+
+    border-radius:30px;
+
+}
+
+
+
+#cinematicVideo {
+
+    width:100%;
+
+    height:auto;
+
+    display:block;
+
+    object-fit:cover;
+
+    border-radius:30px;
+
+}
+
+
+
+.video-countdown {
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:5;
+
+}
+
+
+
+.video-duration {
+
+    position:absolute;
+
+    bottom:20px;
+
+    right:20px;
+
+    z-index:6;
+
+}
