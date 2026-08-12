@@ -1037,54 +1037,6 @@ error
 
 
 
-function startVideoTimer(){
-
-
-let remaining = 165;
-
-
-
-setInterval(()=>{
-
-
-remaining--;
-
-
-
-let minutes =
-Math.floor(
-remaining / 60
-);
-
-
-let seconds =
-remaining % 60;
-
-
-
-if(seconds < 10){
-
-seconds =
-"0"+seconds;
-
-}
-
-
-
-videoDuration.textContent =
-`${minutes}:${seconds}`;
-
-
-
-},1000);
-
-
-
-}
-
-
-
-
 
 /* =================================
 CINEMATIC VIDEO V2
