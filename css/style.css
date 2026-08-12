@@ -3090,3 +3090,47 @@ CINEMATIC VIDEO EFFECT
     opacity:1;
 
 }
+.always-love-text {
+
+position: fixed;
+
+top:50%;
+left:50%;
+
+transform:
+translate(-50%,-50%);
+
+font-size:
+clamp(35px,8vw,70px);
+
+font-weight:700;
+
+font-style:italic;
+
+color:white;
+
+letter-spacing:3px;
+
+text-align:center;
+
+opacity:0;
+
+z-index:9999;
+
+
+text-shadow:
+0 0 20px rgba(220,150,255,.8),
+0 0 50px rgba(180,80,255,.8);
+
+
+transition:
+opacity 2s ease;
+
+}
+
+
+.always-love-text.show{
+
+opacity:1;
+
+}
