@@ -907,3 +907,141 @@ if (cinematicVideo && cinematicSection) {
     );
 
 }
+/* =================================
+CINEMATIC VIDEO START
+================================= */
+
+
+const cinematicVideo =
+document.getElementById("cinematicVideo");
+
+
+const videoTimer =
+document.getElementById("videoTimer");
+
+
+const cinematicSection =
+document.querySelector(".cinematic-section");
+
+
+
+let videoStarted = false;
+
+
+
+function startCinematicVideo(){
+
+
+if(videoStarted) return;
+
+
+videoStarted = true;
+
+
+
+let count = 3;
+
+
+
+videoTimer.textContent = count;
+
+
+
+const timer =
+setInterval(()=>{
+
+
+count--;
+
+
+if(count > 0){
+
+
+videoTimer.textContent =
+count;
+
+
+}else{
+
+
+clearInterval(timer);
+
+
+
+document.querySelector(".video-countdown")
+.style.display="none";
+
+
+
+backgroundMusic.volume = 0.4;
+
+
+
+cinematicVideo.volume = 0.6;
+
+
+
+cinematicVideo.play()
+.then(()=>{
+
+console.log(
+"Video cinematic mulai"
+);
+
+
+})
+.catch(error=>{
+
+console.log(
+"Video gagal:",
+error
+);
+
+
+});
+
+
+
+}
+
+
+},1000);
+
+
+
+}
+
+
+
+const videoObserver =
+new IntersectionObserver((entries)=>{
+
+
+entries.forEach(entry=>{
+
+
+if(entry.isIntersecting){
+
+
+startCinematicVideo();
+
+
+}
+
+
+});
+
+
+},{
+threshold:0.5
+});
+
+
+
+if(cinematicSection){
+
+videoObserver.observe(
+cinematicSection
+);
+
+}
