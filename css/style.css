@@ -2955,3 +2955,61 @@ to {
         rotate(0deg);
 
 }
+.video-countdown {
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:5;
+
+    color:white;
+
+    text-align:center;
+
+}
+
+
+.video-countdown p {
+
+    font-size:18px;
+
+    letter-spacing:2px;
+
+}
+
+
+#videoTimer {
+
+    font-size:80px;
+
+    font-weight:800;
+
+    text-shadow:
+    0 0 30px #c084fc;
+
+}
+
+
+.cinematic-video-wrapper {
+
+    position:relative;
+
+}
+
+
+#cinematicVideo {
+
+    width:100%;
+
+    border-radius:25px;
+
+}
