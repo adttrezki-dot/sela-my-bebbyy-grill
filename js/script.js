@@ -843,5 +843,3 @@ journeyCards.forEach(card => {
     journeyObserver.observe(card);
 
 });
-
-}
