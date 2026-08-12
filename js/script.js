@@ -862,6 +862,10 @@ const cinematicSection =
 document.querySelector(".cinematic-section");
 
 
+const videoDuration =
+document.querySelector(".video-duration");
+
+
 
 let videoStarted = false;
 
@@ -885,11 +889,12 @@ videoTimer.textContent = count;
 
 
 
-const timer =
+const countdown =
 setInterval(()=>{
 
 
 count--;
+
 
 
 if(count > 0){
@@ -902,7 +907,7 @@ count;
 }else{
 
 
-clearInterval(timer);
+clearInterval(countdown);
 
 
 
@@ -911,24 +916,38 @@ document.querySelector(".video-countdown")
 
 
 
-backgroundMusic.volume = 0.4;
+/*
+MULAI VIDEO
+*/
 
+
+backgroundMusic.volume = 0.4;
 
 
 cinematicVideo.volume = 0.6;
 
 
 
+cinematicVideo.currentTime = 165;
+
+
+
 cinematicVideo.play()
 .then(()=>{
 
+
 console.log(
-"Video cinematic mulai"
+"🎬 Cinematic mulai"
 );
+
+
+startVideoTimer();
+
 
 
 })
 .catch(error=>{
+
 
 console.log(
 "Video gagal:",
@@ -951,6 +970,55 @@ error
 
 
 
+
+function startVideoTimer(){
+
+
+let remaining = 165;
+
+
+
+setInterval(()=>{
+
+
+remaining--;
+
+
+
+let minutes =
+Math.floor(
+remaining / 60
+);
+
+
+let seconds =
+remaining % 60;
+
+
+
+if(seconds < 10){
+
+seconds =
+"0"+seconds;
+
+}
+
+
+
+videoDuration.textContent =
+`${minutes}:${seconds}`;
+
+
+
+},1000);
+
+
+
+}
+
+
+
+
 const videoObserver =
 new IntersectionObserver((entries)=>{
 
@@ -962,6 +1030,12 @@ if(entry.isIntersecting){
 
 
 startCinematicVideo();
+
+
+
+videoObserver.unobserve(
+entry.target
+);
 
 
 }
