@@ -1,12 +1,13 @@
-/* =========================================================
+/* =====================================================
    SELA — MY BEBBY GRILL
-   Main JavaScript
-========================================================= */
+   CLEAN SCRIPT VERSION
+   PART 1/3
+===================================================== */
 
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+/* =====================================================
+   ELEMENT SELECTOR
+===================================================== */
 
 const opening = document.getElementById("opening");
 const countdown = document.getElementById("countdown");
@@ -14,276 +15,342 @@ const mainContent = document.getElementById("mainContent");
 
 const openButton = document.getElementById("openButton");
 const replayButton = document.getElementById("replayButton");
+const finalReplayButton = document.getElementById("finalReplayButton");
 
 const countdownNumber = document.getElementById("countdownNumber");
 
-const backgroundMusic =
-    document.getElementById("backgroundMusic");
-
-const musicPlayer =
-    document.getElementById("musicPlayer");
-
-const musicButton =
-    document.getElementById("musicButton");
-
-const particles =
-    document.getElementById("particles");
+const backgroundMusic = document.getElementById("backgroundMusic");
+const musicPlayer = document.getElementById("musicPlayer");
+const musicButton = document.getElementById("musicButton");
 
 
-/* =========================================================
-   SETTINGS
-========================================================= */
+/* =====================================================
+   STATE
+===================================================== */
 
-const particleSymbols = [
-    "❤️",
-    "💜",
-    "💗",
-    "💕",
-    "🌸",
-    "🌷",
-    "✨",
-    "✦",
-    "💫"
-];
-
+let musicStarted = false;
 let musicPlaying = false;
 
-let particleInterval = null;
 
+/* =====================================================
+   HELPER
+===================================================== */
 
-/* =========================================================
-   OPEN WEBSITE
-========================================================= */
+function show(element){
 
-openButton.addEventListener("click", startExperience);
-
-
-/* =========================================================
-   START EXPERIENCE
-========================================================= */
-
-async function startExperience() {
-
-    if (
-        opening.classList.contains("hidden") === false
-        &&
-        countdown.classList.contains("hidden")
-    ) {
-
-        opening.style.transition =
-            "opacity 0.8s ease, transform 0.8s ease";
-
-        opening.style.opacity = "0";
-
-        opening.style.transform =
-            "scale(1.08)";
-
-        setTimeout(() => {
-
-            opening.classList.add("hidden");
-
-            countdown.classList.remove("hidden");
-
-            startCountdown();
-
-        }, 800);
-
+    if(element){
+        element.classList.remove("hidden");
     }
 
 }
 
 
-/* =========================================================
-   COUNTDOWN
-========================================================= */
+function hide(element){
 
-function startCountdown() {
-
-    const numbers = ["3", "2", "1"];
-
-    let index = 0;
-
-    showCountdownNumber(numbers[index]);
-
-    const countdownTimer =
-        setInterval(() => {
-
-            index++;
-
-            if (index < numbers.length) {
-
-                showCountdownNumber(numbers[index]);
-
-            } else {
-
-                clearInterval(countdownTimer);
-
-                finishCountdown();
-
-            }
-
-        }, 1000);
-}
-
-
-/* =========================================================
-   COUNTDOWN NUMBER ANIMATION
-========================================================= */
-
-function showCountdownNumber(number) {
-
-    countdownNumber.textContent = number;
-
-    countdownNumber.style.animation = "none";
-
-    void countdownNumber.offsetWidth;
-
-    countdownNumber.style.animation =
-        "countdownPulse 1s ease";
-}
-
-
-/* =========================================================
-   FINISH COUNTDOWN
-========================================================= */
-
-function finishCountdown() {
-
-    countdown.style.transition =
-        "opacity 1s ease";
-
-    countdown.style.opacity = "0";
-
-    setTimeout(() => {
-
-        countdown.classList.add("hidden");
-
-        mainContent.classList.remove("hidden");
-
-        musicPlayer.classList.remove("hidden");
-
-        window.scrollTo({
-            top: 0,
-            behavior: "instant"
-        });
-
-        startMusic();
-
-        startParticles();
-
-        revealElements();
-
-    }, 1000);
+    if(element){
+        element.classList.add("hidden");
+    }
 
 }
 
 
-/* =========================================================
-   MUSIC
-========================================================= */
+/* =====================================================
+   OPENING EXPERIENCE
+===================================================== */
 
-async function startMusic() {
+function startExperience(){
 
-    console.log("startMusic dipanggil");
+    hide(opening);
 
-    try {
+    show(countdown);
 
-        backgroundMusic.volume = 0.65;
 
-        await backgroundMusic.play();
+    let number = 3;
 
-        console.log("Musik berhasil diputar");
+    if(countdownNumber){
 
-        musicPlaying = true;
-
-        updateMusicButton();
-
-    } catch (error) {
-
-        console.log("Gagal play musik:", error);
-
-        musicPlaying = false;
-
-        updateMusicButton();
+        countdownNumber.textContent = number;
 
     }
-}
 
 
-/* =========================================================
-   PLAY / PAUSE
-========================================================= */
-
-musicButton.addEventListener(
-    "click",
-    toggleMusic
-);
+    const timer = setInterval(()=>{
 
 
-async function toggleMusic() {
-console.log("PAUSE DIPANGGIL");
-    if (backgroundMusic.paused) {
+        number--;
 
-        try {
 
-            await backgroundMusic.play();
+        if(countdownNumber){
 
-            musicPlaying = true;
-
-        } catch (error) {
-
-            console.log(
-                "Musik tidak dapat diputar."
-            );
+            countdownNumber.textContent = number;
 
         }
 
-    } else {
-console.log("PAUSE DIPANGGIL");
+
+        if(number <= 0){
+
+            clearInterval(timer);
+
+
+            hide(countdown);
+
+            show(mainContent);
+
+            show(musicPlayer);
+
+
+            startMusic();
+
+            revealOnLoad();
+
+
+            window.scrollTo({
+                top:0,
+                behavior:"smooth"
+            });
+
+
+        }
+
+
+    },1000);
+
+
+}
+
+
+
+/* =====================================================
+   OPEN BUTTON
+===================================================== */
+
+if(openButton){
+
+
+    openButton.addEventListener("click",()=>{
+
+
+        startExperience();
+
+
+    });
+
+
+}
+
+
+
+/* =====================================================
+   MUSIC SYSTEM
+===================================================== */
+
+
+function startMusic(){
+
+
+    if(!backgroundMusic){
+        return;
+    }
+
+
+    if(!musicStarted){
+
+        backgroundMusic.volume = 0.7;
+
+        backgroundMusic.play()
+        .then(()=>{
+
+            musicStarted = true;
+
+            musicPlaying = true;
+
+            updateMusicButton();
+
+
+        })
+        .catch((error)=>{
+
+            console.log(
+                "Music waiting for interaction:",
+                error
+            );
+
+
+        });
+
+
+    }
+
+
+}
+
+
+
+function toggleMusic(){
+
+
+    if(!backgroundMusic){
+        return;
+    }
+
+
+    if(backgroundMusic.paused){
+
+
+        backgroundMusic.play()
+        .then(()=>{
+
+            musicPlaying = true;
+
+            updateMusicButton();
+
+
+        });
+
+
+
+    }else{
+
+
         backgroundMusic.pause();
 
         musicPlaying = false;
 
+        updateMusicButton();
+
+
     }
 
-    updateMusicButton();
 
 }
 
 
-/* =========================================================
-   MUSIC BUTTON ICON
-========================================================= */
 
-function updateMusicButton() {
-console.log("PAUSE DIPANGGIL");
-    if (backgroundMusic.paused) {
+function updateMusicButton(){
+
+
+    if(!musicButton){
+        return;
+    }
+
+
+    if(musicPlaying){
+
+        musicButton.textContent = "⏸";
+
+    }else{
 
         musicButton.textContent = "▶";
 
-    } else {
-
-        musicButton.textContent = "Ⅱ";
-
     }
+
 
 }
 
 
-/* =========================================================
-   FLOATING PARTICLES
-========================================================= */
 
-function createParticle() {
+if(musicButton){
 
-    if (!particles) return;
 
-    const particle =
-        document.createElement("div");
+    musicButton.addEventListener(
+        "click",
+        toggleMusic
+    );
 
-    particle.classList.add("particle");
 
-    particle.textContent =
+}
+
+
+
+/* =====================================================
+   REPLAY BASIC
+===================================================== */
+
+
+function replayExperience(){
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+
+    hide(mainContent);
+
+
+    setTimeout(()=>{
+
+
+        startExperience();
+
+
+    },800);
+
+
+}
+
+
+
+if(replayButton){
+
+
+    replayButton.addEventListener(
+        "click",
+        replayExperience
+    );
+
+
+}
+
+
+if(finalReplayButton){
+
+
+    finalReplayButton.addEventListener(
+        "click",
+        replayExperience
+    );
+
+
+}
+/* =====================================================
+   PARTICLE HEARTS & FLOWERS
+   PART 2/3
+===================================================== */
+
+
+const particles = document.getElementById("particles");
+
+
+const particleSymbols = [
+    "💜",
+    "💗",
+    "💕",
+    "🌸",
+    "✨"
+];
+
+
+
+function createParticle(){
+
+
+    if(!particles){
+        return;
+    }
+
+
+    const particle = document.createElement("span");
+
+
+    particle.className = "floating-particle";
+
+
+    particle.innerHTML =
         particleSymbols[
             Math.floor(
                 Math.random() *
@@ -291,822 +358,595 @@ function createParticle() {
             )
         ];
 
-    const size =
-        Math.random() * 18 + 10;
 
-    const left =
-        Math.random() * 100;
-
-    const duration =
-        Math.random() * 7 + 7;
-
-    const moveX =
-        (Math.random() - 0.5) * 180;
-
-    const delay =
-        Math.random() * 2;
 
     particle.style.left =
-        `${left}%`;
+        Math.random() * 100 + "%";
 
-    particle.style.fontSize =
-        `${size}px`;
 
     particle.style.animationDuration =
-        `${duration}s`;
+        (5 + Math.random() * 5) + "s";
 
-    particle.style.animationDelay =
-        `${delay}s`;
 
-    particle.style.setProperty(
-        "--move-x",
-        `${moveX}px`
-    );
+
+    particle.style.fontSize =
+        (15 + Math.random() * 20) + "px";
+
+
 
     particles.appendChild(particle);
 
 
-    setTimeout(() => {
+
+    setTimeout(()=>{
 
         particle.remove();
 
-    }, (duration + delay) * 1000);
+    },10000);
+
+
 
 }
 
 
-/* =========================================================
-   START PARTICLES
-========================================================= */
 
-function startParticles() {
-
-    if (particleInterval) return;
-
-    for (let i = 0; i < 18; i++) {
-
-        setTimeout(() => {
-
-            createParticle();
-
-        }, i * 250);
-
-    }
-
-    particleInterval =
-        setInterval(() => {
-
-            createParticle();
-
-        }, 550);
-
-}
+setInterval(
+    createParticle,
+    700
+);
 
 
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-function revealElements() {
-
-   const elements =
-    document.querySelectorAll(
-        ".memory-card, " +
-        ".letter-section, " +
-        ".letter-container, " +
-        ".collage-section, " +
-        ".ending-content"
-    );
 
 
-    elements.forEach(element => {
 
-      // element.style.opacity = "0";
-       
-      // element.style.transform =
-    // "translateY(40px)";
+/* =====================================================
+   SCROLL REVEAL SYSTEM
+===================================================== */
 
-        element.style.transition =
-            "opacity 0.9s ease, " +
-            "transform 0.9s ease";
+
+const revealElements = document.querySelectorAll(
+    `
+    .memory-card,
+    .intro-section,
+    .cinematic-section,
+    .letter-container,
+    .collage-section,
+    .ending-content,
+    .final-love-content
+    `
+);
+
+
+
+function revealOnScroll(){
+
+
+    revealElements.forEach(element=>{
+
+
+        const position =
+            element.getBoundingClientRect()
+            .top;
+
+
+        const trigger =
+            window.innerHeight * 0.85;
+
+
+
+        if(position < trigger){
+
+            element.classList.add(
+                "show"
+            );
+
+        }
+
+
 
     });
 
 
-    const observer =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-
-                        entry.target.style.opacity =
-                            "1";
-
-                        entry.target.style.transform =
-                            "translateY(0)";
-
-                        observer.unobserve(
-                            entry.target
-                        );
-
-                    }
-
-                });
-
-            },
-            {
-                threshold: 0.15
-            }
-        );
+}
 
 
-    elements.forEach(element => {
 
-        observer.observe(element);
+function revealOnLoad(){
 
-    });
+
+    setTimeout(()=>{
+
+        revealOnScroll();
+
+    },300);
+
 
 }
 
 
-/* =========================================================
-   PARALLAX EFFECT
-========================================================= */
 
 window.addEventListener(
     "scroll",
-    () => {
-
-        const scrollY =
-            window.scrollY;
-
-        const auroras =
-            document.querySelectorAll(
-                ".aurora"
-            );
-
-        auroras.forEach(
-            (aurora, index) => {
-
-                const speed =
-                    0.02 +
-                    (index * 0.01);
-
-                aurora.style.transform =
-                    `translateY(${scrollY * speed}px)`;
-
-            }
-        );
-
-    },
-    {
-        passive: true
-    }
+    revealOnScroll
 );
 
 
-/* =========================================================
-   REPLAY
-========================================================= */
-
-replayButton.addEventListener(
-    "click",
-    replayExperience
-);
 
 
-function replayExperience() {
 
-    backgroundMusic.pause();
-
-    backgroundMusic.currentTime = 0;
-
-    musicPlaying = false;
-
-    updateMusicButton();
-
-
-    if (particleInterval) {
-
-        clearInterval(
-            particleInterval
-        );
-
-        particleInterval = null;
-
-    }
-
-
-    particles.innerHTML = "";
-
-
-    mainContent.classList.add("hidden");
-
-    musicPlayer.classList.add("hidden");
-
-
-    countdown.classList.add("hidden");
-
-    countdown.style.opacity = "1";
-
-
-    opening.classList.remove("hidden");
-
-    opening.style.opacity = "1";
-
-    opening.style.transform =
-        "scale(1)";
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-
-    setTimeout(() => {
-
-        startExperience();
-
-    }, 500);
-
-}
-
-
-/* =========================================================
+/* =====================================================
    CLICK HEART EFFECT
-========================================================= */
+===================================================== */
+
 
 document.addEventListener(
     "click",
-    event => {
+    (event)=>{
 
-        if (
-            event.target.closest("button")
-            ||
-            event.target.closest("a")
-        ) {
-            return;
 
-}
-        createClickHeart(
-            event.clientX,
-            event.clientY
+        const heart =
+            document.createElement("span");
+
+
+
+        heart.className =
+            "click-heart";
+
+
+        heart.innerHTML =
+            "💜";
+
+
+
+        heart.style.left =
+            event.clientX + "px";
+
+
+        heart.style.top =
+            event.clientY + "px";
+
+
+
+        document.body.appendChild(
+            heart
         );
+
+
+
+        setTimeout(()=>{
+
+
+            heart.remove();
+
+
+        },1200);
+
+
 
     }
 );
 
 
-function createClickHeart(x, y) {
-
-    const heart =
-        document.createElement("div");
-
-    heart.textContent =
-        Math.random() > 0.5
-            ? "💜"
-            : "❤️";
 
 
-    heart.style.position =
-        "fixed";
 
-    heart.style.left =
-        `${x}px`;
-
-    heart.style.top =
-        `${y}px`;
-
-    heart.style.zIndex =
-        "9999";
-
-    heart.style.pointerEvents =
-        "none";
-
-    heart.style.fontSize =
-        `${Math.random() * 12 + 18}px`;
-
-    heart.style.transform =
-        "translate(-50%, -50%) scale(0.5)";
-
-    heart.style.opacity =
-        "1";
-
-    heart.style.transition =
-        "all 1s ease";
+/* =====================================================
+   PHOTO TILT DESKTOP
+===================================================== */
 
 
-    document.body.appendChild(
-        heart
-    );
+const tiltCards =
+document.querySelectorAll(
+    ".memory-card"
+);
 
 
-    requestAnimationFrame(() => {
 
-        heart.style.transform =
-            `translate(
-                ${Math.random() * 50 - 25}px,
-                -100px
-            )
-            scale(1.4)`;
-
-        heart.style.opacity =
-            "0";
-
-    });
+tiltCards.forEach(card=>{
 
 
-    setTimeout(() => {
-
-        heart.remove();
-
-    }, 1000);
-
-}
+    card.addEventListener(
+        "mousemove",
+        (event)=>{
 
 
-/* =========================================================
-   PHOTO TILT EFFECT
-========================================================= */
-
-document
-    .querySelectorAll(".memory-card")
-    .forEach(card => {
-
-        card.addEventListener(
-            "pointermove",
-            event => {
-
-                if (
-                    window.innerWidth < 700
-                ) return;
-
-
-                const rect =
-                    card.getBoundingClientRect();
-
-
-                const x =
-                    event.clientX -
-                    rect.left;
-
-                const y =
-                    event.clientY -
-                    rect.top;
-
-
-                const centerX =
-                    rect.width / 2;
-
-                const centerY =
-                    rect.height / 2;
-
-
-                const rotateX =
-                    ((y - centerY) /
-                        centerY) *
-                    -3;
-
-                const rotateY =
-                    ((x - centerX) /
-                        centerX) *
-                    3;
-
-
-                card.style.transform =
-                    `perspective(900px)
-                     rotateX(${rotateX}deg)
-                     rotateY(${rotateY}deg)
-                     translateY(-5px)`;
-
+            if(window.innerWidth < 768){
+                return;
             }
-        );
 
 
-        card.addEventListener(
-            "pointerleave",
-            () => {
 
-                card.style.transform =
-                    "";
-
-            }
-        );
-
-    });
+            const rect =
+            card.getBoundingClientRect();
 
 
-/* =========================================================
-   INITIAL STATE
-========================================================= */
 
-musicPlayer.classList.add(
-    "hidden"
-);
-
-mainContent.classList.add(
-    "hidden"
-);
-
-countdown.classList.add(
-    "hidden"
-);
+            const x =
+            event.clientX - rect.left;
 
 
-/* =========================================================
-   CONSOLE MESSAGE
-========================================================= */
 
-console.log(
-    "💜 Sela — My Bebby Grill website loaded."
-);
-
-console.log(
-    "✨ Welcome to our little story."
-);
+            const y =
+            event.clientY - rect.top;
 
 
-/* ==========================================
-   TAHAP 6 - ANIMASI BUNGA & LOVE
-   ========================================== */
 
-(function createRomanticParticles() {
-
-    const particles = [
-        "🌸",
-        "🌷",
-        "💜",
-        "💕",
-        "💗",
-        "💖",
-        "✨",
-        "🌸"
-    ];
-
-    function createParticle() {
-
-        const particle = document.createElement("div");
-
-        particle.className = "romantic-particle";
-
-        particle.textContent =
-            particles[Math.floor(Math.random() * particles.length)];
-
-        particle.style.left =
-            Math.random() * 100 + "vw";
-
-        particle.style.fontSize =
-            (14 + Math.random() * 18) + "px";
-
-        const fallDuration =
-            6 + Math.random() * 6;
-
-        particle.style.animationDuration =
-            fallDuration + "s, " +
-            (2 + Math.random() * 2) + "s";
-
-        document.body.appendChild(particle);
-
-        setTimeout(() => {
-            particle.remove();
-        }, fallDuration * 1000);
-    }
-
-    /* Membuat partikel pertama */
-    for (let i = 0; i < 10; i++) {
-        setTimeout(createParticle, i * 500);
-    }
-
-    /* Terus membuat partikel */
-    setInterval(createParticle, 900);
-
-})();
+            const centerX =
+            rect.width / 2;
 
 
-/* ==========================================
-   TAHAP 9 - TOMBOL PUTAR LAGI
-   ========================================== */
 
-const finalReplayButton =
-    document.getElementById("finalReplayButton");
+            const centerY =
+            rect.height / 2;
 
-if (finalReplayButton) {
 
-    finalReplayButton.addEventListener(
-        "click",
-        function () {
 
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+            const rotateX =
+            (y-centerY) / 20;
 
-            setTimeout(() => {
 
-                location.reload();
 
-            }, 700);
+            const rotateY =
+            (centerX-x) / 20;
+
+
+
+            card.style.transform =
+            `
+            perspective(900px)
+            rotateX(${rotateX}deg)
+            rotateY(${rotateY}deg)
+            scale(1.03)
+            `;
+
 
         }
     );
 
-}
 
 
+    card.addEventListener(
+        "mouseleave",
+        ()=>{
 
-// JOURNEY SCROLL REVEAL
 
-const journeyCards = document.querySelectorAll(".journey-card");
+            card.style.transform =
+            "";
 
-const journeyObserver = new IntersectionObserver((entries) => {
 
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            entry.target.classList.add("show");
 
         }
+    );
 
-    });
-
-}, {
-    threshold: 0.2
-});
-
-
-journeyCards.forEach(card => {
-
-    journeyObserver.observe(card);
 
 });
+/* =====================================================
+   CINEMATIC MEMORY SYSTEM
+   PART 3/3
+===================================================== */
 
 
-/* =================================
-CINEMATIC MOVIE SYSTEM
-================================= */
+const cinematic =
+document.getElementById("cinematic");
 
 
 const cinematicVideo =
 document.getElementById("cinematicVideo");
+
+
+const videoTimer =
+document.getElementById("videoTimer");
 
 
 const alwaysLove =
 document.querySelector(".always-love");
 
 
+
 let cinematicPlayed = false;
 
+
+
+/* =====================================================
+   MUSIC FADE SYSTEM
+===================================================== */
+
+
+function fadeMusic(targetVolume, duration = 1500){
+
+
+    if(!backgroundMusic){
+        return;
+    }
+
+
+    const startVolume =
+        backgroundMusic.volume;
+
+
+    const difference =
+        targetVolume - startVolume;
+
+
+    const steps = 30;
+
+
+    const stepTime =
+        duration / steps;
+
+
+    let currentStep = 0;
+
+
+
+    const fade =
+    setInterval(()=>{
+
+
+        currentStep++;
+
+
+        backgroundMusic.volume =
+        startVolume +
+        (
+            difference *
+            (currentStep / steps)
+        );
+
+
+
+        if(currentStep >= steps){
+
+            clearInterval(fade);
+
+            backgroundMusic.volume =
+            targetVolume;
+
+        }
+
+
+
+    }, stepTime);
+
+
+}
+
+
+
+
+
+/* =====================================================
+   VIDEO COUNTDOWN
+===================================================== */
+
+
+function startVideoCountdown(){
+
+
+    return new Promise(resolve=>{
+
+
+        let count = 3;
+
+
+        if(videoTimer){
+
+            videoTimer.textContent =
+            count;
+
+        }
+
+
+
+        const timer =
+        setInterval(()=>{
+
+
+            count--;
+
+
+
+            if(videoTimer){
+
+                videoTimer.textContent =
+                count;
+
+            }
+
+
+
+            if(count <= 0){
+
+
+                clearInterval(timer);
+
+
+                resolve();
+
+
+
+            }
+
+
+
+        },1000);
+
+
+
+    });
+
+
+
+}
+
+
+
+
+
+/* =====================================================
+   START CINEMATIC
+===================================================== */
+
+
+async function playCinematic(){
+
+
+
+    if(cinematicPlayed){
+        return;
+    }
+
+
+
+    cinematicPlayed = true;
+
+
+
+    await startVideoCountdown();
+
+
+
+    if(backgroundMusic){
+
+
+        fadeMusic(
+            0.3,
+            2000
+        );
+
+
+    }
+
+
+
+
+    if(cinematicVideo){
+
+
+
+        cinematicVideo.volume =
+        0.7;
+
+
+
+        cinematicVideo.play()
+        .catch(error=>{
+
+            console.log(
+                "Video autoplay blocked:",
+                error
+            );
+
+        });
+
+
+
+    }
+
+
+
+}
+
+
+
+
+
+/* =====================================================
+   OBSERVER CINEMATIC
+===================================================== */
+
+
+if(cinematic){
+
+
+    const cinematicObserver =
+    new IntersectionObserver(
+        entries=>{
+
+
+            entries.forEach(entry=>{
+
+
+                if(
+                    entry.isIntersecting
+                ){
+
+                    playCinematic();
+
+                }
+
+
+            });
+
+
+        },
+        {
+            threshold:0.45
+        }
+    );
+
+
+
+    cinematicObserver.observe(
+        cinematic
+    );
+
+
+
+}
+
+
+
+
+
+/* =====================================================
+   VIDEO FINISH
+===================================================== */
 
 
 if(cinematicVideo){
 
 
-cinematicVideo.addEventListener(
-"play",
-()=>{
 
+    cinematicVideo.addEventListener(
+        "ended",
+        ()=>{
 
-if(cinematicPlayed)
-return;
 
+            if(alwaysLove){
 
-cinematicPlayed = true;
 
+                alwaysLove.classList.add(
+                    "show"
+                );
 
 
-// music turun
 
-let fadeMusic =
-setInterval(()=>{
+                setTimeout(()=>{
 
 
-if(backgroundMusic.volume > 0.3){
+                    alwaysLove.classList.remove(
+                        "show"
+                    );
 
 
-backgroundMusic.volume -= 0.05;
+                },3000);
 
 
-}else{
 
+            }
 
-clearInterval(fadeMusic);
 
 
-}
+            fadeMusic(
+                0.7,
+                2500
+            );
 
 
-},200);
 
-
-
-// video volume
-
-cinematicVideo.volume = 0.7;
-
-
-
-// efek terang
-
-setTimeout(()=>{
-
-cinematicVideo.classList.add(
-"video-light"
-);
-
-
-},300);
-
-
-
-});
-
-
-
-
-
-cinematicVideo.addEventListener(
-"ended",
-()=>{
-
-
-// musik kembali
-
-let restore =
-setInterval(()=>{
-
-
-if(backgroundMusic.volume < 0.65){
-
-
-backgroundMusic.volume +=0.05;
-
-
-}else{
-
-
-clearInterval(restore);
-
-
-}
-
-
-},200);
-
-
-
-// text muncul
-
-
-alwaysLove.classList.add(
-"show"
-);
-
-
-
-setTimeout(()=>{
-
-
-alwaysLove.classList.remove(
-"show"
-);
-
-
-},4000);
-
-
-
-});
-
-
-/*
-MULAI VIDEO
-*/
-
-
-backgroundMusic.volume = 0.4;
-
-
-cinematicVideo.volume = 0.6;
-
-
-
-cinematicVideo.currentTime = 165;
-
-
-
-cinematicVideo.play()
-.then(()=>{
-
-
-console.log(
-"🎬 Cinematic mulai"
-);
-
-
-startVideoTimer();
-
-
-
-})
-.catch(error=>{
-
-
-console.log(
-"Video gagal:",
-error
-);
-
-
-});
-
-
-
-/* =================================
-CINEMATIC VIDEO V2
-================================= */
-
-const cinematicVideo =
-document.getElementById("cinematicVideo");
-
-const cinematicSection =
-document.querySelector(".cinematic-section");
-
-let cinematicPlayed = false;
-
-
-if(cinematicVideo && cinematicSection){
-
-
-const cinematicObserver =
-new IntersectionObserver((entries)=>{
-
-
-entries.forEach(entry=>{
-
-
-if(entry.isIntersecting && !cinematicPlayed){
-
-
-cinematicPlayed = true;
-
-
-
-// turunkan musik utama perlahan
-
-let musicVolume =
-backgroundMusic.volume;
-
-
-const musicFade =
-setInterval(()=>{
-
-
-musicVolume -= 0.05;
-
-
-if(musicVolume <= 0.3){
-
-musicVolume = 0.3;
-
-clearInterval(musicFade);
-
-}
-
-
-backgroundMusic.volume =
-musicVolume;
-
-
-},100);
-
-
-
-/* video */
-
-cinematicVideo.volume = 0.7;
-
-
-// efek gelap ke terang
-
-cinematicVideo.style.opacity = "0";
-
-cinematicVideo.play();
-
-
-
-cinematicVideo.style.transition =
-"opacity 2s ease";
-
-
-setTimeout(()=>{
-
-cinematicVideo.style.opacity = "1";
-
-},200);
+        }
+    );
 
 
 
@@ -1114,94 +954,21 @@ cinematicVideo.style.opacity = "1";
 
 
 
-});
 
 
-},{
-threshold:0.5
-});
+/* =====================================================
+   INITIAL CHECK
+===================================================== */
+
+
+window.addEventListener(
+    "load",
+    ()=>{
+
+
+        revealOnScroll();
 
 
 
-cinematicObserver.observe(
-cinematicSection
+    }
 );
-
-
-
-
-/* VIDEO SELESAI */
-
-
-cinematicVideo.addEventListener(
-"ended",
-()=>{
-
-
-// kembalikan musik
-
-let restore =
-backgroundMusic.volume;
-
-
-const restoreMusic =
-setInterval(()=>{
-
-
-restore += 0.05;
-
-
-if(restore >= 0.65){
-
-restore = 0.65;
-
-clearInterval(restoreMusic);
-
-}
-
-
-backgroundMusic.volume =
-restore;
-
-
-},100);
-
-
-
-const text =
-document.createElement("div");
-
-
-text.className =
-"always-love-text";
-
-
-text.innerHTML =
-"Always Loving You 💜";
-
-
-document.body.appendChild(text);
-
-
-
-setTimeout(()=>{
-
-text.classList.add("show");
-
-},100);
-
-
-
-setTimeout(()=>{
-
-text.classList.remove("show");
-
-
-setTimeout(()=>{
-
-text.remove();
-
-},2000);
-
-
-},4000);
