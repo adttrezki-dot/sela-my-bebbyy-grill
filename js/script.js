@@ -1124,3 +1124,190 @@ cinematicSection
 );
 
 }
+/* =================================
+CINEMATIC VIDEO V2
+================================= */
+
+const cinematicVideo =
+document.getElementById("cinematicVideo");
+
+const cinematicSection =
+document.querySelector(".cinematic-section");
+
+let cinematicPlayed = false;
+
+
+if(cinematicVideo && cinematicSection){
+
+
+const cinematicObserver =
+new IntersectionObserver((entries)=>{
+
+
+entries.forEach(entry=>{
+
+
+if(entry.isIntersecting && !cinematicPlayed){
+
+
+cinematicPlayed = true;
+
+
+
+// turunkan musik utama perlahan
+
+let musicVolume =
+backgroundMusic.volume;
+
+
+const musicFade =
+setInterval(()=>{
+
+
+musicVolume -= 0.05;
+
+
+if(musicVolume <= 0.3){
+
+musicVolume = 0.3;
+
+clearInterval(musicFade);
+
+}
+
+
+backgroundMusic.volume =
+musicVolume;
+
+
+},100);
+
+
+
+/* video */
+
+cinematicVideo.volume = 0.7;
+
+
+// efek gelap ke terang
+
+cinematicVideo.style.opacity = "0";
+
+cinematicVideo.play();
+
+
+
+cinematicVideo.style.transition =
+"opacity 2s ease";
+
+
+setTimeout(()=>{
+
+cinematicVideo.style.opacity = "1";
+
+},200);
+
+
+
+}
+
+
+
+});
+
+
+},{
+threshold:0.5
+});
+
+
+
+cinematicObserver.observe(
+cinematicSection
+);
+
+
+
+
+/* VIDEO SELESAI */
+
+
+cinematicVideo.addEventListener(
+"ended",
+()=>{
+
+
+// kembalikan musik
+
+let restore =
+backgroundMusic.volume;
+
+
+const restoreMusic =
+setInterval(()=>{
+
+
+restore += 0.05;
+
+
+if(restore >= 0.65){
+
+restore = 0.65;
+
+clearInterval(restoreMusic);
+
+}
+
+
+backgroundMusic.volume =
+restore;
+
+
+},100);
+
+
+
+const text =
+document.createElement("div");
+
+
+text.className =
+"always-love-text";
+
+
+text.innerHTML =
+"Always Loving You 💜";
+
+
+document.body.appendChild(text);
+
+
+
+setTimeout(()=>{
+
+text.classList.add("show");
+
+},100);
+
+
+
+setTimeout(()=>{
+
+text.classList.remove("show");
+
+
+setTimeout(()=>{
+
+text.remove();
+
+},2000);
+
+
+},4000);
+
+
+
+});
+
+
+}
