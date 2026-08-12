@@ -1086,44 +1086,7 @@ videoDuration.textContent =
 
 
 
-const videoObserver =
-new IntersectionObserver((entries)=>{
 
-
-entries.forEach(entry=>{
-
-
-if(entry.isIntersecting){
-
-
-startCinematicVideo();
-
-
-
-videoObserver.unobserve(
-entry.target
-);
-
-
-}
-
-
-});
-
-
-},{
-threshold:0.5
-});
-
-
-
-if(cinematicSection){
-
-videoObserver.observe(
-cinematicSection
-);
-
-}
 /* =================================
 CINEMATIC VIDEO V2
 ================================= */
