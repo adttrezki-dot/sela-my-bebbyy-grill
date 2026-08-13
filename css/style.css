@@ -3030,16 +3030,17 @@ CINEMATIC VIDEO EFFECT
 #cinematicVideo {
 
     width:100%;
+    height:auto;
+    display:block;
+    object-fit:cover;
 
-    filter:
-    brightness(0);
+    filter:brightness(1);
 
     transition:
     filter 2.5s ease;
 
 }
-
-
+   
 #cinematicVideo.video-light {
 
     filter:
