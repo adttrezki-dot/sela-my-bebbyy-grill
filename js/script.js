@@ -907,7 +907,6 @@ if(cinematic){
 if(cinematicVideo){
 
 
-
     cinematicVideo.addEventListener(
         "ended",
         ()=>{
@@ -921,7 +920,6 @@ if(cinematicVideo){
                 );
 
 
-
                 setTimeout(()=>{
 
 
@@ -933,28 +931,46 @@ if(cinematicVideo){
                 },3000);
 
 
-
             }
 
 
 
-            fadeMusic(
-                0.7,
-                2500
-            );
+            if(backgroundMusic){
 
+
+                backgroundMusic.volume = 0.3;
+
+
+                backgroundMusic.play()
+                .then(()=>{
+
+
+                    fadeMusic(
+                        0.7,
+                        2500
+                    );
+
+
+                })
+                .catch(error=>{
+
+
+                    console.log(
+                        "Music resume failed:",
+                        error
+                    );
+
+
+                });
+
+
+            }
 
 
         }
     );
 
-
-
 }
-
-
-
-
 
 /* =====================================================
    INITIAL CHECK
