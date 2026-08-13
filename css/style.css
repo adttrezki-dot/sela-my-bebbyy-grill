@@ -3259,3 +3259,42 @@ opacity:1;
     z-index:6;
 
 }
+/* =====================================
+   FIX CINEMATIC VIDEO VISIBILITY
+===================================== */
+
+.cinematic-video-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+
+.cinematic-video-wrapper video {
+
+    position: relative;
+
+    z-index: 3;
+
+    width: 100%;
+
+    height: auto;
+
+    display: block;
+
+    object-fit: cover;
+
+}
+
+
+
+.cinematic-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+}
