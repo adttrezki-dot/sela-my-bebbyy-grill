@@ -1,6 +1,6 @@
 /* =====================================================
    SELA — MY BEBBY GRILL
-   CLEAN SCRIPT VERSION
+   CLEAN SCRIPT FINAL
    PART 1/3
 ===================================================== */
 
@@ -14,109 +14,180 @@ const countdown = document.getElementById("countdown");
 const mainContent = document.getElementById("mainContent");
 
 const openButton = document.getElementById("openButton");
+
 const replayButton = document.getElementById("replayButton");
 const finalReplayButton = document.getElementById("finalReplayButton");
 
 const countdownNumber = document.getElementById("countdownNumber");
 
-const backgroundMusic = document.getElementById("backgroundMusic");
-const musicPlayer = document.getElementById("musicPlayer");
-const musicButton = document.getElementById("musicButton");
+
+/* MUSIC */
+
+const backgroundMusic =
+document.getElementById("backgroundMusic");
+
+const musicPlayer =
+document.getElementById("musicPlayer");
+
+const musicButton =
+document.getElementById("musicButton");
+
+
+/* PARTICLES */
+
+const particles =
+document.getElementById("particles");
+
+
+/* CINEMATIC */
+
+const cinematic =
+document.getElementById("cinematic");
+
+const cinematicVideo =
+document.getElementById("cinematicVideo");
+
+const videoTimer =
+document.getElementById("videoTimer");
+
+const alwaysLove =
+document.querySelector(".always-love");
+
 
 
 /* =====================================================
    STATE
 ===================================================== */
 
-let musicStarted = false;
+
 let musicPlaying = false;
+
+let musicStarted = false;
+
+let cinematicPlayed = false;
+
+let cinematicObserverActive = false;
+
 
 
 /* =====================================================
-   HELPER
+   BASIC HELPERS
 ===================================================== */
+
 
 function show(element){
 
     if(element){
+
         element.classList.remove("hidden");
+
     }
 
 }
+
 
 
 function hide(element){
 
     if(element){
+
         element.classList.add("hidden");
+
     }
 
 }
+
+
 
 
 /* =====================================================
    OPENING EXPERIENCE
 ===================================================== */
 
+
 function startExperience(){
 
+
     hide(opening);
+
 
     show(countdown);
 
 
-    let number = 3;
+
+    let count = 3;
+
+
 
     if(countdownNumber){
 
-        countdownNumber.textContent = number;
+        countdownNumber.textContent = count;
 
     }
+
 
 
     const timer = setInterval(()=>{
 
 
-        number--;
+        count--;
+
 
 
         if(countdownNumber){
 
-            countdownNumber.textContent = number;
+            countdownNumber.textContent = count;
 
         }
 
 
-        if(number <= 0){
+
+        if(count <= 0){
+
 
             clearInterval(timer);
 
 
+
             hide(countdown);
 
+
             show(mainContent);
+
 
             show(musicPlayer);
 
 
+
             startMusic();
 
-            revealOnLoad();
 
 
             window.scrollTo({
+
                 top:0,
+
                 behavior:"smooth"
+
             });
 
 
+
+            revealOnScroll();
+
+
+
         }
+
 
 
     },1000);
 
 
+
 }
+
+
 
 
 
@@ -124,19 +195,24 @@ function startExperience(){
    OPEN BUTTON
 ===================================================== */
 
+
 if(openButton){
 
 
-    openButton.addEventListener("click",()=>{
+    openButton.addEventListener(
+        "click",
+        ()=>{
 
 
-        startExperience();
+            startExperience();
 
 
-    });
+        }
+    );
 
 
 }
+
 
 
 
@@ -149,29 +225,41 @@ function startMusic(){
 
 
     if(!backgroundMusic){
+
         return;
+
     }
+
 
 
     if(!musicStarted){
 
+
         backgroundMusic.volume = 0.7;
 
+
+
         backgroundMusic.play()
+
         .then(()=>{
+
 
             musicStarted = true;
 
             musicPlaying = true;
 
+
             updateMusicButton();
 
 
         })
-        .catch((error)=>{
+
+
+        .catch(error=>{
+
 
             console.log(
-                "Music waiting for interaction:",
+                "Music waiting:",
                 error
             );
 
@@ -179,10 +267,13 @@ function startMusic(){
         });
 
 
+
     }
 
 
+
 }
+
 
 
 
@@ -190,17 +281,23 @@ function toggleMusic(){
 
 
     if(!backgroundMusic){
+
         return;
+
     }
+
 
 
     if(backgroundMusic.paused){
 
 
         backgroundMusic.play()
+
         .then(()=>{
 
+
             musicPlaying = true;
+
 
             updateMusicButton();
 
@@ -209,12 +306,16 @@ function toggleMusic(){
 
 
 
-    }else{
+    }
+
+    else{
 
 
         backgroundMusic.pause();
 
+
         musicPlaying = false;
+
 
         updateMusicButton();
 
@@ -226,26 +327,28 @@ function toggleMusic(){
 
 
 
+
 function updateMusicButton(){
 
 
     if(!musicButton){
+
         return;
-    }
-
-
-    if(musicPlaying){
-
-        musicButton.textContent = "⏸";
-
-    }else{
-
-        musicButton.textContent = "▶";
 
     }
+
+
+
+    musicButton.textContent =
+    musicPlaying
+    ?
+    "⏸"
+    :
+    "▶";
 
 
 }
+
 
 
 
@@ -259,79 +362,19 @@ if(musicButton){
 
 
 }
-
-
-
 /* =====================================================
-   REPLAY BASIC
+   PARTICLES SYSTEM
 ===================================================== */
 
 
-function replayExperience(){
+const particleIcons = [
 
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
-    });
-
-
-    hide(mainContent);
-
-
-    setTimeout(()=>{
-
-
-        startExperience();
-
-
-    },800);
-
-
-}
-
-
-
-if(replayButton){
-
-
-    replayButton.addEventListener(
-        "click",
-        replayExperience
-    );
-
-
-}
-
-
-if(finalReplayButton){
-
-
-    finalReplayButton.addEventListener(
-        "click",
-        replayExperience
-    );
-
-
-}
-/* =====================================================
-   PARTICLE HEARTS & FLOWERS
-   PART 2/3
-===================================================== */
-
-
-const particles = document.getElementById("particles");
-
-
-const particleSymbols = [
     "💜",
     "💗",
     "💕",
     "🌸",
     "✨"
+
 ];
 
 
@@ -340,49 +383,64 @@ function createParticle(){
 
 
     if(!particles){
+
         return;
+
     }
 
 
-    const particle = document.createElement("span");
 
-
-    particle.className = "floating-particle";
-
-
-    particle.innerHTML =
-        particleSymbols[
-            Math.floor(
-                Math.random() *
-                particleSymbols.length
-            )
-        ];
+    const item =
+    document.createElement("div");
 
 
 
-    particle.style.left =
-        Math.random() * 100 + "%";
-
-
-    particle.style.animationDuration =
-        (5 + Math.random() * 5) + "s";
+    item.className =
+    "particle";
 
 
 
-    particle.style.fontSize =
-        (15 + Math.random() * 20) + "px";
+    item.textContent =
+    particleIcons[
+        Math.floor(
+            Math.random()
+            *
+            particleIcons.length
+        )
+    ];
 
 
 
-    particles.appendChild(particle);
+    item.style.left =
+    Math.random()*100 + "%";
+
+
+
+    item.style.animationDuration =
+    (5 + Math.random()*6)
+    +
+    "s";
+
+
+
+    item.style.fontSize =
+    (12 + Math.random()*20)
+    +
+    "px";
+
+
+
+    particles.appendChild(item);
 
 
 
     setTimeout(()=>{
 
-        particle.remove();
 
-    },10000);
+        item.remove();
+
+
+    },12000);
 
 
 
@@ -390,58 +448,87 @@ function createParticle(){
 
 
 
-setInterval(
-    createParticle,
-    700
-);
 
 
+function startParticles(){
+
+
+    setInterval(()=>{
+
+
+        createParticle();
+
+
+    },500);
+
+
+
+}
+
+
+
+if(particles){
+
+    startParticles();
+
+}
 
 
 
 /* =====================================================
-   SCROLL REVEAL SYSTEM
+   SCROLL REVEAL
 ===================================================== */
-
-
-const revealElements = document.querySelectorAll(
-    `
-    .memory-card,
-    .intro-section,
-    .cinematic-section,
-    .letter-container,
-    .collage-section,
-    .ending-content,
-    .final-love-content
-    `
-);
-
 
 
 function revealOnScroll(){
 
 
-    revealElements.forEach(element=>{
-
-
-        const position =
-            element.getBoundingClientRect()
-            .top;
-
-
-        const trigger =
-            window.innerHeight * 0.85;
+    const elements =
+    document.querySelectorAll(
+        ".memory-card, .letter-container, .collage-item, .cinematic-content, .cinematic-video-wrapper, .ending-content, .final-love-content"
+    );
 
 
 
-        if(position < trigger){
+    const observer =
+    new IntersectionObserver(
 
-            element.classList.add(
-                "show"
-            );
+        entries=>{
+
+
+            entries.forEach(entry=>{
+
+
+                if(entry.isIntersecting){
+
+
+                    entry.target.classList.add(
+                        "show"
+                    );
+
+
+                }
+
+
+            });
+
+
+        },
+
+        {
+
+            threshold:0.2
 
         }
 
+    );
+
+
+
+    elements.forEach(element=>{
+
+
+        observer.observe(element);
 
 
     });
@@ -451,23 +538,15 @@ function revealOnScroll(){
 
 
 
-function revealOnLoad(){
+document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
 
-
-    setTimeout(()=>{
 
         revealOnScroll();
 
-    },300);
 
-
-}
-
-
-
-window.addEventListener(
-    "scroll",
-    revealOnScroll
+    }
 );
 
 
@@ -485,25 +564,27 @@ document.addEventListener(
 
 
         const heart =
-            document.createElement("span");
+        document.createElement("div");
 
 
 
         heart.className =
-            "click-heart";
+        "click-heart";
+
 
 
         heart.innerHTML =
-            "💜";
+        "💜";
 
 
 
         heart.style.left =
-            event.clientX + "px";
+        event.clientX + "px";
+
 
 
         heart.style.top =
-            event.clientY + "px";
+        event.clientY + "px";
 
 
 
@@ -519,7 +600,7 @@ document.addEventListener(
             heart.remove();
 
 
-        },1200);
+        },1000);
 
 
 
@@ -535,23 +616,25 @@ document.addEventListener(
 ===================================================== */
 
 
-const tiltCards =
+const memoryCards =
 document.querySelectorAll(
     ".memory-card"
 );
 
 
 
-tiltCards.forEach(card=>{
+memoryCards.forEach(card=>{
 
 
     card.addEventListener(
         "mousemove",
-        (event)=>{
+        (e)=>{
 
 
             if(window.innerWidth < 768){
+
                 return;
+
             }
 
 
@@ -562,32 +645,24 @@ tiltCards.forEach(card=>{
 
 
             const x =
-            event.clientX - rect.left;
+            e.clientX - rect.left;
 
 
 
             const y =
-            event.clientY - rect.top;
-
-
-
-            const centerX =
-            rect.width / 2;
-
-
-
-            const centerY =
-            rect.height / 2;
-
-
-
-            const rotateX =
-            (y-centerY) / 20;
+            e.clientY - rect.top;
 
 
 
             const rotateY =
-            (centerX-x) / 20;
+            ((x / rect.width)-0.5)
+            * 10;
+
+
+
+            const rotateX =
+            ((y / rect.height)-0.5)
+            * -10;
 
 
 
@@ -600,7 +675,10 @@ tiltCards.forEach(card=>{
             `;
 
 
+
         }
+
+
     );
 
 
@@ -616,66 +694,51 @@ tiltCards.forEach(card=>{
 
 
         }
+
+
     );
 
 
+
 });
-/* =====================================================
-   CINEMATIC MEMORY SYSTEM
-   PART 3/3
-===================================================== */
 
 
-const cinematic =
-document.getElementById("cinematic");
-
-
-const cinematicVideo =
-document.getElementById("cinematicVideo");
-
-
-const videoTimer =
-document.getElementById("videoTimer");
-
-
-const alwaysLove =
-document.querySelector(".always-love");
-
-
-
-let cinematicPlayed = false;
 
 
 
 /* =====================================================
-   MUSIC FADE SYSTEM
+   CINEMATIC SYSTEM
 ===================================================== */
 
 
-function fadeMusic(targetVolume, duration = 1500){
+function fadeMusic(
+    target,
+    duration
+){
 
 
     if(!backgroundMusic){
+
         return;
+
     }
 
 
-    const startVolume =
-        backgroundMusic.volume;
+
+    const start =
+    backgroundMusic.volume;
 
 
-    const difference =
-        targetVolume - startVolume;
+
+    const step =
+    50;
 
 
-    const steps = 30;
 
-
-    const stepTime =
-        duration / steps;
-
-
-    let currentStep = 0;
+    const change =
+    (target-start)
+    /
+    (duration/step);
 
 
 
@@ -683,30 +746,89 @@ function fadeMusic(targetVolume, duration = 1500){
     setInterval(()=>{
 
 
-        currentStep++;
-
-
-        backgroundMusic.volume =
-        startVolume +
-        (
-            difference *
-            (currentStep / steps)
-        );
+        backgroundMusic.volume += change;
 
 
 
-        if(currentStep >= steps){
+        if(
+            (change < 0 &&
+            backgroundMusic.volume <= target)
+
+            ||
+
+            (change > 0 &&
+            backgroundMusic.volume >= target)
+
+        ){
+
+
+            backgroundMusic.volume =
+            target;
+
+
 
             clearInterval(fade);
 
-            backgroundMusic.volume =
-            targetVolume;
 
         }
 
 
 
-    }, stepTime);
+    },step);
+
+
+
+}
+/* =====================================================
+   CINEMATIC VIDEO SYSTEM
+===================================================== */
+
+
+function startCinematic(){
+
+
+    if(!cinematicVideo){
+
+        return;
+
+    }
+
+
+
+    if(cinematicPlayed){
+
+        return;
+
+    }
+
+
+
+    cinematicPlayed = true;
+
+
+
+    if(backgroundMusic){
+
+
+        fadeMusic(
+            0.3,
+            1500
+        );
+
+
+    }
+
+
+
+    cinematicVideo.currentTime = 0;
+
+
+    cinematicVideo.volume = 0.7;
+
+
+
+    startVideoCountdown();
+
 
 
 }
@@ -715,18 +837,37 @@ function fadeMusic(targetVolume, duration = 1500){
 
 
 
-/* =====================================================
-   VIDEO COUNTDOWN
-===================================================== */
-
-
 function startVideoCountdown(){
 
 
-    return new Promise(resolve=>{
+    if(!videoTimer){
 
 
-        let count = 3;
+        playVideo();
+
+
+        return;
+
+
+    }
+
+
+
+    let count = 3;
+
+
+
+    videoTimer.textContent =
+    count;
+
+
+
+    const timer =
+    setInterval(()=>{
+
+
+        count--;
+
 
 
         if(videoTimer){
@@ -738,115 +879,64 @@ function startVideoCountdown(){
 
 
 
-        const timer =
-        setInterval(()=>{
+        if(count <= 0){
 
 
-            count--;
-
-
-
-            if(videoTimer){
-
-                videoTimer.textContent =
-                count;
-
-            }
+            clearInterval(timer);
 
 
 
-            if(count <= 0){
-
-
-                clearInterval(timer);
-
-
-                resolve();
+            videoTimer.style.display =
+            "none";
 
 
 
-            }
+            playVideo();
 
 
 
-        },1000);
+        }
 
+
+
+    },1000);
+
+
+
+}
+
+
+
+
+function playVideo(){
+
+
+    if(!cinematicVideo){
+
+        return;
+
+    }
+
+
+
+    cinematicVideo.play()
+
+    .catch(error=>{
+
+
+        console.log(
+            "Video play blocked:",
+            error
+        );
 
 
     });
 
 
-
 }
 
 
 
-
-
-/* =====================================================
-   START CINEMATIC
-===================================================== */
-
-
-async function playCinematic(){
-
-
-
-    if(cinematicPlayed){
-        return;
-    }
-
-
-
-    cinematicPlayed = true;
-
-
-
-    await startVideoCountdown();
-
-
-
-    if(backgroundMusic){
-
-
-        fadeMusic(
-            0.3,
-            2000
-        );
-
-
-    }
-
-
-
-
-    if(cinematicVideo){
-
-
-    cinematicVideo.volume = 0.7;
-
-
-    cinematicVideo.load();
-
-
-}
-   
-
-
-
-    }
-
-
-
-}
-
-
-
-
-
-/* =====================================================
-   OBSERVER CINEMATIC
-===================================================== */
 
 
 if(cinematic){
@@ -854,17 +944,19 @@ if(cinematic){
 
     const cinematicObserver =
     new IntersectionObserver(
+
         entries=>{
 
 
             entries.forEach(entry=>{
 
 
-                if(
-                    entry.isIntersecting
-                ){
+                if(entry.isIntersecting){
 
-                    playCinematic();
+
+                    startCinematic();
+
+
 
                 }
 
@@ -873,9 +965,13 @@ if(cinematic){
 
 
         },
+
         {
-            threshold:0.45
+
+            threshold:0.4
+
         }
+
     );
 
 
@@ -885,16 +981,13 @@ if(cinematic){
     );
 
 
-
 }
 
 
 
 
 
-/* =====================================================
-   VIDEO FINISH
-===================================================== */
+/* VIDEO FINISH */
 
 
 if(cinematicVideo){
@@ -913,6 +1006,7 @@ if(cinematicVideo){
                 );
 
 
+
                 setTimeout(()=>{
 
 
@@ -924,6 +1018,7 @@ if(cinematicVideo){
                 },3000);
 
 
+
             }
 
 
@@ -931,69 +1026,176 @@ if(cinematicVideo){
             if(backgroundMusic){
 
 
-                // pastikan musik aktif lagi
-
-                backgroundMusic.volume = 0.3;
-
-
-
-                const resumeMusic = async ()=>{
-
-
-                    try{
-
-
-                        await backgroundMusic.play();
-
-
-
-                        fadeMusic(
-                            0.7,
-                            2500
-                        );
-
-
-                    }
-                    catch(error){
-
-
-                        console.log(
-                            "Music resume failed:",
-                            error
-                        );
-
-
-                    }
-
-
-                };
-
-
-
-                resumeMusic();
-
+                fadeMusic(
+                    0.7,
+                    2500
+                );
 
 
             }
 
 
+
         }
+
     );
 
 
 }
 
+
+
+
+
 /* =====================================================
-   INITIAL CHECK
+   REPLAY EXPERIENCE
 ===================================================== */
 
 
-window.addEventListener(
-    "load",
+function resetExperience(){
+
+
+
+    cinematicPlayed =
+    false;
+
+
+
+    if(cinematicVideo){
+
+
+        cinematicVideo.pause();
+
+
+        cinematicVideo.currentTime =
+        0;
+
+
+    }
+
+
+
+    if(backgroundMusic){
+
+
+        backgroundMusic.pause();
+
+
+        backgroundMusic.currentTime =
+        0;
+
+
+        backgroundMusic.volume =
+        0.7;
+
+
+        musicStarted =
+        false;
+
+
+        musicPlaying =
+        false;
+
+
+
+        updateMusicButton();
+
+
+
+    }
+
+
+
+
+    hide(mainContent);
+
+
+    show(opening);
+
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"instant"
+
+    });
+
+
+
+}
+
+
+
+
+if(replayButton){
+
+
+    replayButton.addEventListener(
+        "click",
+        ()=>{
+
+
+            resetExperience();
+
+
+        }
+
+    );
+
+
+}
+
+
+
+
+if(finalReplayButton){
+
+
+    finalReplayButton.addEventListener(
+        "click",
+        ()=>{
+
+
+            resetExperience();
+
+
+        }
+
+    );
+
+
+}
+
+
+
+
+/* =====================================================
+   INITIAL SETUP
+===================================================== */
+
+
+document.addEventListener(
+    "DOMContentLoaded",
     ()=>{
 
 
-        revealOnScroll();
+        hide(mainContent);
+
+
+        hide(countdown);
+
+
+
+        if(backgroundMusic){
+
+
+            backgroundMusic.volume =
+            0.7;
+
+
+        }
 
 
 
