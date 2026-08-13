@@ -1,13 +1,13 @@
 /* =====================================================
    SELA — MY BEBBY GRILL
-   CLEAN SCRIPT FINAL
+   STABLE SCRIPT VERSION
    PART 1/3
 ===================================================== */
 
 
-/* =====================================================
-   ELEMENT SELECTOR
-===================================================== */
+/* ===============================
+   SELECT ELEMENT
+================================ */
 
 const opening = document.getElementById("opening");
 const countdown = document.getElementById("countdown");
@@ -15,13 +15,9 @@ const mainContent = document.getElementById("mainContent");
 
 const openButton = document.getElementById("openButton");
 
-const replayButton = document.getElementById("replayButton");
-const finalReplayButton = document.getElementById("finalReplayButton");
+const countdownNumber =
+document.getElementById("countdownNumber");
 
-const countdownNumber = document.getElementById("countdownNumber");
-
-
-/* MUSIC */
 
 const backgroundMusic =
 document.getElementById("backgroundMusic");
@@ -33,13 +29,9 @@ const musicButton =
 document.getElementById("musicButton");
 
 
-/* PARTICLES */
-
 const particles =
 document.getElementById("particles");
 
-
-/* CINEMATIC */
 
 const cinematic =
 document.getElementById("cinematic");
@@ -54,25 +46,32 @@ const alwaysLove =
 document.querySelector(".always-love");
 
 
+const replayButton =
+document.getElementById("replayButton");
 
-/* =====================================================
+const finalReplayButton =
+document.getElementById("finalReplayButton");
+
+
+
+/* ===============================
    STATE
-===================================================== */
-
-
-let musicPlaying = false;
+================================ */
 
 let musicStarted = false;
 
-let cinematicPlayed = false;
+let musicPlaying = false;
 
-let cinematicObserverActive = false;
+let cinematicStarted = false;
+
+let videoCountdownRunning = false;
 
 
 
-/* =====================================================
-   BASIC HELPERS
-===================================================== */
+
+/* ===============================
+   HELPER
+================================ */
 
 
 function show(element){
@@ -100,9 +99,10 @@ function hide(element){
 
 
 
-/* =====================================================
-   OPENING EXPERIENCE
-===================================================== */
+
+/* ===============================
+   OPENING SYSTEM
+================================ */
 
 
 function startExperience(){
@@ -115,34 +115,36 @@ function startExperience(){
 
 
 
-    let count = 3;
+    let number = 3;
 
 
 
     if(countdownNumber){
 
-        countdownNumber.textContent = count;
+        countdownNumber.textContent = number;
 
     }
 
 
 
-    const timer = setInterval(()=>{
+    const timer =
+    setInterval(()=>{
 
 
-        count--;
+        number--;
 
 
 
         if(countdownNumber){
 
-            countdownNumber.textContent = count;
+            countdownNumber.textContent =
+            number;
 
         }
 
 
 
-        if(count <= 0){
+        if(number <= 0){
 
 
             clearInterval(timer);
@@ -152,7 +154,9 @@ function startExperience(){
             hide(countdown);
 
 
+
             show(mainContent);
+
 
 
             show(musicPlayer);
@@ -172,11 +176,6 @@ function startExperience(){
             });
 
 
-
-            revealOnScroll();
-
-
-
         }
 
 
@@ -188,12 +187,6 @@ function startExperience(){
 }
 
 
-
-
-
-/* =====================================================
-   OPEN BUTTON
-===================================================== */
 
 
 if(openButton){
@@ -216,6 +209,37 @@ if(openButton){
 
 
 
+
+/* ===============================
+   INITIAL STATE
+================================ */
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+
+        hide(countdown);
+
+
+        hide(mainContent);
+
+
+
+        if(backgroundMusic){
+
+
+            backgroundMusic.volume =
+            0.7;
+
+
+        }
+
+
+
+    }
+);
 /* =====================================================
    MUSIC SYSTEM
 ===================================================== */
@@ -232,55 +256,7 @@ function startMusic(){
 
 
 
-    if(!musicStarted){
-
-
-        backgroundMusic.volume = 0.7;
-
-
-
-        backgroundMusic.play()
-
-        .then(()=>{
-
-
-            musicStarted = true;
-
-            musicPlaying = true;
-
-
-            updateMusicButton();
-
-
-        })
-
-
-        .catch(error=>{
-
-
-            console.log(
-                "Music waiting:",
-                error
-            );
-
-
-        });
-
-
-
-    }
-
-
-
-}
-
-
-
-
-function toggleMusic(){
-
-
-    if(!backgroundMusic){
+    if(musicStarted){
 
         return;
 
@@ -288,39 +264,35 @@ function toggleMusic(){
 
 
 
-    if(backgroundMusic.paused){
-
-
-        backgroundMusic.play()
-
-        .then(()=>{
-
-
-            musicPlaying = true;
-
-
-            updateMusicButton();
-
-
-        });
+    backgroundMusic.volume = 0.7;
 
 
 
-    }
+    backgroundMusic.play()
 
-    else{
-
-
-        backgroundMusic.pause();
+    .then(()=>{
 
 
-        musicPlaying = false;
+        musicStarted = true;
+
+        musicPlaying = true;
 
 
         updateMusicButton();
 
 
-    }
+    })
+
+    .catch(error=>{
+
+
+        console.log(
+            "Music waiting:",
+            error
+        );
+
+
+    });
 
 
 }
@@ -352,6 +324,55 @@ function updateMusicButton(){
 
 
 
+function toggleMusic(){
+
+
+    if(!backgroundMusic){
+
+        return;
+
+    }
+
+
+
+    if(backgroundMusic.paused){
+
+
+        backgroundMusic.play()
+
+        .then(()=>{
+
+
+            musicPlaying = true;
+
+            updateMusicButton();
+
+
+        });
+
+
+    }
+
+    else{
+
+
+        backgroundMusic.pause();
+
+
+        musicPlaying = false;
+
+
+        updateMusicButton();
+
+
+    }
+
+
+}
+
+
+
+
 if(musicButton){
 
 
@@ -362,12 +383,17 @@ if(musicButton){
 
 
 }
+
+
+
+
+
 /* =====================================================
-   PARTICLES SYSTEM
+   PARTICLE SYSTEM
 ===================================================== */
 
 
-const particleIcons = [
+const particleList = [
 
     "💜",
     "💗",
@@ -390,56 +416,59 @@ function createParticle(){
 
 
 
-    const item =
+    const particle =
     document.createElement("div");
 
 
 
-    item.className =
- "particle floating-heart";
+    particle.className =
+    "floating-particle";
 
 
-    item.textContent =
-    particleIcons[
+
+    particle.innerHTML =
+    particleList[
         Math.floor(
             Math.random()
             *
-            particleIcons.length
+            particleList.length
         )
     ];
 
 
 
-    item.style.left =
+    particle.style.left =
     Math.random()*100 + "%";
 
 
 
-    item.style.animationDuration =
-    (5 + Math.random()*6)
-    +
-    "s";
-
-
-
-    item.style.fontSize =
-    (12 + Math.random()*20)
+    particle.style.fontSize =
+    (15 + Math.random()*20)
     +
     "px";
 
 
 
-    particles.appendChild(item);
+    particle.style.animationDuration =
+    (5 + Math.random()*5)
+    +
+    "s";
+
+
+
+    particles.appendChild(
+        particle
+    );
 
 
 
     setTimeout(()=>{
 
 
-        item.remove();
+        particle.remove();
 
 
-    },12000);
+    },10000);
 
 
 
@@ -458,19 +487,25 @@ function startParticles(){
         createParticle();
 
 
-    },500);
+    },600);
 
 
 
 }
+
 
 
 
 if(particles){
 
+
     startParticles();
 
+
 }
+
+
+
 
 
 
@@ -479,12 +514,20 @@ if(particles){
 ===================================================== */
 
 
-function revealOnScroll(){
+function startReveal(){
 
 
-    const elements =
+    const targets =
     document.querySelectorAll(
-        ".memory-card, .letter-container, .collage-item, .cinematic-content, .cinematic-video-wrapper, .ending-content, .final-love-content"
+
+        ".memory-card," +
+        ".collage-item," +
+        ".letter-container," +
+        ".cinematic-content," +
+        ".cinematic-video-wrapper," +
+        ".ending-content," +
+        ".final-love-content"
+
     );
 
 
@@ -495,21 +538,23 @@ function revealOnScroll(){
         entries=>{
 
 
-            entries.forEach(entry=>{
+            entries.forEach(
+                entry=>{
 
 
-                if(entry.isIntersecting){
+                    if(entry.isIntersecting){
 
 
-                    entry.target.classList.add(
-                        "show"
-                    );
+                        entry.target.classList.add(
+                            "show"
+                        );
+
+
+                    }
 
 
                 }
-
-
-            });
+            );
 
 
         },
@@ -524,13 +569,15 @@ function revealOnScroll(){
 
 
 
-    elements.forEach(element=>{
+    targets.forEach(
+        item=>{
 
 
-        observer.observe(element);
+            observer.observe(item);
 
 
-    });
+        }
+    );
 
 
 }
@@ -539,14 +586,515 @@ function revealOnScroll(){
 
 document.addEventListener(
     "DOMContentLoaded",
-    ()=>{
+    startReveal
+);
 
 
-        revealOnScroll();
+
+
+
+/* =====================================================
+   PHOTO TILT DESKTOP
+===================================================== */
+
+
+const cards =
+document.querySelectorAll(
+    ".memory-card"
+);
+
+
+
+cards.forEach(card=>{
+
+
+    card.addEventListener(
+        "mousemove",
+        (event)=>{
+
+
+            if(window.innerWidth < 768){
+
+                return;
+
+            }
+
+
+
+            const rect =
+            card.getBoundingClientRect();
+
+
+
+            const x =
+            event.clientX - rect.left;
+
+
+
+            const y =
+            event.clientY - rect.top;
+
+
+
+            const rotateY =
+            ((x / rect.width)-0.5)
+            * 8;
+
+
+
+            const rotateX =
+            ((y / rect.height)-0.5)
+            * -8;
+
+
+
+            card.style.transform =
+            `
+            perspective(900px)
+            rotateX(${rotateX}deg)
+            rotateY(${rotateY}deg)
+            `;
+
+
+
+        }
+    );
+
+
+
+    card.addEventListener(
+        "mouseleave",
+        ()=>{
+
+
+            card.style.transform =
+            "";
+
+        }
+    );
+
+
+});
+/* =====================================================
+   CINEMATIC VIDEO SYSTEM
+===================================================== */
+
+
+function startCinematic(){
+
+
+    if(!cinematicVideo){
+
+        return;
+
+    }
+
+
+
+    if(cinematicStarted){
+
+        return;
+
+    }
+
+
+
+    cinematicStarted = true;
+
+
+
+    // turunkan musik ketika video mulai
+
+    if(backgroundMusic){
+
+
+        backgroundMusic.volume = 0.15;
 
 
     }
-);
+
+
+
+
+    cinematicVideo.currentTime = 0;
+
+
+    cinematicVideo.volume = 0.7;
+
+
+
+    runVideoCountdown();
+
+
+}
+
+
+
+
+function runVideoCountdown(){
+
+
+    if(videoCountdownRunning){
+
+        return;
+
+    }
+
+
+
+    videoCountdownRunning = true;
+
+
+
+    if(!videoTimer){
+
+
+        playCinematicVideo();
+
+        return;
+
+
+    }
+
+
+
+    let count = 3;
+
+
+
+    videoTimer.style.display =
+    "block";
+
+
+
+    videoTimer.textContent =
+    count;
+
+
+
+    const timer =
+    setInterval(()=>{
+
+
+        count--;
+
+
+
+        videoTimer.textContent =
+        count;
+
+
+
+        if(count <= 0){
+
+
+            clearInterval(timer);
+
+
+
+            videoTimer.style.display =
+            "none";
+
+
+
+            playCinematicVideo();
+
+
+
+        }
+
+
+
+    },1000);
+
+
+
+}
+
+
+
+
+
+function playCinematicVideo(){
+
+
+    if(!cinematicVideo){
+
+        return;
+
+    }
+
+
+
+    cinematicVideo.play()
+
+    .then(()=>{
+
+
+        console.log(
+            "Video started"
+        );
+
+
+    })
+
+    .catch(error=>{
+
+
+        console.log(
+            "Video blocked:",
+            error
+        );
+
+
+    });
+
+
+
+}
+
+
+
+
+
+if(cinematic){
+
+
+    const videoObserver =
+    new IntersectionObserver(
+
+        entries=>{
+
+
+            entries.forEach(entry=>{
+
+
+                if(entry.isIntersecting){
+
+
+                    startCinematic();
+
+
+                }
+
+
+            });
+
+
+
+        },
+
+        {
+
+            threshold:0.5
+
+        }
+
+    );
+
+
+
+    videoObserver.observe(
+        cinematic
+    );
+
+
+}
+
+
+
+
+/* ===============================
+   VIDEO END
+================================ */
+
+
+if(cinematicVideo){
+
+
+    cinematicVideo.addEventListener(
+        "ended",
+        ()=>{
+
+
+            if(alwaysLove){
+
+
+                alwaysLove.classList.add(
+                    "show"
+                );
+
+
+
+                setTimeout(()=>{
+
+
+                    alwaysLove.classList.remove(
+                        "show"
+                    );
+
+
+                },3000);
+
+
+
+            }
+
+
+
+
+            if(backgroundMusic){
+
+
+                backgroundMusic.volume =
+                0.7;
+
+
+
+                musicPlaying = true;
+
+
+                updateMusicButton();
+
+
+                backgroundMusic.play()
+
+                .catch(error=>{
+
+
+                    console.log(
+                        "Music resume blocked:",
+                        error
+                    );
+
+
+                });
+
+
+
+            }
+
+
+
+        }
+    );
+
+
+}
+
+
+
+
+
+
+/* =====================================================
+   REPLAY SYSTEM
+===================================================== */
+
+
+function resetExperience(){
+
+
+
+    cinematicStarted =
+    false;
+
+
+
+    videoCountdownRunning =
+    false;
+
+
+
+    if(cinematicVideo){
+
+
+        cinematicVideo.pause();
+
+
+        cinematicVideo.currentTime =
+        0;
+
+
+    }
+
+
+
+    if(backgroundMusic){
+
+
+        backgroundMusic.pause();
+
+
+        backgroundMusic.currentTime =
+        0;
+
+
+        backgroundMusic.volume =
+        0.7;
+
+
+        musicStarted =
+        false;
+
+
+        musicPlaying =
+        false;
+
+
+        updateMusicButton();
+
+
+    }
+
+
+
+    hide(mainContent);
+
+
+    show(opening);
+
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+
+}
+
+
+
+
+
+if(replayButton){
+
+
+    replayButton.addEventListener(
+        "click",
+        resetExperience
+    );
+
+
+}
+
+
+
+
+if(finalReplayButton){
+
+
+    finalReplayButton.addEventListener(
+        "click",
+        resetExperience
+    );
+
+
+}
 
 
 
@@ -599,620 +1147,7 @@ document.addEventListener(
             heart.remove();
 
 
-        },1000);
-
-
-
-    }
-);
-
-
-
-
-
-/* =====================================================
-   PHOTO TILT DESKTOP
-===================================================== */
-
-
-const memoryCards =
-document.querySelectorAll(
-    ".memory-card"
-);
-
-
-
-memoryCards.forEach(card=>{
-
-
-    card.addEventListener(
-        "mousemove",
-        (e)=>{
-
-
-            if(window.innerWidth < 768){
-
-                return;
-
-            }
-
-
-
-            const rect =
-            card.getBoundingClientRect();
-
-
-
-            const x =
-            e.clientX - rect.left;
-
-
-
-            const y =
-            e.clientY - rect.top;
-
-
-
-            const rotateY =
-            ((x / rect.width)-0.5)
-            * 10;
-
-
-
-            const rotateX =
-            ((y / rect.height)-0.5)
-            * -10;
-
-
-
-            card.style.transform =
-            `
-            perspective(900px)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            scale(1.03)
-            `;
-
-
-
-        }
-
-
-    );
-
-
-
-    card.addEventListener(
-        "mouseleave",
-        ()=>{
-
-
-            card.style.transform =
-            "";
-
-
-
-        }
-
-
-    );
-
-
-
-});
-
-
-
-
-
-/* =====================================================
-   CINEMATIC SYSTEM
-===================================================== */
-
-
-function fadeMusic(
-    target,
-    duration
-){
-
-
-    if(!backgroundMusic){
-
-        return;
-
-    }
-
-
-
-    const start =
-    backgroundMusic.volume;
-
-
-
-    const step =
-    50;
-
-
-
-    const change =
-    (target-start)
-    /
-    (duration/step);
-
-
-
-    const fade =
-    setInterval(()=>{
-
-
-        backgroundMusic.volume += change;
-
-
-
-        if(
-            (change < 0 &&
-            backgroundMusic.volume <= target)
-
-            ||
-
-            (change > 0 &&
-            backgroundMusic.volume >= target)
-
-        ){
-
-
-            backgroundMusic.volume =
-            target;
-
-
-
-            clearInterval(fade);
-
-
-        }
-
-
-
-    },step);
-
-
-
-}
-/* =====================================================
-   CINEMATIC VIDEO SYSTEM
-===================================================== */
-
-
-function startCinematic(){
-
-
-    if(!cinematicVideo){
-
-        return;
-
-    }
-
-
-
-    if(cinematicPlayed){
-
-        return;
-
-    }
-
-
-
-    cinematicPlayed = true;
-
-
-
-    if(backgroundMusic){
-
-
-        fadeMusic(
-            0.,
-            1500
-        );
-
-
-    }
-
-
-
-    cinematicVideo.currentTime = 0;
-
-
-    cinematicVideo.volume = 0.7;
-
-
-
-    startVideoCountdown();
-
-
-
-}
-
-
-
-
-
-function startVideoCountdown(){
-
-
-    if(!videoTimer){
-
-
-        playVideo();
-
-
-        return;
-
-
-    }
-
-
-
-    let count = 3;
-
-
-
-    videoTimer.textContent =
-    count;
-
-
-
-    const timer =
-    setInterval(()=>{
-
-
-        count--;
-
-
-
-        if(videoTimer){
-
-            videoTimer.textContent =
-            count;
-
-        }
-
-
-
-        if(count <= 0){
-
-
-            clearInterval(timer);
-
-
-
-            videoTimer.style.display =
-            "none";
-
-
-
-            playVideo();
-
-
-
-        }
-
-
-
-    },1000);
-
-
-
-}
-
-
-
-
-function playVideo(){
-
-
-    if(!cinematicVideo){
-
-        return;
-
-    }
-
-
-    cinematicVideo.style.display = "block";
-
-
-    cinematicVideo.muted = false;
-
-
-    cinematicVideo.volume = 0.7;
-
-
-    cinematicVideo.play()
-
-    .then(()=>{
-
-
-        console.log(
-            "Video playing"
-        );
-
-
-    })
-
-    .catch(error=>{
-
-
-        console.log(
-            "Video gagal:",
-            error
-        );
-
-
-    });
-
-
-}
-
-
-
-
-
-if(cinematic){
-
-
-    const cinematicObserver =
-    new IntersectionObserver(
-
-        entries=>{
-
-
-            entries.forEach(entry=>{
-
-
-                if(entry.isIntersecting){
-
-
-                    startCinematic();
-
-
-
-                }
-
-
-            });
-
-
-        },
-
-        {
-
-            threshold:0.4
-
-        }
-
-    );
-
-
-
-    cinematicObserver.observe(
-        cinematic
-    );
-
-
-}
-
-
-
-
-
-/* VIDEO FINISH */
-
-
-if(cinematicVideo){
-
-
-    cinematicVideo.addEventListener(
-        "ended",
-        ()=>{
-
-
-            if(alwaysLove){
-
-
-                alwaysLove.classList.add(
-                    "show"
-                );
-
-
-
-                setTimeout(()=>{
-
-
-                    alwaysLove.classList.remove(
-                        "show"
-                    );
-
-
-                },3000);
-
-
-
-            }
-
-
-
-            if(backgroundMusic){
-
-
-                fadeMusic(
-                    0.7,
-                    2500
-                );
-
-
-            }
-
-
-
-        }
-
-    );
-
-
-}
-
-
-
-
-
-/* =====================================================
-   REPLAY EXPERIENCE
-===================================================== */
-
-
-function resetExperience(){
-
-
-
-    cinematicPlayed =
-    false;
-
-
-
-    if(cinematicVideo){
-
-
-        cinematicVideo.pause();
-
-
-        cinematicVideo.currentTime =
-        0;
-
-
-    }
-
-
-
-    if(backgroundMusic){
-
-
-        backgroundMusic.pause();
-
-
-        backgroundMusic.currentTime =
-        0;
-
-
-        backgroundMusic.volume =
-        0.7;
-
-
-        musicStarted =
-        false;
-
-
-        musicPlaying =
-        false;
-
-
-
-        updateMusicButton();
-
-
-
-    }
-
-
-
-
-    hide(mainContent);
-
-
-    show(opening);
-
-
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"instant"
-
-    });
-
-
-
-}
-
-
-
-
-if(replayButton){
-
-
-    replayButton.addEventListener(
-        "click",
-        ()=>{
-
-
-            resetExperience();
-
-
-        }
-
-    );
-
-
-}
-
-
-
-
-if(finalReplayButton){
-
-
-    finalReplayButton.addEventListener(
-        "click",
-        ()=>{
-
-
-            resetExperience();
-
-
-        }
-
-    );
-
-
-}
-
-
-
-
-/* =====================================================
-   INITIAL SETUP
-===================================================== */
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    ()=>{
-
-
-        hide(mainContent);
-
-
-        hide(countdown);
-
-
-
-        if(backgroundMusic){
-
-
-            backgroundMusic.volume =
-            0.7;
-
-
-        }
+        },1200);
 
 
 
