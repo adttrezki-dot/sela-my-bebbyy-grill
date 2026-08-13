@@ -938,30 +938,47 @@ if(cinematicVideo){
             if(backgroundMusic){
 
 
+                // pastikan musik aktif lagi
+
                 backgroundMusic.volume = 0.3;
 
 
-                backgroundMusic.play()
-                .then(()=>{
+
+                const resumeMusic = async ()=>{
 
 
-                    fadeMusic(
-                        0.7,
-                        2500
-                    );
+                    try{
 
 
-                })
-                .catch(error=>{
+                        await backgroundMusic.play();
 
 
-                    console.log(
-                        "Music resume failed:",
-                        error
-                    );
+
+                        fadeMusic(
+                            0.7,
+                            2500
+                        );
 
 
-                });
+                    }
+                    catch(error){
+
+
+                        console.log(
+                            "Music resume failed:",
+                            error
+                        );
+
+
+                    }
+
+
+                };
+
+
+
+                resumeMusic();
+
 
 
             }
@@ -969,6 +986,7 @@ if(cinematicVideo){
 
         }
     );
+
 
 }
 
