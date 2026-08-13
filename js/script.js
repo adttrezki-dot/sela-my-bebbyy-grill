@@ -823,7 +823,7 @@ async function playCinematic(){
     if(cinematicVideo){
 
 
-
+        cinematicVideo.muted = true;
         cinematicVideo.volume =
         0.7;
 
