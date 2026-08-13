@@ -823,21 +823,14 @@ async function playCinematic(){
     if(cinematicVideo){
 
 
-        cinematicVideo.muted = true;
-        cinematicVideo.volume =
-        0.7;
+    cinematicVideo.volume = 0.7;
 
 
+    cinematicVideo.load();
 
-        cinematicVideo.play()
-        .catch(error=>{
 
-            console.log(
-                "Video autoplay blocked:",
-                error
-            );
-
-        });
+}
+   
 
 
 
