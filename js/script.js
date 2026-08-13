@@ -396,8 +396,7 @@ function createParticle(){
 
 
     item.className =
-    "particle";
-
+ "particle floating-heart";
 
 
     item.textContent =
@@ -811,7 +810,7 @@ function startCinematic(){
 
 
         fadeMusic(
-            0.3,
+            0.,
             1500
         );
 
@@ -918,14 +917,32 @@ function playVideo(){
     }
 
 
+    cinematicVideo.style.display = "block";
+
+
+    cinematicVideo.muted = false;
+
+
+    cinematicVideo.volume = 0.7;
+
 
     cinematicVideo.play()
+
+    .then(()=>{
+
+
+        console.log(
+            "Video playing"
+        );
+
+
+    })
 
     .catch(error=>{
 
 
         console.log(
-            "Video play blocked:",
+            "Video gagal:",
             error
         );
 
