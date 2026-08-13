@@ -826,9 +826,18 @@ function playCinematicVideo(){
 
 
 
-    cinematicVideo.play()
+   cinematicVideo.play()
 
-    .then(()=>{
+.then(()=>{
+
+    cinematicVideo.classList.add(
+        "video-light"
+    );
+
+    console.log(
+        "Video started"
+    );
+
 
 
         console.log(
