@@ -1,459 +1,482 @@
-/* =====================================================
-   SELA — MY BEBBY GRILL
-   STABLE SCRIPT VERSION
-   PART 1/3
-===================================================== */
+```javascript
+/* =========================================================
+   SELA — A MESSAGE LEFT BEHIND
+   SCRIPT.JS
+   ========================================================= */
 
 
-/* ===============================
-   SELECT ELEMENT
-================================ */
+/* =========================================================
+   01. SELECT ELEMENT
+   ========================================================= */
 
 const opening = document.getElementById("opening");
 const countdown = document.getElementById("countdown");
 const mainContent = document.getElementById("mainContent");
 
 const openButton = document.getElementById("openButton");
-
-const countdownNumber =
-document.getElementById("countdownNumber");
-
+const countdownNumber = document.getElementById("countdownNumber");
 
 const backgroundMusic =
-document.getElementById("backgroundMusic");
+    document.getElementById("backgroundMusic");
 
 const musicPlayer =
-document.getElementById("musicPlayer");
+    document.getElementById("musicPlayer");
 
 const musicButton =
-document.getElementById("musicButton");
-
+    document.getElementById("musicButton");
 
 const particles =
-document.getElementById("particles");
-
+    document.getElementById("particles");
 
 const cinematic =
-document.getElementById("cinematic");
+    document.getElementById("cinematic");
 
 const cinematicVideo =
-document.getElementById("cinematicVideo");
+    document.getElementById("cinematicVideo");
 
 const videoTimer =
-document.getElementById("videoTimer");
+    document.getElementById("videoTimer");
 
-const alwaysLove =
-document.querySelector(".always-love");
+const replyForm =
+    document.getElementById("replyForm");
 
+const replyStatus =
+    document.getElementById("replyStatus");
 
 const replayButton =
-document.getElementById("replayButton");
-
-const finalReplayButton =
-document.getElementById("finalReplayButton");
+    document.getElementById("replayButton");
 
 
-
-/* ===============================
-   STATE
-================================ */
-
-let musicStarted = false;
+/* =========================================================
+   02. STATE
+   ========================================================= */
 
 let musicPlaying = false;
+let musicStarted = false;
 
 let cinematicStarted = false;
+let cinematicPlaying = false;
 
-let videoCountdownRunning = false;
+let countdownRunning = false;
 
-
-
-
-/* ===============================
-   HELPER
-================================ */
+let savedMusicTime = 0;
 
 
-function show(element){
+/* =========================================================
+   03. BASIC HELPERS
+   ========================================================= */
 
-    if(element){
+function showElement(element) {
+    if (!element) return;
 
-        element.classList.remove("hidden");
+    element.style.display = "";
+}
 
-    }
+function hideElement(element) {
+    if (!element) return;
 
+    element.style.display = "none";
 }
 
 
+/* =========================================================
+   04. INITIAL STATE
+   ========================================================= */
 
-function hide(element){
+document.addEventListener("DOMContentLoaded", () => {
 
-    if(element){
-
-        element.classList.add("hidden");
-
+    if (countdown) {
+        countdown.style.display = "none";
     }
 
-}
+    if (mainContent) {
+        mainContent.style.display = "none";
+    }
+
+    if (musicPlayer) {
+        musicPlayer.classList.remove("active");
+    }
+
+    if (backgroundMusic) {
+        backgroundMusic.volume = 0.7;
+        backgroundMusic.currentTime = 0;
+    }
+
+    if (cinematicVideo) {
+        cinematicVideo.volume = 0.7;
+    }
+
+    updateMusicButton();
+
+});
 
 
+/* =========================================================
+   05. OPENING SYSTEM
+   ========================================================= */
+
+function startExperience() {
+
+    if (countdownRunning) {
+        return;
+    }
+
+    countdownRunning = true;
 
 
+    /* Hide opening */
 
-/* ===============================
-   OPENING SYSTEM
-================================ */
-
-
-function startExperience(){
+    if (opening) {
+        opening.classList.add("hidden");
+    }
 
 
-    hide(opening);
+    /* Show countdown */
 
-
-    show(countdown);
-
+    if (countdown) {
+        countdown.style.display = "flex";
+    }
 
 
     let number = 3;
 
-
-
-    if(countdownNumber){
-
+    if (countdownNumber) {
         countdownNumber.textContent = number;
-
     }
 
 
+    const countdownInterval =
+        setInterval(() => {
 
-    const timer =
-    setInterval(()=>{
+            number--;
 
-
-        number--;
-
-
-
-        if(countdownNumber){
-
-            countdownNumber.textContent =
-            number;
-
-        }
+            if (countdownNumber) {
+                countdownNumber.textContent = number;
+            }
 
 
+            if (number <= 0) {
 
-        if(number <= 0){
+                clearInterval(countdownInterval);
 
+                finishOpening();
 
-            clearInterval(timer);
+            }
 
-
-
-            hide(countdown);
-
-
-
-            show(mainContent);
-
-
-
-            show(musicPlayer);
-
-
-
-            startMusic();
-
-
-
-            window.scrollTo({
-
-                top:0,
-
-                behavior:"smooth"
-
-            });
-
-
-        }
-
-
-
-    },1000);
-
-
+        }, 1000);
 
 }
 
 
+/* =========================================================
+   06. FINISH OPENING
+   ========================================================= */
+
+function finishOpening() {
+
+    countdownRunning = false;
 
 
-if(openButton){
+    /* Hide countdown */
 
-
-    openButton.addEventListener(
-        "click",
-        ()=>{
-
-
-            startExperience();
-
-
-        }
-    );
-
-
-}
-
-
-
-
-
-/* ===============================
-   INITIAL STATE
-================================ */
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    ()=>{
-
-
-        hide(countdown);
-
-
-        hide(mainContent);
-
-
-
-        if(backgroundMusic){
-
-
-            backgroundMusic.volume =
-            0.7;
-
-
-        }
-
-
-
-    }
-);
-/* =====================================================
-   MUSIC SYSTEM
-===================================================== */
-
-
-function startMusic(){
-
-
-    if(!backgroundMusic){
-
-        return;
-
+    if (countdown) {
+        countdown.style.display = "none";
     }
 
 
+    /* Show main content */
 
-    if(musicStarted){
-
-        return;
-
+    if (mainContent) {
+        mainContent.style.display = "block";
+        mainContent.classList.add("active");
     }
 
 
+    /* Show music player */
 
-    backgroundMusic.volume = 0.7;
-
-
-
-    backgroundMusic.play()
-
-    .then(()=>{
+    if (musicPlayer) {
+        musicPlayer.classList.add("active");
+    }
 
 
-        musicStarted = true;
+    /* Start music */
 
-        musicPlaying = true;
-
-
-        updateMusicButton();
+    startMusic();
 
 
-    })
+    /* Scroll to top */
 
-    .catch(error=>{
-
-
-        console.log(
-            "Music waiting:",
-            error
-        );
-
-
+    window.scrollTo({
+        top: 0,
+        behavior: "instant"
     });
 
 
-}
+    /* Start observing */
 
-
-
-
-function updateMusicButton(){
-
-
-    if(!musicButton){
-
-        return;
-
-    }
-
-
-
-    musicButton.textContent =
-    musicPlaying
-    ?
-    "⏸"
-    :
-    "▶";
-
+    observeRevealElements();
 
 }
 
 
+/* =========================================================
+   07. OPEN BUTTON
+   ========================================================= */
+
+if (openButton) {
+
+    openButton.addEventListener(
+        "click",
+        startExperience
+    );
+
+}
 
 
-function toggleMusic(){
+/* =========================================================
+   08. MUSIC SYSTEM
+   ========================================================= */
 
+function startMusic() {
 
-    if(!backgroundMusic){
-
+    if (!backgroundMusic) {
         return;
-
     }
 
 
+    /*
+     * Jangan mengubah currentTime di sini.
+     *
+     * Dengan begitu ketika musik di-resume
+     * setelah video, musik tetap berada
+     * pada posisi sebelumnya.
+     */
 
-    if(backgroundMusic.paused){
-
-
-        backgroundMusic.play()
-
-        .then(()=>{
-
-
-            musicPlaying = true;
-
-            updateMusicButton();
+    const playPromise =
+        backgroundMusic.play();
 
 
-        });
+    if (playPromise !== undefined) {
 
+        playPromise
+            .then(() => {
+
+                musicStarted = true;
+                musicPlaying = true;
+
+                updateMusicButton();
+
+            })
+            .catch((error) => {
+
+                /*
+                 * Browser dapat memblokir autoplay.
+                 * Ini tidak boleh membuat website rusak.
+                 */
+
+                console.log(
+                    "Music autoplay blocked:",
+                    error
+                );
+
+                musicStarted = true;
+                musicPlaying = false;
+
+                updateMusicButton();
+
+            });
 
     }
 
-    else{
+}
 
+
+/* =========================================================
+   09. MUSIC BUTTON
+   ========================================================= */
+
+function toggleMusic() {
+
+    if (!backgroundMusic) {
+        return;
+    }
+
+
+    if (backgroundMusic.paused) {
+
+        backgroundMusic
+            .play()
+            .then(() => {
+
+                musicPlaying = true;
+                musicStarted = true;
+
+                updateMusicButton();
+
+            })
+            .catch((error) => {
+
+                console.log(
+                    "Music play failed:",
+                    error
+                );
+
+            });
+
+    } else {
 
         backgroundMusic.pause();
 
-
         musicPlaying = false;
-
 
         updateMusicButton();
 
-
     }
-
 
 }
 
 
-
-
-if(musicButton){
-
+if (musicButton) {
 
     musicButton.addEventListener(
         "click",
         toggleMusic
     );
 
+}
+
+
+/* =========================================================
+   10. MUSIC BUTTON UI
+   ========================================================= */
+
+function updateMusicButton() {
+
+    if (!musicButton) {
+        return;
+    }
+
+
+    if (
+        backgroundMusic &&
+        !backgroundMusic.paused
+    ) {
+
+        musicButton.textContent = "Ⅱ";
+
+        musicButton.setAttribute(
+            "aria-label",
+            "Jeda musik"
+        );
+
+    } else {
+
+        musicButton.textContent = "♫";
+
+        musicButton.setAttribute(
+            "aria-label",
+            "Putar musik"
+        );
+
+    }
 
 }
 
 
+/* =========================================================
+   11. MUSIC EVENTS
+   ========================================================= */
+
+if (backgroundMusic) {
+
+    backgroundMusic.addEventListener(
+        "play",
+        () => {
+
+            musicPlaying = true;
+
+            updateMusicButton();
+
+        }
+    );
 
 
+    backgroundMusic.addEventListener(
+        "pause",
+        () => {
 
-/* =====================================================
-   PARTICLE SYSTEM
-===================================================== */
+            musicPlaying = false;
 
+            updateMusicButton();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   12. PARTICLES
+   ========================================================= */
 
 const particleList = [
-
+    "🤍",
     "💜",
-    "💗",
-    "💕",
-    "🌸",
-    "✨"
-
+    "✨",
+    "✦",
+    "🌸"
 ];
 
 
+function createParticle() {
 
-function createParticle(){
-
-
-    if(!particles){
-
+    if (!particles) {
         return;
-
     }
 
 
-
     const particle =
-    document.createElement("div");
-
+        document.createElement("div");
 
 
     particle.className =
-    "floating-particle";
+        "particle";
 
 
-
-    particle.innerHTML =
-    particleList[
-        Math.floor(
-            Math.random()
-            *
-            particleList.length
-        )
-    ];
-
+    particle.textContent =
+        particleList[
+            Math.floor(
+                Math.random() *
+                particleList.length
+            )
+        ];
 
 
     particle.style.left =
-    Math.random()*100 + "%";
+        Math.random() * 100 + "%";
 
 
+    particle.style.setProperty(
+        "--move-x",
+        (
+            Math.random() * 120 - 60
+        ) + "px"
+    );
 
-    particle.style.fontSize =
-    (15 + Math.random()*20)
-    +
-    "px";
 
+    const duration =
+        7 + Math.random() * 6;
 
 
     particle.style.animationDuration =
-    (5 + Math.random()*5)
-    +
-    "s";
+        duration + "s";
 
+
+    particle.style.fontSize =
+        (
+            11 +
+            Math.random() * 13
+        ) + "px";
 
 
     particles.appendChild(
@@ -461,687 +484,645 @@ function createParticle(){
     );
 
 
-
-    setTimeout(()=>{
-
+    setTimeout(() => {
 
         particle.remove();
 
-
-    },10000);
-
-
+    }, (duration + 1) * 1000);
 
 }
 
 
+setInterval(
+    createParticle,
+    750
+);
 
 
+/* =========================================================
+   13. SCROLL REVEAL
+   ========================================================= */
 
-function startParticles(){
-
-
-    setInterval(()=>{
-
-
-        createParticle();
+let revealObserver = null;
 
 
-    },600);
+function observeRevealElements() {
+
+    if (revealObserver) {
+        return;
+    }
 
 
-
-}
-
-
-
-
-if(particles){
-
-
-    startParticles();
-
-
-}
+    const elements =
+        document.querySelectorAll(
+            ".message-card, " +
+            ".cinematic-content, " +
+            ".cinematic-video-wrapper, " +
+            ".letter-container, " +
+            ".final-love-content, " +
+            ".reply-container, " +
+            ".ending-content"
+        );
 
 
+    if (!elements.length) {
+        return;
+    }
 
 
+    revealObserver =
+        new IntersectionObserver(
+            (entries) => {
 
+                entries.forEach(
+                    (entry) => {
 
-/* =====================================================
-   SCROLL REVEAL
-===================================================== */
+                        if (
+                            entry.isIntersecting
+                        ) {
 
+                            entry.target
+                                .classList
+                                .add("reveal");
 
-function startReveal(){
-
-
-    const targets =
-    document.querySelectorAll(
-
-        ".memory-card," +
-        ".collage-item," +
-        ".letter-container," +
-        ".cinematic-content," +
-        ".cinematic-video-wrapper," +
-        ".ending-content," +
-        ".final-love-content"
-
-    );
-
-
-
-    const observer =
-    new IntersectionObserver(
-
-        entries=>{
-
-
-            entries.forEach(
-                entry=>{
-
-
-                    if(entry.isIntersecting){
-
-
-                        entry.target.classList.add(
-                            "show"
-                        );
-
+                        }
 
                     }
+                );
+
+            },
+            {
+                threshold: 0.15
+            }
+        );
 
 
-                }
+    elements.forEach(
+        (element) => {
+
+            revealObserver.observe(
+                element
             );
 
-
-        },
-
-        {
-
-            threshold:0.2
-
-        }
-
-    );
-
-
-
-    targets.forEach(
-        item=>{
-
-
-            observer.observe(item);
-
-
         }
     );
-
 
 }
 
 
+/* =========================================================
+   14. CINEMATIC SYSTEM
+   ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    startReveal
-);
+function startCinematic() {
 
-
-
-
-
-/* =====================================================
-   PHOTO TILT DESKTOP
-===================================================== */
-
-
-const cards =
-document.querySelectorAll(
-    ".memory-card"
-);
-
-
-
-cards.forEach(card=>{
-
-
-    card.addEventListener(
-        "mousemove",
-        (event)=>{
-
-
-            if(window.innerWidth < 768){
-
-                return;
-
-            }
-
-
-
-            const rect =
-            card.getBoundingClientRect();
-
-
-
-            const x =
-            event.clientX - rect.left;
-
-
-
-            const y =
-            event.clientY - rect.top;
-
-
-
-            const rotateY =
-            ((x / rect.width)-0.5)
-            * 8;
-
-
-
-            const rotateX =
-            ((y / rect.height)-0.5)
-            * -8;
-
-
-
-            card.style.transform =
-            `
-            perspective(900px)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            `;
-
-
-
-        }
-    );
-
-
-
-    card.addEventListener(
-        "mouseleave",
-        ()=>{
-
-
-            card.style.transform =
-            "";
-
-        }
-    );
-
-
-});
-/* =====================================================
-   CINEMATIC VIDEO SYSTEM
-===================================================== */
-
-
-function startCinematic(){
-
-
-    if(!cinematicVideo){
+    if (
+        cinematicStarted ||
+        !cinematicVideo
+    ) {
 
         return;
 
     }
-
-
-
-    if(cinematicStarted){
-
-        return;
-
-    }
-
 
 
     cinematicStarted = true;
 
 
+    /*
+     * SIMPAN POSISI MUSIK
+     *
+     * Ini sangat penting.
+     */
 
-    // turunkan musik ketika video mulai
+    if (backgroundMusic) {
 
-    if(backgroundMusic){
+        savedMusicTime =
+            backgroundMusic.currentTime;
 
 
-        backgroundMusic.volume = 0.15;
+        backgroundMusic.pause();
 
+        musicPlaying = false;
+
+        updateMusicButton();
 
     }
 
 
-
+    /*
+     * Reset video
+     */
 
     cinematicVideo.currentTime = 0;
-
 
     cinematicVideo.volume = 0.7;
 
 
+    /*
+     * Countdown video
+     */
 
     runVideoCountdown();
-
 
 }
 
 
+/* =========================================================
+   15. VIDEO COUNTDOWN
+   ========================================================= */
 
+function runVideoCountdown() {
 
-function runVideoCountdown(){
-
-
-    if(videoCountdownRunning){
-
-        return;
-
-    }
-
-
-
-    videoCountdownRunning = true;
-
-
-
-    if(!videoTimer){
-
+    if (!videoTimer) {
 
         playCinematicVideo();
 
         return;
 
-
     }
 
 
-
-    let count = 3;
-
+    let number = 3;
 
 
     videoTimer.style.display =
-    "block";
-
+        "flex";
 
 
     videoTimer.textContent =
-    count;
+        number;
 
 
+    const interval =
+        setInterval(() => {
 
-    const timer =
-    setInterval(()=>{
+            number--;
 
+            if (videoTimer) {
 
-        count--;
+                videoTimer.textContent =
+                    number;
 
+            }
 
 
-        videoTimer.textContent =
-        count;
+            if (number <= 0) {
 
+                clearInterval(interval);
 
 
-        if(count <= 0){
+                if (videoTimer) {
 
-
-            clearInterval(timer);
-
-
-
-            videoTimer.style.display =
-            "none";
-
-
-
-            playCinematicVideo();
-
-
-
-        }
-
-
-
-    },1000);
-
-
-
-}
-
-
-
-
-
-function playCinematicVideo(){
-
-
-    if(!cinematicVideo){
-
-        return;
-
-    }
-
-
-
-   cinematicVideo.play()
-
-.then(()=>{
-
-    cinematicVideo.classList.add(
-        "video-light"
-    );
-
-    console.log(
-        "Video started"
-    );
-
-
-
-        console.log(
-            "Video started"
-        );
-
-
-    })
-
-    .catch(error=>{
-
-
-        console.log(
-            "Video blocked:",
-            error
-        );
-
-
-    });
-
-
-
-}
-
-
-
-
-
-if(cinematic){
-
-
-    const videoObserver =
-    new IntersectionObserver(
-
-        entries=>{
-
-
-            entries.forEach(entry=>{
-
-
-                if(entry.isIntersecting){
-
-
-                    startCinematic();
-
+                    videoTimer.style.display =
+                        "none";
 
                 }
 
 
-            });
+                playCinematicVideo();
+
+            }
+
+        }, 1000);
+
+}
 
 
+/* =========================================================
+   16. PLAY CINEMATIC VIDEO
+   ========================================================= */
 
-        },
+function playCinematicVideo() {
 
-        {
-
-            threshold:0.5
-
-        }
-
-    );
-
+    if (!cinematicVideo) {
+        return;
+    }
 
 
-    videoObserver.observe(
+    cinematicPlaying = true;
+
+
+    cinematicVideo
+        .play()
+        .then(() => {
+
+            const wrapper =
+                cinematicVideo
+                    .closest(
+                        ".cinematic-video-wrapper"
+                    );
+
+
+            if (wrapper) {
+
+                wrapper.classList
+                    .add("video-light");
+
+            }
+
+        })
+        .catch((error) => {
+
+            /*
+             * Kalau autoplay video gagal,
+             * website tetap berjalan.
+             */
+
+            console.log(
+                "Video autoplay blocked:",
+                error
+            );
+
+
+            cinematicPlaying = false;
+
+
+            /*
+             * Karena video gagal mulai,
+             * musik dikembalikan.
+             */
+
+            resumeMusic();
+
+        });
+
+}
+
+
+/* =========================================================
+   17. CINEMATIC OBSERVER
+   ========================================================= */
+
+if (cinematic) {
+
+    const cinematicObserver =
+        new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach(
+                    (entry) => {
+
+                        if (
+                            entry.isIntersecting &&
+                            entry.intersectionRatio >= 0.5
+                        ) {
+
+                            startCinematic();
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: [0.5]
+            }
+        );
+
+
+    cinematicObserver.observe(
         cinematic
     );
 
-
 }
 
 
+/* =========================================================
+   18. VIDEO ENDED
+   ========================================================= */
 
-
-/* ===============================
-   VIDEO END
-================================ */
-
-
-if(cinematicVideo){
-
+if (cinematicVideo) {
 
     cinematicVideo.addEventListener(
         "ended",
-        ()=>{
+        () => {
+
+            cinematicPlaying = false;
 
 
-            if(alwaysLove){
+            /*
+             * Hapus efek video
+             */
 
-
-                alwaysLove.classList.add(
-                    "show"
-                );
-
-
-
-                setTimeout(()=>{
-
-
-                    alwaysLove.classList.remove(
-                        "show"
+            const wrapper =
+                cinematicVideo
+                    .closest(
+                        ".cinematic-video-wrapper"
                     );
 
 
-                },3000);
+            if (wrapper) {
 
-
+                wrapper.classList
+                    .remove("video-light");
 
             }
 
 
+            /*
+             * KEMBALIKAN MUSIK
+             */
 
-
-            if(backgroundMusic){
-
-
-                backgroundMusic.volume =
-                0.7;
-
-
-
-                musicPlaying = true;
-
-
-                updateMusicButton();
-
-
-                backgroundMusic.play()
-
-                .catch(error=>{
-
-
-                    console.log(
-                        "Music resume blocked:",
-                        error
-                    );
-
-
-                });
-
-
-
-            }
-
-
+            resumeMusic();
 
         }
     );
 
+}
+
+
+/* =========================================================
+   19. RESUME MUSIC
+   ========================================================= */
+
+function resumeMusic() {
+
+    if (!backgroundMusic) {
+        return;
+    }
+
+
+    /*
+     * Pastikan posisi musik
+     * tetap pada posisi sebelum video.
+     */
+
+    backgroundMusic.currentTime =
+        savedMusicTime;
+
+
+    backgroundMusic
+        .play()
+        .then(() => {
+
+            musicPlaying = true;
+
+            updateMusicButton();
+
+        })
+        .catch((error) => {
+
+            console.log(
+                "Music resume blocked:",
+                error
+            );
+
+            musicPlaying = false;
+
+            updateMusicButton();
+
+        });
 
 }
 
 
+/* =========================================================
+   20. REPLAY EXPERIENCE
+   ========================================================= */
+
+function resetExperience() {
+
+    cinematicStarted = false;
+    cinematicPlaying = false;
+
+    savedMusicTime = 0;
 
 
+    /*
+     * Reset video
+     */
 
-
-/* =====================================================
-   REPLAY SYSTEM
-===================================================== */
-
-
-function resetExperience(){
-
-
-
-    cinematicStarted =
-    false;
-
-
-
-    videoCountdownRunning =
-    false;
-
-
-
-    if(cinematicVideo){
-
+    if (cinematicVideo) {
 
         cinematicVideo.pause();
 
-
-        cinematicVideo.currentTime =
-        0;
-
+        cinematicVideo.currentTime = 0;
 
     }
 
 
+    /*
+     * Reset music
+     */
 
-    if(backgroundMusic){
-
+    if (backgroundMusic) {
 
         backgroundMusic.pause();
 
+        backgroundMusic.currentTime = 0;
 
-        backgroundMusic.currentTime =
-        0;
-
-
-        backgroundMusic.volume =
-        0.7;
-
-
-        musicStarted =
-        false;
-
-
-        musicPlaying =
-        false;
-
-
-        updateMusicButton();
-
+        musicPlaying = false;
 
     }
 
 
+    /*
+     * Hide main content
+     */
 
-    hide(mainContent);
+    if (mainContent) {
+
+        mainContent.classList.remove(
+            "active"
+        );
+
+        mainContent.style.display =
+            "none";
+
+    }
 
 
-    show(opening);
+    /*
+     * Hide music player
+     */
+
+    if (musicPlayer) {
+
+        musicPlayer.classList.remove(
+            "active"
+        );
+
+    }
 
 
+    /*
+     * Reset revealed elements
+     */
+
+    document
+        .querySelectorAll(
+            ".reveal"
+        )
+        .forEach(
+            (element) => {
+
+                element.classList
+                    .remove("reveal");
+
+            }
+        );
+
+
+    /*
+     * Show opening
+     */
+
+    if (opening) {
+
+        opening.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+    /*
+     * Scroll top
+     */
 
     window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
+        top: 0,
+        behavior: "smooth"
     });
 
+
+    updateMusicButton();
 
 }
 
 
-
-
-
-if(replayButton){
-
+if (replayButton) {
 
     replayButton.addEventListener(
         "click",
         resetExperience
     );
 
-
 }
 
 
+/* =========================================================
+   21. REPLY FORM
+   ========================================================= */
+
+if (replyForm) {
+
+    replyForm.addEventListener(
+        "submit",
+        (event) => {
+
+            event.preventDefault();
 
 
-if(finalReplayButton){
+            const name =
+                document
+                    .getElementById(
+                        "replyName"
+                    )
+                    ?.value
+                    .trim();
 
 
-    finalReplayButton.addEventListener(
-        "click",
-        resetExperience
+            const message =
+                document
+                    .getElementById(
+                        "replyMessage"
+                    )
+                    ?.value
+                    .trim();
+
+
+            if (!message) {
+
+                if (replyStatus) {
+
+                    replyStatus.textContent =
+                        "Tulis pesanmu terlebih dahulu.";
+
+                }
+
+                return;
+
+            }
+
+
+            /*
+             * BELUM DIKIRIM KE SERVER.
+             *
+             * Nanti bagian ini kita sambungkan
+             * ke layanan form/database.
+             */
+
+            console.log(
+                "Reply:",
+                {
+                    name: name || "Tanpa nama",
+                    message: message
+                }
+            );
+
+
+            if (replyStatus) {
+
+                replyStatus.textContent =
+                    "Pesanmu sudah siap dikirim. " +
+                    "Fitur penyimpanan akan kita hubungkan " +
+                    "di tahap berikutnya.";
+
+            }
+
+        }
     );
 
-
 }
 
 
-
-
-
-/* =====================================================
-   CLICK HEART EFFECT
-===================================================== */
-
+/* =========================================================
+   22. CLICK HEART EFFECT
+   ========================================================= */
 
 document.addEventListener(
     "click",
-    (event)=>{
+    (event) => {
+
+        /*
+         * Jangan membuat heart ketika
+         * klik pada input atau textarea.
+         */
+
+        if (
+            event.target.closest(
+                "input, textarea, button, video"
+            )
+        ) {
+
+            return;
+
+        }
 
 
         const heart =
-        document.createElement("div");
-
+            document.createElement(
+                "div"
+            );
 
 
         heart.className =
-        "click-heart";
+            "click-heart";
 
 
-
-        heart.innerHTML =
-        "💜";
-
+        heart.textContent =
+            "🤍";
 
 
         heart.style.left =
-        event.clientX + "px";
-
+            event.clientX + "px";
 
 
         heart.style.top =
-        event.clientY + "px";
-
+            event.clientY + "px";
 
 
         document.body.appendChild(
@@ -1149,16 +1130,49 @@ document.addEventListener(
         );
 
 
-
-        setTimeout(()=>{
-
+        setTimeout(() => {
 
             heart.remove();
 
-
-        },1200);
-
-
+        }, 900);
 
     }
 );
+
+
+/* =========================================================
+   23. PAGE VISIBILITY
+   ========================================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        /*
+         * Tidak mengubah posisi musik.
+         * Browser sendiri yang menangani
+         * playback ketika tab tidak aktif.
+         */
+
+        updateMusicButton();
+
+    }
+);
+
+
+/* =========================================================
+   24. SAFETY CHECK
+   ========================================================= */
+
+window.addEventListener(
+    "error",
+    (event) => {
+
+        console.log(
+            "Website error:",
+            event.message
+        );
+
+    }
+);
+```
