@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -17,21 +16,25 @@
 
 <body>
 
-    <!-- =========================================
+    <!-- =====================================================
          BACKGROUND
-    ========================================== -->
+    ====================================================== -->
+
     <div class="background">
+
         <div class="aurora aurora-one"></div>
         <div class="aurora aurora-two"></div>
         <div class="aurora aurora-three"></div>
+
     </div>
 
     <div id="particles"></div>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          OPENING
-    ========================================== -->
+    ====================================================== -->
+
     <section id="opening" class="opening">
 
         <div class="opening-content">
@@ -46,12 +49,16 @@
             </h1>
 
             <p class="opening-text">
-                Ada satu hal yang ingin aku sampaikan
-                sebelum kita benar-benar melanjutkan
-                hidup masing-masing.
+                Ada beberapa hal yang ingin kusampaikan.
+                Bukan untuk mengubah apa yang sudah terjadi,
+                hanya sebuah pesan yang ingin kutinggalkan.
             </p>
 
-            <button id="openButton" class="primary-button">
+            <button
+                id="openButton"
+                class="primary-button"
+                type="button"
+            >
                 Baca Pesanku 🤍
             </button>
 
@@ -60,97 +67,68 @@
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          COUNTDOWN
-    ========================================== -->
-    <section id="countdown" class="countdown">
+    ====================================================== -->
 
-        <div class="countdown-content">
+    <section
+        id="countdown"
+        class="countdown hidden"
+    >
 
-            <p>
-                Luangkan sedikit waktu untuk membaca ini.
-            </p>
-
-            <span id="countdownNumber">
-                3
-            </span>
-
+        <div class="countdown-number">
+            <span id="countdownNumber">3</span>
         </div>
+
+        <p>
+            Sebentar...
+        </p>
 
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          MAIN CONTENT
-    ========================================== -->
-    <main id="mainContent" class="main-content">
+    ====================================================== -->
+
+    <main
+        id="mainContent"
+        class="hidden"
+    >
 
 
-        <!-- =====================================
-             INTRO
-        ====================================== -->
-        <section class="intro section">
+        <!-- =================================================
+             MESSAGE 01
+        ================================================== -->
 
-            <div class="section-inner">
+        <section class="message-section reveal">
 
-                <p class="eyebrow">
-                    UNTUK KAMU
-                </p>
-
-                <h2>
-                    Ada Satu Pesan<br>
-                    yang Ingin Aku Tinggalkan
-                </h2>
-
-                <p class="section-text">
-                    Mungkin setelah ini kita akan menjalani
-                    hidup masing-masing. Tapi sebelum semuanya
-                    benar-benar menjadi masa lalu, ada beberapa
-                    hal yang masih ingin aku sampaikan.
-                </p>
-
-                <div class="scroll-hint">
-                    <span>↓</span>
-                    <small>pelan-pelan saja</small>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================
-             PESAN 01 — JAGA DIRI
-        ====================================== -->
-        <section class="message-section section">
-
-            <div class="message-card memory-card">
+            <div class="message-card">
 
                 <span class="message-number">
                     01
                 </span>
 
-                <p class="eyebrow">
-                    JAGA DIRI KAMU
+                <p class="message-eyebrow">
+                    SEBUAH PESAN
                 </p>
 
                 <h2>
-                    Tolong Tetap Jaga<br>
-                    Kesehatan Kamu
+                    Sebelum Semuanya<br>
+                    Benar-Benar Menjadi Masa Lalu
                 </h2>
 
                 <p>
-                    Jangan sering telat makan.
-                    Jangan terlalu memaksakan diri,
-                    dan kalau sedang capek, istirahatlah.
+                    Walaupun sekarang kita sudah tidak lagi
+                    berjalan bersama, ada satu hal yang masih
+                    ingin kusampaikan.
                 </p>
 
                 <p>
-                    Aku tahu mungkin sekarang sudah bukan
-                    hak aku lagi untuk mengingatkan hal-hal
-                    seperti ini. Tapi rasa peduli itu ternyata
-                    tidak semudah itu hilang hanya karena
-                    hubungan kita sudah selesai.
+                    Aku tetap berharap kamu baik-baik saja.
+                    Aku berharap hari-harimu ke depan bisa
+                    menjadi lebih tenang, lebih ringan,
+                    dan dipenuhi hal-hal baik.
                 </p>
 
             </div>
@@ -158,37 +136,43 @@
         </section>
 
 
-        <!-- =====================================
-             PESAN 02 — PERGAULAN
-        ====================================== -->
-        <section class="message-section section">
+        <!-- =================================================
+             MESSAGE 02
+        ================================================== -->
 
-            <div class="message-card memory-card">
+        <section class="message-section reveal">
+
+            <div class="message-card">
 
                 <span class="message-number">
                     02
                 </span>
 
-                <p class="eyebrow">
-                    PILIH LINGKUNGAN YANG BAIK
+                <p class="message-eyebrow">
+                    TENTANG KAMU
                 </p>
 
                 <h2>
-                    Jaga Juga<br>
-                    Pergaulan Kamu
+                    Tolong Jaga Dirimu
                 </h2>
 
                 <p>
-                    Pilih orang-orang yang benar-benar baik
-                    untuk kamu. Orang-orang yang menghargai kamu,
-                    menjaga perasaan kamu, dan tidak membawa
-                    kamu ke hal-hal yang buruk.
+                    Jaga kesehatanmu baik-baik.
+                    Jangan terlalu sering melewatkan makan.
+                    Kalau sedang capek, istirahatlah.
                 </p>
 
                 <p>
-                    Jangan pernah merasa harus mengikuti
-                    sesuatu hanya karena takut kehilangan
-                    seseorang atau takut tidak diterima.
+                    Jangan terlalu memaksakan diri hanya
+                    karena ingin menyelesaikan semuanya.
+                    Kamu juga berhak berhenti sebentar,
+                    mengambil napas, dan menjaga dirimu sendiri.
+                </p>
+
+                <p>
+                    Aku mungkin sudah bukan orang yang bisa
+                    mengingatkanmu setiap hari, tapi aku tetap
+                    berharap kamu selalu memperhatikan dirimu.
                 </p>
 
             </div>
@@ -196,82 +180,92 @@
         </section>
 
 
-        <!-- =====================================
-             PESAN 03 — SESEORANG YANG BARU
-        ====================================== -->
-        <section class="message-section section">
+        <!-- =================================================
+             MESSAGE 03
+        ================================================== -->
 
-            <div class="message-card memory-card">
+        <section class="message-section reveal">
+
+            <div class="message-card">
 
                 <span class="message-number">
                     03
                 </span>
 
-                <p class="eyebrow">
-                    KALAU SUATU HARI NANTI
+                <p class="message-eyebrow">
+                    TENTANG LINGKUNGANMU
                 </p>
 
                 <h2>
-                    Kalau Kamu Menemukan<br>
-                    Seseorang yang Baru
+                    Pilih Orang-Orang<br>
+                    yang Baik Untukmu
                 </h2>
 
                 <p>
-                    Aku cuma berharap kamu menemukan cowok
-                    yang benar-benar baik.
+                    Semoga kamu selalu berada di lingkungan
+                    yang baik.
                 </p>
 
                 <p>
-                    Seseorang yang bisa menghargai kamu,
-                    menjaga kamu, memahami kamu, dan
-                    memperlakukan kamu jauh lebih baik
-                    daripada aku.
+                    Pilih orang-orang yang menghargaimu,
+                    yang bisa menjaga batasanmu,
+                    yang tidak merendahkanmu,
+                    dan yang benar-benar ingin melihatmu
+                    menjadi lebih baik.
                 </p>
 
-                <div class="highlight-text">
-                    Jangan cari seseorang seperti aku.
-                </div>
+                <p>
+                    Jangan takut menjauh dari sesuatu yang
+                    membuatmu tidak nyaman.
+                    Kamu pantas berada di antara orang-orang
+                    yang memperlakukanmu dengan baik.
+                </p>
 
             </div>
 
         </section>
 
 
-        <!-- =====================================
-             PESAN 04 — PENGAKUAN
-        ====================================== -->
-        <section class="message-section section">
+        <!-- =================================================
+             MESSAGE 04
+        ================================================== -->
 
-            <div class="message-card memory-card">
+        <section class="message-section reveal">
+
+            <div class="message-card">
 
                 <span class="message-number">
                     04
                 </span>
 
-                <p class="eyebrow">
-                    AKU SADAR
+                <p class="message-eyebrow">
+                    KALAU SUATU HARI ADA SESEORANG
                 </p>
 
                 <h2>
-                    Tentang Semua<br>
-                    Kesalahanku
+                    Semoga Dia<br>
+                    Memperlakukanmu Dengan Baik
                 </h2>
 
                 <p>
-                    Aku sadar aku pernah menyakiti kamu,
-                    mengecewakan kamu, dan mungkin meninggalkan
-                    luka yang sampai sekarang masih kamu ingat.
+                    Kalau suatu hari nanti kamu menemukan
+                    seseorang yang baru, aku cuma punya satu
+                    harapan.
                 </p>
 
                 <p>
-                    Aku tidak mau membela diri atau meminta
-                    kamu melupakan semua kesalahan aku.
+                    Semoga dia benar-benar orang yang baik.
+                    Seseorang yang menghargai kamu,
+                    memahami kamu, menjaga perasaanmu,
+                    dan tidak membuatmu merasa sendirian
+                    ketika sedang menghadapi sesuatu.
                 </p>
 
                 <p>
-                    Kalau selama bersama aku kamu lebih banyak
-                    merasakan sakit daripada bahagia,
-                    aku benar-benar minta maaf.
+                    Jangan cari seseorang seperti aku.
+                    Kalau memang ada seseorang setelahku,
+                    semoga dia bisa memberikan hal-hal baik
+                    yang dulu belum mampu aku berikan.
                 </p>
 
             </div>
@@ -279,15 +273,67 @@
         </section>
 
 
-        <!-- =====================================
+        <!-- =================================================
+             MESSAGE 05
+        ================================================== -->
+
+        <section class="message-section reveal">
+
+            <div class="message-card">
+
+                <span class="message-number">
+                    05
+                </span>
+
+                <p class="message-eyebrow">
+                    AKU MENGAKUI KESALAHANKU
+                </p>
+
+                <h2>
+                    Tentang Hal-Hal<br>
+                    yang Pernah Aku Lakukan
+                </h2>
+
+                <p>
+                    Aku tahu aku pernah membuatmu kecewa.
+                    Aku tahu ada sikap dan kesalahan yang
+                    mungkin meninggalkan luka.
+                </p>
+
+                <p>
+                    Untuk semua hal yang pernah membuatmu
+                    merasa tidak dihargai, tidak dimengerti,
+                    atau merasa kecewa karena aku,
+                    aku benar-benar minta maaf.
+                </p>
+
+                <p>
+                    Aku tidak mengatakan ini supaya kamu
+                    melupakan semuanya.
+                    Aku hanya ingin mengakui bahwa aku memang
+                    pernah salah.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
              CINEMATIC
-        ====================================== -->
-        <section id="cinematic" class="cinematic section">
+        ================================================== -->
+
+        <section
+            id="cinematic"
+            class="cinematic-section reveal"
+        >
+
+            <div class="cinematic-overlay"></div>
 
             <div class="cinematic-content">
 
-                <p class="eyebrow">
-                    🎬 SEBUAH POTONGAN KENANGAN
+                <p class="message-eyebrow">
+                    🎬 SEBUAH BAGIAN YANG TERTINGGAL
                 </p>
 
                 <h2>
@@ -296,113 +342,78 @@
                 </h2>
 
                 <p>
-                    Beberapa kenangan mungkin akan tetap tinggal,
-                    meskipun orang-orang di dalamnya sudah
-                    memilih jalan masing-masing.
+                    Beberapa kenangan mungkin sudah menjadi
+                    bagian dari masa lalu.
+                    Tapi bukan berarti semuanya harus dilupakan.
                 </p>
 
-            </div>
+                <div class="cinematic-video-wrapper">
 
-
-            <div class="cinematic-video-wrapper">
-
-               <video id="cinematicVideo" playsinline preload="metadata">
-    <source src="./video/ending.mp4" type="video/mp4">
-</video>
-                    <source
-                        src="ending.mp4"
-                        type="video/mp4"
+                    <video
+                        id="cinematicVideo"
+                        playsinline
+                        preload="metadata"
                     >
+                        <source
+                            src="./video/ending.mp4"
+                            type="video/mp4"
+                        >
 
-                    Browser kamu tidak mendukung video.
-                </video>
+                        Browser kamu tidak mendukung
+                        pemutaran video.
+                    </video>
 
-                <div
-                    id="videoTimer"
-                    class="video-timer"
-                    aria-hidden="true"
-                >
-                    03
+                    <div
+                        id="videoTimer"
+                        class="video-timer hidden"
+                    >
+                        3
+                    </div>
+
                 </div>
+
+                <p class="cinematic-caption">
+                    Terima kasih untuk semua hal baik
+                    yang pernah menjadi bagian dari cerita ini.
+                </p>
 
             </div>
 
         </section>
 
 
-        <!-- =====================================
-             PESAN 05 — MASIH SAYANG
-        ====================================== -->
-        <section class="message-section section">
+        <!-- =================================================
+             MESSAGE 06
+        ================================================== -->
 
-            <div class="message-card memory-card">
+        <section class="message-section reveal">
 
-                <span class="message-number">
-                    05
-                </span>
-
-                <p class="eyebrow">
-                    SATU HAL YANG TIDAK BERUBAH
-                </p>
-
-                <h2>
-                    Aku Masih<br>
-                    Sayang Sama Kamu
-                </h2>
-
-                <p>
-                    Aku masih peduli sama kamu.
-                    Masih berharap kamu baik-baik saja.
-                    Masih sering teringat hal-hal kecil
-                    tentang kamu.
-                </p>
-
-                <p>
-                    Dan meskipun sekarang aku sudah tidak
-                    punya hak untuk berada di samping kamu
-                    seperti dulu, rasa sayang itu ternyata
-                    tidak langsung hilang begitu saja.
-                </p>
-
-                <div class="highlight-text">
-                    Aku masih sayang sama kamu.
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================
-             PESAN 06 — MELEPASKAN
-        ====================================== -->
-        <section class="message-section section">
-
-            <div class="message-card memory-card">
+            <div class="message-card">
 
                 <span class="message-number">
                     06
                 </span>
 
-                <p class="eyebrow">
-                    AKU MULAI MENGERTI
+                <p class="message-eyebrow">
+                    SATU HAL YANG TIDAK BERUBAH
                 </p>
 
                 <h2>
-                    Sayang Tidak Selalu<br>
-                    Berarti Harus Memiliki
+                    Aku Masih Peduli
                 </h2>
 
                 <p>
-                    Sekarang aku mengerti, rasa sayang
-                    tidak selalu berarti harus memiliki.
+                    Mungkin keadaan sudah berubah.
+                    Kita sudah memiliki jalan masing-masing.
+                    Tapi rasa peduli itu tidak hilang begitu saja.
                 </p>
 
                 <p>
-                    Kadang rasa sayang juga berarti belajar
-                    melepaskan seseorang supaya dia bisa
-                    menemukan kebahagiaannya, meskipun
-                    kebahagiaan itu nantinya bukan bersama kita.
+                    Aku masih menyayangimu.
+                    Bukan untuk meminta kamu kembali,
+                    bukan untuk memaksamu memberikan sesuatu,
+                    tetapi karena kamu pernah menjadi seseorang
+                    yang sangat berarti dalam hidupku.
                 </p>
 
             </div>
@@ -410,44 +421,44 @@
         </section>
 
 
-        <!-- =====================================
-             PESAN 07 — MASA DEPAN
-        ====================================== -->
-        <section class="message-section section">
+        <!-- =================================================
+             MESSAGE 07
+        ================================================== -->
 
-            <div class="message-card memory-card">
+        <section class="message-section reveal">
+
+            <div class="message-card">
 
                 <span class="message-number">
                     07
                 </span>
 
-                <p class="eyebrow">
-                    TENTANG HARI ESOK
+                <p class="message-eyebrow">
+                    BELAJAR MELEPASKAN
                 </p>
 
                 <h2>
-                    Kalau Suatu Hari<br>
-                    Jalan Kita Bertemu Lagi
+                    Rasa Sayang<br>
+                    Tidak Selalu Berarti Memiliki
                 </h2>
 
                 <p>
-                    Aku tidak tahu apa yang akan terjadi
-                    setelah ini.
+                    Aku perlahan belajar bahwa menyayangi
+                    seseorang tidak selalu berarti harus
+                    memilikinya.
                 </p>
 
                 <p>
-                    Aku juga tidak tahu apakah jalan kita
-                    akan pernah bertemu lagi sebagai dua
-                    orang yang sama-sama ingin mencoba
-                    sekali lagi.
+                    Kadang bentuk sayang yang paling tulus
+                    adalah tetap berharap seseorang bahagia,
+                    bahkan ketika kebahagiaan itu tidak lagi
+                    melibatkan kita.
                 </p>
 
                 <p>
-                    Tapi kalau suatu hari kesempatan itu
-                    benar-benar datang, aku ingin datang
-                    sebagai seseorang yang sudah belajar
-                    dari semua kesalahannya, bukan sebagai
-                    aku yang dulu.
+                    Jadi kalau suatu hari kamu bahagia
+                    bersama seseorang yang lain,
+                    aku berharap kamu benar-benar bahagia.
                 </p>
 
             </div>
@@ -455,150 +466,98 @@
         </section>
 
 
-        <!-- =====================================
-             PESAN 08 — JIKA TIDAK KEMBALI
-        ====================================== -->
-        <section class="message-section section">
+        <!-- =================================================
+             MESSAGE 08
+        ================================================== -->
 
-            <div class="message-card memory-card">
+        <section class="message-section reveal">
+
+            <div class="message-card">
 
                 <span class="message-number">
                     08
                 </span>
 
-                <p class="eyebrow">
-                    KALAU TERNYATA JALANNYA BERBEDA
+                <p class="message-eyebrow">
+                    KALAU JALAN KITA BERTEMU LAGI
                 </p>
 
                 <h2>
-                    Aku Tetap Ingin<br>
-                    Kamu Bahagia
+                    Aku Tidak Tahu<br>
+                    Apa yang Akan Terjadi
                 </h2>
 
                 <p>
-                    Kalau suatu hari kamu bahagia dengan
-                    seseorang yang baru, mungkin akan ada
-                    bagian dari diriku yang sakit.
+                    Aku tidak tahu apakah suatu hari nanti
+                    jalan kita akan kembali bertemu.
                 </p>
 
                 <p>
-                    Tapi aku tetap berharap dia bisa
-                    menjagamu dengan baik.
-                </p>
-
-                <p>
-                    Karena setelah semua yang terjadi,
-                    aku cuma ingin kamu mendapatkan seseorang
-                    yang mampu memberikan hal-hal yang dulu
-                    tidak mampu aku berikan.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================
-             LOVE LETTER
-        ====================================== -->
-        <section id="loveLetter" class="letter-section section">
-
-            <div class="letter-container">
-
-                <p class="eyebrow">
-                    PESAN TERAKHIR
-                </p>
-
-                <h2>
-                    Untuk Kamu,<br>
-                    Dari Seseorang yang Pernah Ada
-                </h2>
-
-                <div class="letter-body">
-
-                    <p>
-                        Untuk sekarang, jaga diri kamu baik-baik.
-                    </p>
-
-                    <p>
-                        Jaga kesehatan.<br>
-                        Jangan lupa makan.<br>
-                        Jangan terlalu keras sama diri sendiri.<br>
-                        Pilih lingkungan yang baik.
-                    </p>
-
-                    <p>
-                        Dan jangan pernah menerima seseorang
-                        yang tidak menghargai kamu hanya karena
-                        takut kehilangan dia.
-                    </p>
-
-                    <p>
-                        Terima kasih karena pernah hadir di hidupku.
-                        Terima kasih untuk semua waktu, perhatian,
-                        tawa, dan kenangan yang pernah kita punya.
-                    </p>
-
-                    <p>
-                        Aku mungkin bukan orang yang berhasil
-                        menjaga kamu dengan baik.
-                        Aku mungkin juga bukan orang yang pantas
-                        kamu tunggu.
-                    </p>
-
-                    <p class="letter-emphasis">
-                        Tapi aku ingin kamu tahu satu hal...
-                    </p>
-
-                    <p class="letter-final">
-                        Aku masih sayang sama kamu.
-                    </p>
-
-                    <p>
-                        Dan mungkin untuk waktu yang cukup lama,
-                        perasaan itu akan tetap ada.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================
-             FINAL MESSAGE
-        ====================================== -->
-        <section id="finalLove" class="final-message section">
-
-            <div class="final-love-content">
-
-                <p class="eyebrow">
-                    APA PUN JALANNYA
-                </p>
-
-                <h2>
-                    Aku Berharap<br>
-                    Kamu Baik-Baik Saja
-                </h2>
-
-                <p>
-                    Kalau suatu hari nanti takdir masih
-                    memberikan kesempatan untuk kita bertemu
-                    kembali, aku berharap kita bertemu sebagai
-                    dua orang yang sudah jauh lebih dewasa,
-                    sudah belajar dari kesalahan, dan sudah
-                    menjadi versi terbaik dari diri kita masing-masing.
+                    Kalau memang ada kesempatan itu,
+                    aku ingin datang sebagai seseorang yang
+                    sudah belajar dari kesalahannya.
+                    Seseorang yang lebih dewasa dan lebih
+                    mengerti bagaimana menghargai orang lain.
                 </p>
 
                 <p>
                     Tapi kalau ternyata jalan kita memang
-                    tidak lagi menuju tempat yang sama,
-                    aku tetap berharap kamu bahagia.
+                    tidak bertemu lagi, aku tetap akan
+                    mendoakan hal-hal baik untukmu dari jauh.
                 </p>
 
-                <div class="final-highlight">
-                    Benar-benar bahagia.
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LOVE LETTER
+        ================================================== -->
+
+        <section
+            id="loveLetter"
+            class="letter-section reveal"
+        >
+
+            <div class="letter-card">
+
+                <p class="message-eyebrow">
+                    TERIMA KASIH
+                </p>
+
+                <h2>
+                    Untuk Semua yang Pernah Ada
+                </h2>
+
+                <div class="letter-text">
+
+                    <p>
+                        Terima kasih untuk waktu yang pernah
+                        kamu berikan.
+                    </p>
+
+                    <p>
+                        Terima kasih untuk perhatian,
+                        tawa, percakapan, dan semua kenangan
+                        yang pernah kita punya.
+                    </p>
+
+                    <p>
+                        Tidak semuanya sempurna.
+                        Tidak semuanya berjalan seperti yang
+                        kita harapkan.
+                        Tapi aku tetap menghargai bahwa
+                        pernah ada masa ketika kita saling
+                        menjadi bagian penting dalam hidup
+                        masing-masing.
+                    </p>
+
+                    <p>
+                        Semoga setelah ini hidupmu dipenuhi
+                        hal-hal yang lebih baik.
+                    </p>
+
                 </div>
 
             </div>
@@ -606,78 +565,115 @@
         </section>
 
 
-        <!-- =====================================
-             FORM JAWABAN
-        ====================================== -->
-        <section id="replySection" class="reply-section section">
+        <!-- =================================================
+             FINAL MESSAGE
+        ================================================== -->
 
-            <div class="reply-container">
+        <section
+            id="finalLove"
+            class="final-message reveal"
+        >
 
-                <p class="eyebrow">
+            <div class="final-card">
+
+                <p class="message-eyebrow">
+                    PESAN TERAKHIR
+                </p>
+
+                <h2>
+                    Jaga Dirimu Baik-Baik
+                </h2>
+
+                <p>
+                    Jaga kesehatan.
+                    Jangan lupa makan.
+                    Jangan terlalu keras pada dirimu sendiri.
+                </p>
+
+                <p>
+                    Pilih orang-orang yang baik untukmu.
+                    Dan kalau suatu hari ada seseorang
+                    yang mengisi hidupmu, semoga dia benar-benar
+                    memperlakukanmu dengan baik.
+                </p>
+
+                <p>
+                    Semoga kamu menemukan kebahagiaan
+                    yang benar-benar kamu inginkan.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             REPLY
+        ================================================== -->
+
+        <section
+            id="replySection"
+            class="reply-section reveal"
+        >
+
+            <div class="reply-card">
+
+                <p class="message-eyebrow">
                     KALAU KAMU INGIN MENJAWAB
                 </p>
 
                 <h2>
-                    Aku Akan Membaca<br>
-                    Apa Pun yang Ingin Kamu Sampaikan
+                    Aku Akan Membaca
                 </h2>
 
                 <p class="reply-intro">
                     Kamu tidak harus menjawab.
-                    Tapi kalau setelah membaca semuanya
-                    ada sesuatu yang ingin kamu katakan,
-                    kamu boleh menuliskannya di sini.
+                    Tidak ada kewajiban apa pun.
+                    Tapi kalau kamu memang ingin menyampaikan
+                    sesuatu, kamu bisa menuliskannya di sini.
                 </p>
 
-
-                <form
-                    id="replyForm"
-                    class="reply-form"
-                >
+                <form id="replyForm">
 
                     <div class="form-group">
 
                         <label for="replyName">
-                            Nama / panggilan
-                            <span>(opsional)</span>
+                            Nama
                         </label>
 
                         <input
-                            type="text"
                             id="replyName"
                             name="name"
-                            placeholder="Tulis nama atau panggilan..."
+                            type="text"
+                            placeholder="Boleh dikosongkan"
                             autocomplete="off"
                         >
 
                     </div>
 
-
                     <div class="form-group">
 
                         <label for="replyMessage">
-                            Pesan kamu
+                            Pesan
                         </label>
 
                         <textarea
                             id="replyMessage"
                             name="message"
-                            rows="7"
+                            rows="6"
                             placeholder="Tulis apa yang ingin kamu sampaikan..."
                             required
                         ></textarea>
 
                     </div>
 
-
                     <button
-                        type="submit"
                         id="replySubmit"
                         class="primary-button"
+                        type="submit"
                     >
-                        Kirim Jawaban 🤍
+                        Kirim Pesan 🤍
                     </button>
-
 
                     <p
                         id="replyStatus"
@@ -692,35 +688,46 @@
         </section>
 
 
-        <!-- =====================================
+        <!-- =================================================
              ENDING
-        ====================================== -->
-        <section id="ending" class="ending-section section">
+        ================================================== -->
+
+        <section
+            id="ending"
+            class="ending-section reveal"
+        >
 
             <div class="ending-content">
 
-                <p class="eyebrow">
-                    SEBELUM AKU BENAR-BENAR PERGI
+                <p class="message-eyebrow">
+                    AKHIR DARI PESAN INI
                 </p>
 
                 <h2>
-                    Jaga Diri<br>
-                    Baik-Baik
+                    Semoga Kamu<br>
+                    Benar-Benar Bahagia
                 </h2>
 
                 <p>
-                    Aku akan selalu berharap yang terbaik
-                    untuk kamu, meskipun mungkin sekarang
-                    aku harus melakukannya dari jauh.
+                    Apa pun yang terjadi setelah ini,
+                    aku berharap hidup mempertemukanmu
+                    dengan banyak hal baik.
                 </p>
 
-                <div class="ending-heart">
+                <p>
+                    Kalau suatu hari kita bertemu lagi,
+                    semoga kita sudah menjadi versi diri
+                    yang lebih dewasa.
+                </p>
+
+                <p>
+                    Dan kalau ternyata tidak,
+                    semoga kamu tetap bahagia.
+                </p>
+
+                <div class="ending-symbol">
                     🤍
                 </div>
-
-                <p class="ending-small">
-                    Terima kasih untuk semuanya.
-                </p>
 
                 <button
                     id="replayButton"
@@ -738,30 +745,30 @@
     </main>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          MUSIC PLAYER
-    ========================================== -->
+    ====================================================== -->
+
     <div
         id="musicPlayer"
-        class="music-player"
-        aria-label="Pemutar musik"
+        class="music-player hidden"
     >
 
         <button
             id="musicButton"
             type="button"
-            aria-label="Putar atau jeda musik"
+            aria-label="Putar musik"
         >
-            ♫
+            ▶
         </button>
 
         <div class="music-info">
 
-            <span class="music-title">
+            <strong>
                 Bila
-            </span>
+            </strong>
 
-            <span class="music-artist">
+            <span>
                 aku jeje
             </span>
 
@@ -770,18 +777,31 @@
     </div>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          AUDIO
-    ========================================== -->
-   <audio id="backgroundMusic" loop>
-    <source src="./Bila by aku jeje.mp3" type="audio/mpeg">
-</audio>
+    ====================================================== -->
 
-    <!-- =========================================
+    <audio
+        id="backgroundMusic"
+        loop
+        preload="auto"
+    >
+
+        <source
+            src="./Bila by aku jeje.mp3"
+            type="audio/mpeg"
+        >
+
+        Browser kamu tidak mendukung audio.
+
+    </audio>
+
+
+    <!-- =====================================================
          JAVASCRIPT
-    ========================================== -->
+    ====================================================== -->
+
     <script src="js/script.js"></script>
 
 </body>
 </html>
-```
