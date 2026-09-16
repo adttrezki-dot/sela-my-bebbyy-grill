@@ -1,7 +1,7 @@
 ```javascript
 /* =========================================================
    SELA — A MESSAGE LEFT BEHIND
-   SCRIPT.JS
+   SCRIPT.JS — VERSI STABIL
    ========================================================= */
 
 
@@ -51,125 +51,156 @@ const replayButton =
    02. STATE
    ========================================================= */
 
+let countdownRunning = false;
+
 let musicPlaying = false;
 let musicStarted = false;
 
 let cinematicStarted = false;
 let cinematicPlaying = false;
 
-let countdownRunning = false;
-
 let savedMusicTime = 0;
+let musicWasPlayingBeforeVideo = false;
+
+let revealObserver = null;
+let cinematicObserver = null;
 
 
 /* =========================================================
-   03. BASIC HELPERS
-   ========================================================= */
-
-function showElement(element) {
-    if (!element) return;
-
-    element.style.display = "";
-}
-
-function hideElement(element) {
-    if (!element) return;
-
-    element.style.display = "none";
-}
-
-
-/* =========================================================
-   04. INITIAL STATE
+   03. INITIAL STATE
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    /*
+     * Opening tampil.
+     */
+    if (opening) {
+        opening.classList.remove("hidden");
+        opening.style.display = "";
+    }
+
+
+    /*
+     * Countdown disembunyikan.
+     */
     if (countdown) {
-        countdown.style.display = "none";
+        countdown.classList.add("hidden");
     }
 
+
+    /*
+     * Konten utama disembunyikan.
+     */
     if (mainContent) {
-        mainContent.style.display = "none";
+        mainContent.classList.add("hidden");
+        mainContent.classList.remove("active");
     }
 
+
+    /*
+     * Music player disembunyikan.
+     */
     if (musicPlayer) {
+        musicPlayer.classList.add("hidden");
         musicPlayer.classList.remove("active");
     }
 
+
+    /*
+     * Musik.
+     */
     if (backgroundMusic) {
         backgroundMusic.volume = 0.7;
         backgroundMusic.currentTime = 0;
     }
 
+
+    /*
+     * Video.
+     */
     if (cinematicVideo) {
         cinematicVideo.volume = 0.7;
+        cinematicVideo.currentTime = 0;
     }
 
+
     updateMusicButton();
+
+    createParticle();
+
+    setupCinematicObserver();
 
 });
 
 
 /* =========================================================
-   05. OPENING SYSTEM
+   04. OPENING EXPERIENCE
    ========================================================= */
 
 function startExperience() {
 
+    /*
+     * Jangan menjalankan countdown dua kali.
+     */
     if (countdownRunning) {
         return;
     }
 
+
     countdownRunning = true;
 
 
-    /* Hide opening */
-
+    /*
+     * Sembunyikan opening.
+     */
     if (opening) {
         opening.classList.add("hidden");
     }
 
 
-    /* Show countdown */
-
+    /*
+     * Tampilkan countdown.
+     */
     if (countdown) {
+        countdown.classList.remove("hidden");
         countdown.style.display = "flex";
     }
 
 
     let number = 3;
 
+
     if (countdownNumber) {
         countdownNumber.textContent = number;
     }
 
 
-    const countdownInterval =
-        setInterval(() => {
+    const countdownInterval = setInterval(() => {
 
-            number--;
-
-            if (countdownNumber) {
-                countdownNumber.textContent = number;
-            }
+        number--;
 
 
-            if (number <= 0) {
+        if (countdownNumber) {
+            countdownNumber.textContent = number;
+        }
 
-                clearInterval(countdownInterval);
 
-                finishOpening();
+        if (number <= 0) {
 
-            }
+            clearInterval(countdownInterval);
 
-        }, 1000);
+            finishOpening();
+
+        }
+
+    }, 1000);
 
 }
 
 
 /* =========================================================
-   06. FINISH OPENING
+   05. FINISH OPENING
    ========================================================= */
 
 function finishOpening() {
@@ -177,64 +208,87 @@ function finishOpening() {
     countdownRunning = false;
 
 
-    /* Hide countdown */
-
+    /*
+     * Sembunyikan countdown.
+     */
     if (countdown) {
-        countdown.style.display = "none";
+        countdown.classList.add("hidden");
     }
 
 
-    /* Show main content */
-
+    /*
+     * Tampilkan main content.
+     *
+     * class hidden DIHAPUS.
+     * Ini penting karena CSS memakai !important.
+     */
     if (mainContent) {
-        mainContent.style.display = "block";
+
+        mainContent.classList.remove("hidden");
+
         mainContent.classList.add("active");
+
+        mainContent.style.display = "";
+
     }
 
 
-    /* Show music player */
-
+    /*
+     * Tampilkan music player.
+     */
     if (musicPlayer) {
+
+        musicPlayer.classList.remove("hidden");
+
         musicPlayer.classList.add("active");
+
+        musicPlayer.style.display = "";
+
     }
 
 
-    /* Start music */
-
+    /*
+     * Mulai musik.
+     */
     startMusic();
 
 
-    /* Scroll to top */
-
+    /*
+     * Kembali ke bagian paling atas.
+     */
     window.scrollTo({
         top: 0,
-        behavior: "instant"
+        behavior: "auto"
     });
 
 
-    /* Start observing */
-
+    /*
+     * Aktifkan scroll reveal.
+     */
     observeRevealElements();
 
 }
 
 
 /* =========================================================
-   07. OPEN BUTTON
+   06. OPEN BUTTON
    ========================================================= */
 
 if (openButton) {
 
-    openButton.addEventListener(
-        "click",
-        startExperience
-    );
+    openButton.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        startExperience();
+
+    });
 
 }
 
 
 /* =========================================================
-   08. MUSIC SYSTEM
+   07. MUSIC SYSTEM
    ========================================================= */
 
 function startMusic() {
@@ -243,14 +297,6 @@ function startMusic() {
         return;
     }
 
-
-    /*
-     * Jangan mengubah currentTime di sini.
-     *
-     * Dengan begitu ketika musik di-resume
-     * setelah video, musik tetap berada
-     * pada posisi sebelumnya.
-     */
 
     const playPromise =
         backgroundMusic.play();
@@ -270,10 +316,9 @@ function startMusic() {
             .catch((error) => {
 
                 /*
-                 * Browser dapat memblokir autoplay.
-                 * Ini tidak boleh membuat website rusak.
+                 * Autoplay dapat ditolak browser.
+                 * Website tetap berjalan.
                  */
-
                 console.log(
                     "Music autoplay blocked:",
                     error
@@ -292,7 +337,7 @@ function startMusic() {
 
 
 /* =========================================================
-   09. MUSIC BUTTON
+   08. MUSIC TOGGLE
    ========================================================= */
 
 function toggleMusic() {
@@ -308,8 +353,8 @@ function toggleMusic() {
             .play()
             .then(() => {
 
-                musicPlaying = true;
                 musicStarted = true;
+                musicPlaying = true;
 
                 updateMusicButton();
 
@@ -347,7 +392,7 @@ if (musicButton) {
 
 
 /* =========================================================
-   10. MUSIC BUTTON UI
+   09. MUSIC UI
    ========================================================= */
 
 function updateMusicButton() {
@@ -384,7 +429,7 @@ function updateMusicButton() {
 
 
 /* =========================================================
-   11. MUSIC EVENTS
+   10. MUSIC EVENTS
    ========================================================= */
 
 if (backgroundMusic) {
@@ -412,11 +457,23 @@ if (backgroundMusic) {
         }
     );
 
+
+    backgroundMusic.addEventListener(
+        "ended",
+        () => {
+
+            musicPlaying = false;
+
+            updateMusicButton();
+
+        }
+    );
+
 }
 
 
 /* =========================================================
-   12. PARTICLES
+   11. PARTICLES
    ========================================================= */
 
 const particleList = [
@@ -439,8 +496,7 @@ function createParticle() {
         document.createElement("div");
 
 
-    particle.className =
-        "particle";
+    particle.className = "particle";
 
 
     particle.textContent =
@@ -493,6 +549,9 @@ function createParticle() {
 }
 
 
+/*
+ * Partikel berjalan terus.
+ */
 setInterval(
     createParticle,
     750
@@ -500,14 +559,14 @@ setInterval(
 
 
 /* =========================================================
-   13. SCROLL REVEAL
+   12. SCROLL REVEAL
    ========================================================= */
-
-let revealObserver = null;
-
 
 function observeRevealElements() {
 
+    /*
+     * Observer lama tidak perlu dibuat ulang.
+     */
     if (revealObserver) {
         return;
     }
@@ -527,6 +586,24 @@ function observeRevealElements() {
 
     if (!elements.length) {
         return;
+    }
+
+
+    /*
+     * Browser lama yang tidak mendukung
+     * IntersectionObserver tidak boleh
+     * membuat website berhenti.
+     */
+    if (!("IntersectionObserver" in window)) {
+
+        elements.forEach((element) => {
+
+            element.classList.add("reveal");
+
+        });
+
+        return;
+
     }
 
 
@@ -571,192 +648,25 @@ function observeRevealElements() {
 
 
 /* =========================================================
-   14. CINEMATIC SYSTEM
+   13. CINEMATIC OBSERVER
    ========================================================= */
 
-function startCinematic() {
+function setupCinematicObserver() {
 
     if (
-        cinematicStarted ||
+        !cinematic ||
         !cinematicVideo
     ) {
-
-        return;
-
-    }
-
-
-    cinematicStarted = true;
-
-
-    /*
-     * SIMPAN POSISI MUSIK
-     *
-     * Ini sangat penting.
-     */
-
-    if (backgroundMusic) {
-
-        savedMusicTime =
-            backgroundMusic.currentTime;
-
-
-        backgroundMusic.pause();
-
-        musicPlaying = false;
-
-        updateMusicButton();
-
-    }
-
-
-    /*
-     * Reset video
-     */
-
-    cinematicVideo.currentTime = 0;
-
-    cinematicVideo.volume = 0.7;
-
-
-    /*
-     * Countdown video
-     */
-
-    runVideoCountdown();
-
-}
-
-
-/* =========================================================
-   15. VIDEO COUNTDOWN
-   ========================================================= */
-
-function runVideoCountdown() {
-
-    if (!videoTimer) {
-
-        playCinematicVideo();
-
-        return;
-
-    }
-
-
-    let number = 3;
-
-
-    videoTimer.style.display =
-        "flex";
-
-
-    videoTimer.textContent =
-        number;
-
-
-    const interval =
-        setInterval(() => {
-
-            number--;
-
-            if (videoTimer) {
-
-                videoTimer.textContent =
-                    number;
-
-            }
-
-
-            if (number <= 0) {
-
-                clearInterval(interval);
-
-
-                if (videoTimer) {
-
-                    videoTimer.style.display =
-                        "none";
-
-                }
-
-
-                playCinematicVideo();
-
-            }
-
-        }, 1000);
-
-}
-
-
-/* =========================================================
-   16. PLAY CINEMATIC VIDEO
-   ========================================================= */
-
-function playCinematicVideo() {
-
-    if (!cinematicVideo) {
         return;
     }
 
 
-    cinematicPlaying = true;
+    if (!("IntersectionObserver" in window)) {
+        return;
+    }
 
 
-    cinematicVideo
-        .play()
-        .then(() => {
-
-            const wrapper =
-                cinematicVideo
-                    .closest(
-                        ".cinematic-video-wrapper"
-                    );
-
-
-            if (wrapper) {
-
-                wrapper.classList
-                    .add("video-light");
-
-            }
-
-        })
-        .catch((error) => {
-
-            /*
-             * Kalau autoplay video gagal,
-             * website tetap berjalan.
-             */
-
-            console.log(
-                "Video autoplay blocked:",
-                error
-            );
-
-
-            cinematicPlaying = false;
-
-
-            /*
-             * Karena video gagal mulai,
-             * musik dikembalikan.
-             */
-
-            resumeMusic();
-
-        });
-
-}
-
-
-/* =========================================================
-   17. CINEMATIC OBSERVER
-   ========================================================= */
-
-if (cinematic) {
-
-    const cinematicObserver =
+    cinematicObserver =
         new IntersectionObserver(
             (entries) => {
 
@@ -790,11 +700,234 @@ if (cinematic) {
 
 
 /* =========================================================
-   18. VIDEO ENDED
+   14. START CINEMATIC
+   ========================================================= */
+
+function startCinematic() {
+
+    if (
+        cinematicStarted ||
+        !cinematicVideo
+    ) {
+        return;
+    }
+
+
+    cinematicStarted = true;
+
+
+    /*
+     * Simpan posisi musik.
+     */
+    if (backgroundMusic) {
+
+        savedMusicTime =
+            backgroundMusic.currentTime;
+
+        musicWasPlayingBeforeVideo =
+            !backgroundMusic.paused;
+
+
+        /*
+         * Hentikan musik ketika video mulai.
+         */
+        backgroundMusic.pause();
+
+        musicPlaying = false;
+
+        updateMusicButton();
+
+    }
+
+
+    /*
+     * Reset video.
+     */
+    cinematicVideo.pause();
+
+    cinematicVideo.currentTime = 0;
+
+    cinematicVideo.volume = 0.7;
+
+
+    /*
+     * Countdown video.
+     */
+    runVideoCountdown();
+
+}
+
+
+/* =========================================================
+   15. VIDEO COUNTDOWN
+   ========================================================= */
+
+function runVideoCountdown() {
+
+    if (!videoTimer) {
+
+        playCinematicVideo();
+
+        return;
+
+    }
+
+
+    let number = 3;
+
+
+    videoTimer.classList.remove("hidden");
+
+    videoTimer.style.display = "flex";
+
+    videoTimer.textContent = number;
+
+
+    const interval =
+        setInterval(() => {
+
+            number--;
+
+
+            if (videoTimer) {
+
+                videoTimer.textContent =
+                    number;
+
+            }
+
+
+            if (number <= 0) {
+
+                clearInterval(interval);
+
+
+                if (videoTimer) {
+
+                    videoTimer.classList.add(
+                        "hidden"
+                    );
+
+                }
+
+
+                playCinematicVideo();
+
+            }
+
+        }, 1000);
+
+}
+
+
+/* =========================================================
+   16. PLAY CINEMATIC VIDEO
+   ========================================================= */
+
+function playCinematicVideo() {
+
+    if (!cinematicVideo) {
+        return;
+    }
+
+
+    cinematicPlaying = true;
+
+
+    const playPromise =
+        cinematicVideo.play();
+
+
+    if (playPromise !== undefined) {
+
+        playPromise
+            .then(() => {
+
+                const wrapper =
+                    cinematicVideo.closest(
+                        ".cinematic-video-wrapper"
+                    );
+
+
+                if (wrapper) {
+
+                    wrapper.classList.add(
+                        "video-light"
+                    );
+
+                }
+
+            })
+            .catch((error) => {
+
+                console.log(
+                    "Video autoplay blocked:",
+                    error
+                );
+
+
+                cinematicPlaying = false;
+
+
+                /*
+                 * Video gagal diputar.
+                 * Musik dikembalikan.
+                 */
+                cinematicStarted = false;
+
+                resumeMusic();
+
+            });
+
+    }
+
+}
+
+
+/* =========================================================
+   17. VIDEO EVENTS
    ========================================================= */
 
 if (cinematicVideo) {
 
+    /*
+     * Video mulai.
+     */
+    cinematicVideo.addEventListener(
+        "play",
+        () => {
+
+            cinematicPlaying = true;
+
+        }
+    );
+
+
+    /*
+     * Video pause.
+     */
+    cinematicVideo.addEventListener(
+        "pause",
+        () => {
+
+            /*
+             * Jangan dianggap selesai.
+             * Event ended ditangani terpisah.
+             */
+
+            if (!cinematicVideo.ended) {
+
+                cinematicPlaying = false;
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Video selesai.
+     */
     cinematicVideo.addEventListener(
         "ended",
         () => {
@@ -802,29 +935,25 @@ if (cinematicVideo) {
             cinematicPlaying = false;
 
 
-            /*
-             * Hapus efek video
-             */
-
             const wrapper =
-                cinematicVideo
-                    .closest(
-                        ".cinematic-video-wrapper"
-                    );
+                cinematicVideo.closest(
+                    ".cinematic-video-wrapper"
+                );
 
 
             if (wrapper) {
 
-                wrapper.classList
-                    .remove("video-light");
+                wrapper.classList.remove(
+                    "video-light"
+                );
 
             }
 
 
             /*
-             * KEMBALIKAN MUSIK
+             * Musik kembali dari posisi
+             * sebelum video dimulai.
              */
-
             resumeMusic();
 
         }
@@ -834,7 +963,7 @@ if (cinematicVideo) {
 
 
 /* =========================================================
-   19. RESUME MUSIC
+   18. RESUME MUSIC
    ========================================================= */
 
 function resumeMusic() {
@@ -845,12 +974,36 @@ function resumeMusic() {
 
 
     /*
-     * Pastikan posisi musik
-     * tetap pada posisi sebelum video.
+     * Kembalikan posisi musik.
      */
+    try {
 
-    backgroundMusic.currentTime =
-        savedMusicTime;
+        backgroundMusic.currentTime =
+            savedMusicTime;
+
+    } catch (error) {
+
+        console.log(
+            "Unable to restore music position:",
+            error
+        );
+
+    }
+
+
+    /*
+     * Kalau musik memang sedang berjalan
+     * sebelum video, lanjutkan.
+     */
+    if (!musicWasPlayingBeforeVideo) {
+
+        musicPlaying = false;
+
+        updateMusicButton();
+
+        return;
+
+    }
 
 
     backgroundMusic
@@ -858,6 +1011,8 @@ function resumeMusic() {
         .then(() => {
 
             musicPlaying = true;
+
+            musicStarted = true;
 
             updateMusicButton();
 
@@ -879,34 +1034,59 @@ function resumeMusic() {
 
 
 /* =========================================================
-   20. REPLAY EXPERIENCE
+   19. REPLAY EXPERIENCE
    ========================================================= */
 
 function resetExperience() {
+
+    countdownRunning = false;
 
     cinematicStarted = false;
     cinematicPlaying = false;
 
     savedMusicTime = 0;
+    musicWasPlayingBeforeVideo = false;
 
 
     /*
-     * Reset video
+     * Reset video.
      */
-
     if (cinematicVideo) {
 
         cinematicVideo.pause();
 
         cinematicVideo.currentTime = 0;
 
+        cinematicVideo.volume = 0.7;
+
     }
 
 
     /*
-     * Reset music
+     * Hapus efek video.
      */
+    if (cinematicVideo) {
 
+        const wrapper =
+            cinematicVideo.closest(
+                ".cinematic-video-wrapper"
+            );
+
+
+        if (wrapper) {
+
+            wrapper.classList.remove(
+                "video-light"
+            );
+
+        }
+
+    }
+
+
+    /*
+     * Reset music.
+     */
     if (backgroundMusic) {
 
         backgroundMusic.pause();
@@ -919,56 +1099,66 @@ function resetExperience() {
 
 
     /*
-     * Hide main content
+     * Sembunyikan main content.
      */
-
     if (mainContent) {
 
         mainContent.classList.remove(
             "active"
         );
 
-        mainContent.style.display =
-            "none";
+        mainContent.classList.add(
+            "hidden"
+        );
 
     }
 
 
     /*
-     * Hide music player
+     * Sembunyikan music player.
      */
-
     if (musicPlayer) {
 
         musicPlayer.classList.remove(
             "active"
         );
 
+        musicPlayer.classList.add(
+            "hidden"
+        );
+
     }
 
 
     /*
-     * Reset revealed elements
+     * Reset semua reveal.
      */
-
     document
-        .querySelectorAll(
-            ".reveal"
-        )
-        .forEach(
-            (element) => {
+        .querySelectorAll(".reveal")
+        .forEach((element) => {
 
-                element.classList
-                    .remove("reveal");
+            element.classList.remove(
+                "reveal"
+            );
 
-            }
-        );
+        });
 
 
     /*
-     * Show opening
+     * Reset video timer.
      */
+    if (videoTimer) {
 
+        videoTimer.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    /*
+     * Tampilkan opening.
+     */
     if (opening) {
 
         opening.classList.remove(
@@ -979,12 +1169,30 @@ function resetExperience() {
 
 
     /*
-     * Scroll top
+     * Reset countdown.
      */
+    if (countdownNumber) {
 
+        countdownNumber.textContent = "3";
+
+    }
+
+
+    if (countdown) {
+
+        countdown.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    /*
+     * Kembali ke atas.
+     */
     window.scrollTo({
         top: 0,
-        behavior: "smooth"
+        behavior: "auto"
     });
 
 
@@ -997,14 +1205,20 @@ if (replayButton) {
 
     replayButton.addEventListener(
         "click",
-        resetExperience
+        (event) => {
+
+            event.preventDefault();
+
+            resetExperience();
+
+        }
     );
 
 }
 
 
 /* =========================================================
-   21. REPLY FORM
+   20. REPLY FORM
    ========================================================= */
 
 if (replyForm) {
@@ -1016,24 +1230,33 @@ if (replyForm) {
             event.preventDefault();
 
 
+            const nameInput =
+                document.getElementById(
+                    "replyName"
+                );
+
+
+            const messageInput =
+                document.getElementById(
+                    "replyMessage"
+                );
+
+
             const name =
-                document
-                    .getElementById(
-                        "replyName"
-                    )
-                    ?.value
-                    .trim();
+                nameInput
+                    ? nameInput.value.trim()
+                    : "";
 
 
             const message =
-                document
-                    .getElementById(
-                        "replyMessage"
-                    )
-                    ?.value
-                    .trim();
+                messageInput
+                    ? messageInput.value.trim()
+                    : "";
 
 
+            /*
+             * Pesan kosong.
+             */
             if (!message) {
 
                 if (replyStatus) {
@@ -1049,17 +1272,19 @@ if (replyForm) {
 
 
             /*
-             * BELUM DIKIRIM KE SERVER.
+             * Untuk sekarang belum dikirim
+             * ke server/database.
              *
-             * Nanti bagian ini kita sambungkan
-             * ke layanan form/database.
+             * Data hanya ditampilkan di console.
              */
-
             console.log(
                 "Reply:",
                 {
-                    name: name || "Tanpa nama",
-                    message: message
+                    name:
+                        name || "Tanpa nama",
+
+                    message:
+                        message
                 }
             );
 
@@ -1067,9 +1292,19 @@ if (replyForm) {
             if (replyStatus) {
 
                 replyStatus.textContent =
-                    "Pesanmu sudah siap dikirim. " +
-                    "Fitur penyimpanan akan kita hubungkan " +
-                    "di tahap berikutnya.";
+                    "Pesanmu sudah diterima di halaman ini. " +
+                    "Penyimpanan online akan kita sambungkan " +
+                    "setelah bagian utama website sudah stabil.";
+
+            }
+
+
+            /*
+             * Bersihkan textarea.
+             */
+            if (messageInput) {
+
+                messageInput.value = "";
 
             }
 
@@ -1080,7 +1315,7 @@ if (replyForm) {
 
 
 /* =========================================================
-   22. CLICK HEART EFFECT
+   21. CLICK HEART EFFECT
    ========================================================= */
 
 document.addEventListener(
@@ -1089,9 +1324,8 @@ document.addEventListener(
 
         /*
          * Jangan membuat heart ketika
-         * klik pada input atau textarea.
+         * klik input, textarea, button atau video.
          */
-
         if (
             event.target.closest(
                 "input, textarea, button, video"
@@ -1104,9 +1338,7 @@ document.addEventListener(
 
 
         const heart =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
 
         heart.className =
@@ -1141,18 +1373,12 @@ document.addEventListener(
 
 
 /* =========================================================
-   23. PAGE VISIBILITY
+   22. PAGE VISIBILITY
    ========================================================= */
 
 document.addEventListener(
     "visibilitychange",
     () => {
-
-        /*
-         * Tidak mengubah posisi musik.
-         * Browser sendiri yang menangani
-         * playback ketika tab tidak aktif.
-         */
 
         updateMusicButton();
 
@@ -1161,7 +1387,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   24. SAFETY CHECK
+   23. ERROR LOGGER
    ========================================================= */
 
 window.addEventListener(
@@ -1171,6 +1397,23 @@ window.addEventListener(
         console.log(
             "Website error:",
             event.message
+        );
+
+    }
+);
+
+
+/* =========================================================
+   24. PROMISE ERROR LOGGER
+   ========================================================= */
+
+window.addEventListener(
+    "unhandledrejection",
+    (event) => {
+
+        console.log(
+            "Unhandled promise:",
+            event.reason
         );
 
     }
