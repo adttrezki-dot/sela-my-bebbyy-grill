@@ -1249,3 +1249,29 @@ video {
 
 }
 ```
+/* =========================================================
+   FIX — PESAN HARUS SELALU TERLIHAT
+   ========================================================= */
+
+.message-section,
+.message-card,
+.cinematic-content,
+.letter-card,
+.final-card,
+.reply-card,
+.reveal {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
+
+/* Pastikan isi main website tidak tertutup */
+#mainContent {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Jangan sembunyikan bagian pesan karena animasi */
+.message-section {
+    display: block !important;
+}
