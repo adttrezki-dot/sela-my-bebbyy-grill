@@ -1295,3 +1295,18 @@ video {
     visibility: visible !important;
     transform: none !important;
 }
+/* FIX CINEMATIC VIDEO DISPLAY */
+
+.cinematic-video-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+#cinematicVideo {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    object-fit: contain !important;
+}
