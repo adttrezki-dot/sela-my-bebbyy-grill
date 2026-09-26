@@ -1275,3 +1275,23 @@ video {
 .message-section {
     display: block !important;
 }
+/* FIX CONTENT DISPLAY */
+
+#mainContent {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.message-section,
+.message-card,
+.letter-section,
+.final-message,
+.reply-section,
+.ending-section,
+.cinematic-section {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
