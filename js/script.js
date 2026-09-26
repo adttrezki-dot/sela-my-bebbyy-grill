@@ -144,8 +144,14 @@ function finishOpening() {
     showElement(mainContent);
 
     if (mainContent) {
-        mainContent.style.display = "";
-    }
+
+    mainContent.style.display = "block";
+
+    mainContent.classList.remove("hidden");
+
+    mainContent.classList.add("active");
+
+}
 
     if (musicPlayer) {
         musicPlayer.classList.remove("hidden");
