@@ -1295,9 +1295,3 @@ video {
     visibility: visible !important;
     transform: none !important;
 }
-/* FIX CINEMATIC VIDEO DISPLAY */
-
-#cinematicVideo {
-    opacity: 1 !important;
-    visibility: visible !important;
-}
