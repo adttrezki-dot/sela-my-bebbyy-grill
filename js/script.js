@@ -517,34 +517,22 @@ function playCinematicVideo() {
     if (!cinematicVideo) return;
 
     const playPromise =
-        cinematicVideo.play();
+       cinematicVideo.muted = true;
 
-    if (playPromise !== undefined) {
+cinematicVideo.play()
+.then(() => {
 
-        playPromise
-            .then(() => {
+    console.log("Video started");
 
-                console.log(
-                    "Cinematic video started."
-                );
+})
+.catch(error => {
 
-            })
-            .catch(error => {
+    console.log(
+        "Video gagal:",
+        error
+    );
 
-                console.log(
-                    "Video autoplay gagal:",
-                    error
-                );
-
-                cinematicStarted = false;
-
-                resumeMusic();
-
-            });
-    }
-}
-
-
+});
 function resumeMusic() {
 
     if (!backgroundMusic) return;
