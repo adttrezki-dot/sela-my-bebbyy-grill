@@ -516,23 +516,36 @@ function playCinematicVideo() {
 
     if (!cinematicVideo) return;
 
+
+    cinematicVideo.muted = false;
+
+
     const playPromise =
-       cinematicVideo.muted = true;
+        cinematicVideo.play();
 
-cinematicVideo.play()
-.then(() => {
 
-    console.log("Video started");
+    if (playPromise !== undefined) {
 
-})
-.catch(error => {
+        playPromise
+            .then(() => {
 
-    console.log(
-        "Video gagal:",
-        error
-    );
+                console.log(
+                    "Video started"
+                );
 
-});
+            })
+            .catch(error => {
+
+                console.log(
+                    "Video gagal:",
+                    error
+                );
+
+            });
+
+    }
+
+}
 function resumeMusic() {
 
     if (!backgroundMusic) return;
