@@ -681,6 +681,10 @@ setupCinematicObserver();
    13. REPLY FORM
    ========================================================= */
 
+const scriptURL =
+"https://script.google.com/macros/s/AKfycbxx25XXTzTFEcY8y_-3pyG14VVNLzkW5JRJQ6k2XHXOMYtvRWSDcziLdQ84K4Iy77pc2Q/exec";
+
+
 if (replyForm) {
 
     replyForm.addEventListener(
@@ -688,6 +692,7 @@ if (replyForm) {
         function (event) {
 
             event.preventDefault();
+
 
             const nameInput =
                 document.getElementById(
@@ -699,15 +704,17 @@ if (replyForm) {
                     "replyMessage"
                 );
 
+
             const name =
                 nameInput
-                    ? nameInput.value.trim()
-                    : "";
+                ? nameInput.value.trim()
+                : "";
+
 
             const message =
                 messageInput
-                    ? messageInput.value.trim()
-                    : "";
+                ? messageInput.value.trim()
+                : "";
 
 
             if (!message) {
@@ -715,44 +722,71 @@ if (replyForm) {
                 if (replyStatus) {
 
                     replyStatus.textContent =
-                        "Silakan tulis pesan terlebih dahulu.";
+                    "Silakan tulis pesan terlebih dahulu.";
 
                 }
 
                 return;
+
             }
 
 
-            /*
-               Untuk sekarang respons hanya ditampilkan
-               secara lokal karena belum ada backend.
-            */
+            fetch(scriptURL, {
 
-            console.log(
-                "Reply:",
-                {
-                    name: name,
+                method: "POST",
+
+                body: JSON.stringify({
+
+                    name: name || "Tanpa nama",
+
                     message: message
+
+                })
+
+            })
+
+
+            .then(() => {
+
+
+                if (replyStatus) {
+
+                    replyStatus.textContent =
+                    "Pesan sudah terkirim 🤍";
+
                 }
-            );
 
 
-            if (replyStatus) {
-
-                replyStatus.textContent =
-                    "Pesanmu sudah ditulis. Terima kasih sudah menyempatkan waktu.";
-
-            }
+                replyForm.reset();
 
 
-            replyForm.reset();
+            })
+
+
+            .catch((error)=>{
+
+
+                console.log(
+                    "Error:",
+                    error
+                );
+
+
+                if (replyStatus) {
+
+                    replyStatus.textContent =
+                    "Pesan gagal dikirim.";
+
+                }
+
+
+            });
+
 
         }
     );
 
 }
-
-
 /* =========================================================
    14. REPLAY
    ========================================================= */
